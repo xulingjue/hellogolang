@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"os"
 )
@@ -32,12 +31,10 @@ func main() {
 		http.HandleFunc(url, handler)
 	}
 
+	logMessage("server start success!")
+
 	err := http.ListenAndServe(":"+config["port"], nil) //设置监听的端口
 	if err != nil {
 		logMessage("server start error")
 	}
-}
-
-func indexHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "hello-golang")
 }

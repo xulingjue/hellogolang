@@ -1,0 +1,64 @@
+{{define "article-list"}}
+{{template "header"}}
+<div id="main">
+	<div class="ym-wrapper">
+		<div class="ym-wbox">
+			<section class="ym-grid linearize-level-1">
+				<aside class="ym-g75 ym-gl">
+					<div class="ym-gbox-left ym-clearfix">
+					
+						<div class="ym-grid linearize-level-2">
+							<section class="hg-info info">
+									<article class="ym-g100 ym-grid">
+										<div class="ym-gbox">
+											<h6 class="hg-page-summary">全新的golang资讯</h6>
+										</div>
+									</article>
+							
+							</section>
+						</div>
+
+						<article class="ym-g100 ym-gr hg-atricle-item">
+							<h4>This is a nested column</h4>
+
+							<div class="hg-article-bar">
+								<span class="author">lingjue</span>
+								<span class="date">2012/12/10 22:56</span>
+								<span class="favourite">收藏：10</span>
+								<span class="read">阅读：20</span>
+							</div>
+
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+								
+						</article>
+
+						<article class="ym-g100 ym-gr hg-atricle-item">
+							<h4>This is a nested column</h4>
+
+							<div class="hg-article-bar">
+								<span class="author">lingjue</span>
+								<span class="date">2012/12/10 22:56</span>
+								<span class="favourite">收藏：10</span>
+								<span class="read">阅读：20</span>
+							</div>
+
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+								
+						</article>
+						
+					</div>
+				</aside>
+				<aside class="ym-g25 ym-gr">
+					<div class="ym-gbox-right ym-clearfix">
+					<!-- article控件 -->
+					{{template "right-sidebar-article"}}
+					<!-- topic控件 -->
+					{{template "right-sidebar-topic"}}
+					</div>
+				</aside>
+			</section>
+		</div>
+	</div>
+</div>
+{{template "footer"}}
+{{end}}
