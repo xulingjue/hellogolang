@@ -10,7 +10,10 @@ import (
 )
 
 var handlers = map[string]func(http.ResponseWriter, *http.Request){
-	/*	article	*/
+	/*soruce*/
+	"/static/": hgHadlers.SourceHandler,
+
+	/*article*/
 	"/":        hgHadlers.ArticlePageHandler,
 	"/article": hgHadlers.ArticleItemHandler,
 }
