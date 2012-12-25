@@ -5,7 +5,7 @@ URL和Handler的Mapping
 package main
 
 import (
-	hgHadlers "hellogolang/hgHandlers"
+	hgHadlers "hellogolang/hghandlers"
 	"net/http"
 )
 

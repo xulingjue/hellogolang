@@ -1,4 +1,4 @@
-package main
+package hghelpers
 
 /*
  *服务器log类，日志按天分
@@ -13,7 +13,7 @@ import (
 
 func logMessage(message string) {
 	//获得当前时间 构建日志路径
-	var logFileName = "logs/hg-log-" + time.Now().Format("2006-01-02") + ".txt"
+	var logFileName = "../logs/hg-log-" + time.Now().Format("2006-01-02") + ".txt"
 
 	_, logFileOpenErr := os.Open(logFileName)
 	if logFileOpenErr != nil && os.IsNotExist(logFileOpenErr) {

@@ -2,16 +2,22 @@ package main
 
 import (
 	"encoding/json"
+	hgHelpers "hellogolang/hghelpers"
 	"net/http"
 	"os"
 )
 
-var config map[string]string
+/*
+	全局变量
+*/
+var (
+	config map[string]string
+)
 
 func init() {
 	configFile, configFileErr := os.Open("config.json")
 	if configFileErr != nil {
-		logMessage("read config.json error")
+		hgHeplers.logMessage("read config.json error")
 		panic(configFileErr)
 		os.Exit(1)
 	}
@@ -20,21 +26,25 @@ func init() {
 	configFileDec := json.NewDecoder(configFile)
 	configFileErr = configFileDec.Decode(&config)
 	if configFileErr != nil {
-		logMessage("config.json decode error")
+		hgHeplers.logMessage("config.json decode error")
 		panic(configFileErr)
 		os.Exit(1)
 	}
 }
 
 func main() {
+	//初始化数据库
+
+	//初始化URL
 	for url, handler := range handlers {
 		http.HandleFunc(url, handler)
 	}
 
-	logMessage("server start success!")
-
-	err := http.ListenAndServe(":"+config["port"], nil) //设置监听的端口
-	if err != nil {
-		logMessage("server start error")
+	//启动服务器
+	startErr := http.ListenAndServe(":"+config["port"], nil) //设置监听的端口
+	if startErr != nil {
+		hgHeplers.logMessage("server start error")
 	}
+
+	hgHeplers.logMessage("server start success!")
 }
