@@ -1,3 +1,6 @@
+/*
+	加载静态文件
+*/
 package hghandlers
 
 import (

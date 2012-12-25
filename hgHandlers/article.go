@@ -10,6 +10,9 @@ import (
 	"text/template"
 )
 
+/*
+	文章分页列表
+*/
 func ArticlePageHandler(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	var articleId = r.FormValue("articleid")
@@ -26,6 +29,10 @@ func ArticlePageHandler(w http.ResponseWriter, r *http.Request) {
 	t.ExecuteTemplate(w, "article-list", nil)
 	t.Execute(w, nil)
 }
+
+/*
+	查看单个文章页
+*/
 
 func ArticleItemHandler(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
