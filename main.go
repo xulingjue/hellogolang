@@ -17,7 +17,7 @@ var (
 func init() {
 	configFile, configFileErr := os.Open("config.json")
 	if configFileErr != nil {
-		hgHeplers.logMessage("read config.json error")
+		hgHelpers.LogMessage("read config.json error")
 		panic(configFileErr)
 		os.Exit(1)
 	}
@@ -26,7 +26,7 @@ func init() {
 	configFileDec := json.NewDecoder(configFile)
 	configFileErr = configFileDec.Decode(&config)
 	if configFileErr != nil {
-		hgHeplers.logMessage("config.json decode error")
+		hgHelpers.LogMessage("config.json decode error")
 		panic(configFileErr)
 		os.Exit(1)
 	}
@@ -43,8 +43,8 @@ func main() {
 	//启动服务器
 	startErr := http.ListenAndServe(":"+config["port"], nil) //设置监听的端口
 	if startErr != nil {
-		hgHeplers.logMessage("server start error")
+		hgHelpers.LogMessage("server start error")
 	}
 
-	hgHeplers.logMessage("server start success!")
+	hgHelpers.LogMessage("server start success!")
 }

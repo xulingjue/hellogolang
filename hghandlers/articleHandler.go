@@ -5,7 +5,7 @@ package hghandlers
 
 import (
 	//"fmt"
-	"hellogolang/models"
+	hgModel "hellogolang/models"
 	"net/http"
 	"strings"
 	"text/template"
@@ -36,6 +36,7 @@ func ArticlePageHandler(w http.ResponseWriter, r *http.Request) {
 */
 
 func ArticleItemHandler(w http.ResponseWriter, r *http.Request) {
+	hgModel.FindPeopleByName("xx")
 	r.ParseForm()
 	var articleId = r.FormValue("articleid")
 	if strings.EqualFold(articleId, "") {

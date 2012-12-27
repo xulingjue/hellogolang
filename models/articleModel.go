@@ -1,6 +1,8 @@
 package models
 
 import (
+	_ "code.google.com/p/go-mysql-driver/mysql"
+	"database/sql"
 	"fmt"
 	"time"
 )
@@ -18,18 +20,20 @@ type People struct {
 	Favnum     int
 }
 
-func findPeopleByName(name string) *People {
+var db *sql.DB
+
+func FindPeopleByName(name string) {
 	stmt, err := db.Prepare("select * from people where name=?")
 	if err != nil {
 		fmt.Println(err.Error())
-		return
+		//return
 	}
 	defer stmt.Close()
 
 	rows, err := stmt.Query(name)
 	if err != nil {
 		fmt.Println(err.Error())
-		return
+		//return
 	}
 
 	for rows.Next() {

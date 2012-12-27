@@ -11,7 +11,7 @@ import (
 	"time"
 )
 
-func logMessage(message string) {
+func LogMessage(message string) {
 	//获得当前时间 构建日志路径
 	var logFileName = "../logs/hg-log-" + time.Now().Format("2006-01-02") + ".txt"
 
