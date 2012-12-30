@@ -1,8 +1,10 @@
 package main
 
 import (
+	_ "code.google.com/p/go-mysql-driver/mysql"
+	"database/sql"
 	"encoding/json"
-	hgHelpers "hellogolang/hghelpers"
+	"fmt"
 	"net/http"
 	"os"
 )
@@ -12,39 +14,53 @@ import (
 */
 var (
 	config map[string]string
+	hgDb   *sql.DB
 )
 
 func init() {
+	//读取配置文件
 	configFile, configFileErr := os.Open("config.json")
 	if configFileErr != nil {
-		hgHelpers.LogMessage("read config.json error")
-		panic(configFileErr)
+		logMessage("read config.json error")
 		os.Exit(1)
 	}
 	defer configFile.Close()
-
+	//解析配置文件
 	configFileDec := json.NewDecoder(configFile)
 	configFileErr = configFileDec.Decode(&config)
 	if configFileErr != nil {
-		hgHelpers.LogMessage("config.json decode error")
-		panic(configFileErr)
+		logMessage("config.json decode error")
 		os.Exit(1)
+	}
+
+	//初始化数据库
+	hgDb, dbErr := sql.Open("mysql", "root:adzure1105@tcp(192.168.1.151:3306)/hellogolang?charset=utf8")
+	if dbErr != nil {
+		logMessage("db connect error")
+		os.Exit(1)
+	}
+	//检查数据库连接
+	_, dbErr = hgDb.Query("select 1")
+	if dbErr != nil {
+		logMessage("db connect error")
+		os.Exit(1)
+	}
+
+	//初始化URL
+	for url, handler := range handlers {
+		fmt.Println(url)
+		http.HandleFunc(url, handler)
 	}
 }
 
 func main() {
-	//初始化数据库
-
-	//初始化URL
-	for url, handler := range handlers {
-		http.HandleFunc(url, handler)
-	}
 
 	//启动服务器
 	startErr := http.ListenAndServe(":"+config["port"], nil) //设置监听的端口
 	if startErr != nil {
-		hgHelpers.LogMessage("server start error")
+		logMessage("server start error")
+		os.Exit(1)
 	}
 
-	hgHelpers.LogMessage("server start success!")
+	logMessage("server start success!")
 }

@@ -1,11 +1,7 @@
-/*
- *文章类
- */
-package hghandlers
+package main
 
 import (
-	//"fmt"
-	hgModel "hellogolang/models"
+	"fmt"
 	"net/http"
 	"strings"
 	"text/template"
@@ -14,12 +10,16 @@ import (
 /*
 	文章分页列表
 */
-func ArticlePageHandler(w http.ResponseWriter, r *http.Request) {
+func articlePageHandler(w http.ResponseWriter, r *http.Request) {
+	//findArticleList()
+	fmt.Println("test")
 	r.ParseForm()
 	var articleId = r.FormValue("articleid")
 	if strings.EqualFold(articleId, "") {
 		//fmt.Fprintf(w, "error")
 	}
+
+	//查询文章列表
 
 	t, _ := template.ParseFiles("template/header.tmpl",
 		"template/right-sidebar-article.tmpl",
@@ -35,8 +35,7 @@ func ArticlePageHandler(w http.ResponseWriter, r *http.Request) {
 	查看单个文章页
 */
 
-func ArticleItemHandler(w http.ResponseWriter, r *http.Request) {
-	hgModel.FindPeopleByName("xx")
+func articleItemHandler(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	var articleId = r.FormValue("articleid")
 	if strings.EqualFold(articleId, "") {
