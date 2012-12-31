@@ -54,7 +54,6 @@ func init() {
 }
 
 func main() {
-
 	//启动服务器
 	startErr := http.ListenAndServe(":"+config["port"], nil) //设置监听的端口
 	if startErr != nil {

@@ -21,7 +21,7 @@ type articleClass struct {
 //查询数据
 func findArticleList() {
 	//rows, err := 
-	//hgDb.Query("SELECT 1")
+	hgDb.Query("SELECT 1")
 	fmt.Println(config["port"])
 	// if err != nil {
 	// 	panic(err)

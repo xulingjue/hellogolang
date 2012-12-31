@@ -11,8 +11,10 @@ import (
 	文章分页列表
 */
 func articlePageHandler(w http.ResponseWriter, r *http.Request) {
-	//findArticleList()
-	fmt.Println("test")
+	findArticleList()
+
+	fmt.Println("path", r.URL.Path)
+
 	r.ParseForm()
 	var articleId = r.FormValue("articleid")
 	if strings.EqualFold(articleId, "") {
