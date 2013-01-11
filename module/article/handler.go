@@ -1,4 +1,4 @@
-package main
+package article
 
 import (
 	"fmt"
@@ -10,7 +10,7 @@ import (
 /*
 	文章分页列表
 */
-func articlePageHandler(w http.ResponseWriter, r *http.Request) {
+func ArticlePageHandler(w http.ResponseWriter, r *http.Request) {
 	findArticleList()
 
 	fmt.Println("path", r.URL.Path)
@@ -23,11 +23,11 @@ func articlePageHandler(w http.ResponseWriter, r *http.Request) {
 
 	//查询文章列表
 
-	t, _ := template.ParseFiles("template/header.tmpl",
-		"template/right-sidebar-article.tmpl",
-		"template/right-sidebar-topic.tmpl",
-		"template/article-list.tmpl",
-		"template/footer.tmpl")
+	t, _ := template.ParseFiles("template/front/header.tmpl",
+		"template/front/right-sidebar-article.tmpl",
+		"template/front/right-sidebar-topic.tmpl",
+		"template/front/article-list.tmpl",
+		"template/front/footer.tmpl")
 
 	t.ExecuteTemplate(w, "article-list", nil)
 	t.Execute(w, nil)
@@ -37,7 +37,7 @@ func articlePageHandler(w http.ResponseWriter, r *http.Request) {
 	查看单个文章页
 */
 
-func articleItemHandler(w http.ResponseWriter, r *http.Request) {
+func ArticleItemHandler(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	var articleId = r.FormValue("articleid")
 	if strings.EqualFold(articleId, "") {

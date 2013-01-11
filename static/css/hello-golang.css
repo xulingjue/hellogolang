@@ -12,6 +12,18 @@ h1, h2, h3, h4, h5, h6 {
 
 
 /*自定义样式全部以hg开头*/
+.hg-logo{
+	padding-top: 0em !important;
+}
+.hg-fbox-heading{
+	margin-bottom: 15px !important;
+}
+
+.hg-header-accont{
+	float:right;
+}
+
+
 .hg-info-right-title{
 	margin-bottom: 1.0em;
 }

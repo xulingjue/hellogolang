@@ -10,11 +10,11 @@
 	<!-- (en) Add your meta data here -->
 	<!-- (de) Fuegen Sie hier ihre Meta-Daten ein -->
 
-	<link href="/static/yaml/flexible-grids.css" rel="stylesheet" type="text/css"/>
-	<link href="/static/css/hello-golang.css" rel="stylesheet" type="text/css"/>
+	<link href="yaml/flexible-grids.css" rel="stylesheet" type="text/css"/>
 	<!--[if lte IE 7]>
-	<link href="/static/yaml/core/iehacks.css" rel="stylesheet" type="text/css" />
+	<link href="yaml/core/iehacks.css" rel="stylesheet" type="text/css" />
 	<![endif]-->
+	<link href="css/hello-golang.css" rel="stylesheet" type="text/css"/>
 
 	<!--[if lt IE 9]>
 	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -23,7 +23,13 @@
 <body>
 <header>
 	<div class="ym-wrapper">
-		<div class="ym-wbox">
+		<div class="ym-grid">
+		    <div class="ym-gbox hg-header-accont" >
+		     	登录&nbsp;|&nbsp;注册
+		    </div>
+		</div>
+
+		<div class="hg-logo ym-wbox">
 			<h1>Hello Golang</h1>
 		</div>
 	</div>
@@ -179,6 +185,6 @@
 </footer>
 
 <!-- full skip link functionality in webkit browsers -->
-<script src="/static/yaml/core/js/yaml-focusfix.js"></script>
+<script src="yaml/core/js/yaml-focusfix.js"></script>
 </body>
 </html>

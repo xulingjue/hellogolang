@@ -1,28 +1,24 @@
-package main
+package article
 
 import (
-	"fmt"
+//"fmt"
 )
-
-type article struct {
-	Idarticle    int
-	Content      string
-	CreateTime   string
-	Readnum      int
-	Favnum       int
-	articleClass articleClass
-}
-
-type articleClass struct {
-	IdarticleClass int
-	Name           string
-}
 
 //查询数据
 func findArticleList() {
 	//rows, err := 
-	hgDb.Query("SELECT 1")
-	fmt.Println(config["port"])
+	// rows, rowserr := hgDb.Query("SELECT * FROM userinfo")
+
+	// if rowserr != nil {
+	// 	panic(rowserr)
+	// }
+
+	// for rows.Next() {
+	// 	fmt.Println("success")
+	// }
+
+	//fmt.Println(config["port"])
+
 	// if err != nil {
 	// 	panic(err)
 	// }

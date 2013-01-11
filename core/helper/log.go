@@ -1,4 +1,4 @@
-package main
+package helper
 
 /*
  *服务器log类，日志按天分
@@ -11,7 +11,7 @@ import (
 	"time"
 )
 
-func logMessage(message string) {
+func LogMessage(message string) {
 	//获得当前时间 构建日志路径
 	var logFileName = "logs/hg-log-" + time.Now().Format("2006-01-02") + ".txt"
 	fmt.Println(logFileName)
