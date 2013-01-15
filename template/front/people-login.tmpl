@@ -1,0 +1,40 @@
+{{define "people-login"}}
+{{template "header"}}
+<div id="main">
+	<div class="ym-wrapper">
+		<div class="ym-wbox">
+			<section class="ym-grid linearize-level-1">
+				<div class="ym-gbox" style="height:504px;">
+					<form method="post" action="" class="ym-form linearize-form">
+						<h6 class="ym-fbox-heading hg-fbox-heading">Hello Golang 账号注册</h6>
+						
+						<div class="ym-fbox-text">
+							<label for="email">E-Mail <sup class="ym-required" title="This field is mandatory.">*</sup></label>
+							<input type="text" name="email" id="email" size="20" aria-required="true">
+						</div>
+
+						<div class="ym-fbox-text ym-error" role="alert" aria-live="assertive">
+							<p class="ym-message">Field «Last name» not properly filled.</p>
+							<label for="password">Password <sup class="ym-required" title="This field is mandatory.">*</sup></label>
+							<input type="text" name="password" id="password" size="20" aria-required="true">
+						</div>
+
+						<div class="ym-fbox-text ym-error" role="alert" aria-live="assertive">
+							<p class="ym-message">Field «Last name» not properly filled.</p>
+							<label for="repassword">Confirm Password<sup class="ym-required" title="This field is mandatory.">*</sup></label>
+							<input type="text" name="repassword" id="repassword" size="20" aria-required="true">
+						</div>
+							
+						<div class="ym-fbox-button">
+							<input type="submit" value="注册" class="save" id="submit" name="submit">
+							已有账号，去<a href="#">登录</a>
+						</div>
+					</form>
+				</div>
+
+			</section>
+		</div>
+	</div>
+</div>
+{{template "footer"}}
+{{end}}
