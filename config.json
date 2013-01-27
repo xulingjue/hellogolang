@@ -1,14 +1,15 @@
 {
 	"host": "http://localhost:9000",
 	"port": "9000",
-	"db_host":"192.168.1.151:3306",
+	"db_host":"localhost:3306",
 	"db_name":"hellogolang",
 	"db_user":"root",
-	"db_password":"adzure1105",
+	"db_password":"123456",
 	"smtp_username": "username@example.com",
 	"smtp_password": "password",
 	"smtp_host": "smtp.example.com",
 	"smtp_addr": "smtp.example.com:25",
 	"from_email": "who@example.com",
-	"superusers": "jimmykuu,another"
+	"superusers": "jimmykuu,another",
+	"base_url": "http://localhost:9000"
 }

@@ -1,8 +1,7 @@
-package config
+package helper
 
 import (
 	"encoding/json"
-	"net/http"
 	"os"
 )
 
@@ -25,12 +24,12 @@ func init() {
 		//logMessage("config.json decode error")
 		os.Exit(1)
 	}
-	//初始化URL
-	for url, handler := range handlers {
-		http.HandleFunc(url, handler)
-	}
 }
 
-func GetValue(key string) string {
+func ConfigValue(key string) string {
 	return config[key]
+}
+
+func Test() string {
+	return "hello world!"
 }
