@@ -26,10 +26,6 @@ func init() {
 	}
 }
 
-func ConfigValue(key string) string {
+func GetConfig(key string) string {
 	return config[key]
-}
-
-func Test() string {
-	return "hello world!"
 }

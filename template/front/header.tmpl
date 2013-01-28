@@ -4,18 +4,27 @@
 <head>
 	<meta charset="utf-8"/>
 	<title>Hello Golang</title>
-	<link rel="shortcut icon" href="static/favicon.ico" type="image/x-icon" />
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon" />
 	<!-- Mobile viewport optimisation -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<!-- (en) Add your meta data here -->
 	<!-- (de) Fuegen Sie hier ihre Meta-Daten ein -->
-	<link href="/static/yaml/flexible-grids.css" rel="stylesheet" type="text/css"/>
+	<link href="/assets/yaml/flexible-grids.css" rel="stylesheet" type="text/css"/>
 	<!--[if lte IE 7]>
-	<link href="/static/yaml/core/iehacks.css" rel="stylesheet" type="text/css" />
+	<link href="/assets/yaml/core/iehacks.css" rel="stylesheet" type="text/css" />
 	<![endif]-->
-	<link href="/static/css/hello-golang.css" rel="stylesheet" type="text/css"/>
+	<link href="/assets/css/hello-golang.css" rel="stylesheet" type="text/css"/>
 
+	<script language="javascript" type="text/javascript" src="/assets/js/jquery-1.7.1.min.js"></script>
+	<!-- auto include js -->
+	{{range .js}} 
+	<script language="javascript" type="text/javascript" src="/assets/js/{{ .}}"></script>
+	{{end}}
+	<!-- auto include css -->
+	{{range .css}} 
+	<script language="javascript" type="text/javascript" src="/assets/css/{{ .}}"></script>
+	{{end}}
 	<!--[if lt IE 9]>
 	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->

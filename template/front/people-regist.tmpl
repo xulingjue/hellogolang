@@ -1,18 +1,31 @@
 {{define "people-regist"}}
-{{template "header"}}
+{{template "header" .}}
 <div id="main">
 	<div class="ym-wrapper">
 		<div class="ym-wbox">
 			<section class="ym-grid linearize-level-1">
 				<div class="ym-gbox" style="height:504px;">
-					<form method="post" action="" class="ym-form linearize-form">
-						<h6 class="ym-fbox-heading hg-fbox-heading">Hello Golang {{.form}} {{emailDeal}} 账号注册</h6>
+					<form method="post" action="{{.baseUrl}}/regist" class="ym-form linearize-form">
+						<h6 class="ym-fbox-heading hg-fbox-heading">Hello Golang 账号注册</h6>
 						
 						<div class="ym-fbox-text">
 							<label for="email">邮箱 <sup class="ym-required" title="This field is mandatory.">*</sup></label>
 							<input type="text" name="email" id="email" size="20" aria-required="true">
 						</div>
 
+						<div class="ym-fbox-text" aria-live="assertive">
+							<p class="ym-message"></p>
+							<label for="password">密码 <sup class="ym-required" title="This field is mandatory.">*</sup></label>
+							<input type="password" name="password" id="password" size="20" aria-required="true">
+						</div>
+
+						<div class="ym-fbox-text" aria-live="assertive">
+							<p class="ym-message"></p>
+							<label for="repassword">重复密码<sup class="ym-required" title="This field is mandatory.">*</sup></label>
+							<input type="password" name="repassword" id="repassword" size="20" aria-required="true">
+						</div>
+
+						<!--
 						<div class="ym-fbox-text ym-error" role="alert" aria-live="assertive">
 							<p class="ym-message">Field «Last name» not properly filled.</p>
 							<label for="password">密码 <sup class="ym-required" title="This field is mandatory.">*</sup></label>
@@ -24,6 +37,7 @@
 							<label for="repassword">重复密码<sup class="ym-required" title="This field is mandatory.">*</sup></label>
 							<input type="text" name="repassword" id="repassword" size="20" aria-required="true">
 						</div>
+						-->
 							
 						<div class="ym-fbox-button">
 							<input type="submit" value="注册" class="save" id="submit" name="submit">
@@ -36,5 +50,6 @@
 		</div>
 	</div>
 </div>
-{{template "footer"}}
+{{template "footer" .}}
 {{end}}
+
