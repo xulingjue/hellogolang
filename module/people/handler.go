@@ -36,8 +36,10 @@ func Regist(rw http.ResponseWriter, req *http.Request) {
 
 		js := []string{
 			"front/people/people-regist.js"}
+		extra_js := []string{
+			"http://jzaefferer.github.com/jquery-validation/jquery.validate.js"}
 
-		tmpl.ExecuteTemplate(rw, "people-regist", map[string]interface{}{"baseUrl": hgHelper.GetConfig("base_url"), "js": js})
+		tmpl.ExecuteTemplate(rw, "people-regist", map[string]interface{}{"baseUrl": hgHelper.GetConfig("base_url"), "js": js, "extra_hs": extra_js})
 	} else {
 		req.ParseForm()
 		for k, v := range req.Form {

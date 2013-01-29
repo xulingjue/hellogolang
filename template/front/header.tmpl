@@ -16,7 +16,11 @@
 	<![endif]-->
 	<link href="/assets/css/hello-golang.css" rel="stylesheet" type="text/css"/>
 
-	<script language="javascript" type="text/javascript" src="/assets/js/jquery-1.7.1.min.js"></script>
+	<script language="javascript" type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+	<!-- auto include js -->
+	{{range .extra_hs}} 
+	<script language="javascript" type="text/javascript" src="{{ .}}"></script>
+	{{end}}
 	<!-- auto include js -->
 	{{range .js}} 
 	<script language="javascript" type="text/javascript" src="/assets/js/{{ .}}"></script>
@@ -25,9 +29,7 @@
 	{{range .css}} 
 	<script language="javascript" type="text/javascript" src="/assets/css/{{ .}}"></script>
 	{{end}}
-	<!--[if lt IE 9]>
-	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
+	
 </head>
 <body>
 <header>
