@@ -14,8 +14,9 @@ var handlers = map[string]func(http.ResponseWriter, *http.Request){
 	"/article": hgArticle.Item,
 
 	/*people*/
-	"/login":  hgPeople.Login,
-	"/regist": hgPeople.Regist,
+	"/login":          hgPeople.Login,
+	"/regist":         hgPeople.Regist,
+	"/people/isexist": hgPeople.AjaxIsExist,
 }
 
 func main() {

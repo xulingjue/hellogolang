@@ -8,37 +8,25 @@
 					<form method="post" action="" class="ym-form linearize-form" id="regist_form">
 						<h6 class="ym-fbox-heading hg-fbox-heading">Hello Golang 账号注册</h6>
 						
-						<div class="ym-fbox-text">
-							<p class="ym-message" style="display:none;"></p>
+						<div class="ym-fbox-text" aria-live="assertive">
+							<label for="name">用户名 <sup class="ym-required" title="必填字段">*</sup></label>
+							<input type="text" name="name" id="name" size="20" />
+						</div>
+
+						<div class="ym-fbox-text" aria-live="assertive">
 							<label for="email">邮箱 <sup class="ym-required" title="必填字段">*</sup></label>
 							<input type="text" name="email" id="email" size="20" />
 						</div>
 
 						<div class="ym-fbox-text" aria-live="assertive">
-							<p class="ym-message"></p>
 							<label for="password">密码 <sup class="ym-required" title="必填字段">*</sup></label>
 							<input type="password" name="password" id="password" class="required" size="20" />
 						</div>
 
 						<div class="ym-fbox-text" aria-live="assertive">
-							<p class="ym-message"></p>
 							<label for="repassword">重复密码<sup class="ym-required" title="必填字段">*</sup></label>
 							<input type="password" name="repassword" id="repassword" size="20" />
 						</div>
-
-						<!--
-						<div class="ym-fbox-text ym-error" role="alert" aria-live="assertive">
-							<p class="ym-message">Field «Last name» not properly filled.</p>
-							<label for="password">密码 <sup class="ym-required" title="This field is mandatory.">*</sup></label>
-							<input type="text" name="password" id="password" size="20" aria-required="true">
-						</div>
-
-						<div class="ym-fbox-text ym-error" role="alert" aria-live="assertive">
-							<p class="ym-message">Field «Last name» not properly filled.</p>
-							<label for="repassword">重复密码<sup class="ym-required" title="This field is mandatory.">*</sup></label>
-							<input type="text" name="repassword" id="repassword" size="20" aria-required="true">
-						</div>
-						-->
 							
 						<div class="ym-fbox-button">
 							<input type="submit" value="注册" class="save" id="submit" name="submit" />
@@ -51,26 +39,6 @@
 		</div>
 	</div>
 </div>
-
-
-
-  <form id="myform" action="/login" method="post">
-  <table>
-    <tr>
-      <td><label>Firstname</label>
-      <td><input name="fname" class="required" value="Pete" /></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td><label>Lastname</label></td>
-      <td><input name="lname" title="Your lastname, please!" class="required" /></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td></td><td><input type="submit" value="Submit"/></td><td></td>
-  </table>
-</form>
-
 {{template "footer" .}}
 {{end}}
 
