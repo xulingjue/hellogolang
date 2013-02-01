@@ -1,4 +1,4 @@
-package db
+package core
 
 import (
 	_ "code.google.com/p/go-mysql-driver/mysql"
