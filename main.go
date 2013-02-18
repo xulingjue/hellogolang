@@ -1,7 +1,7 @@
 package main
 
 import (
-	hgHelper "hellogolang/core/helper"
+	hgHelper "hellogolang/system/helper"
 	hgArticle "hellogolang/module/article"
 	hgPeople "hellogolang/module/people"
 	"net/http"

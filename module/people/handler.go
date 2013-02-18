@@ -2,7 +2,7 @@ package people
 
 import (
 	"fmt"
-	hgHelper "hellogolang/core/helper"
+	hgHelper "hellogolang/system/helper"
 	"net/http"
 	"text/template"
 )
@@ -46,5 +46,22 @@ func Regist(rw http.ResponseWriter, req *http.Request) {
 			fmt.Println("key:", k)
 			fmt.Println("val:", v)
 		}
+	}
+}
+
+/*
+ * ajax 判断用户是否存在 
+ */
+func AjaxIsExist(rw http.ResponseWriter, req *http.Request) {
+	req.ParseForm()
+	name := req.Form["name"]
+	email := req.Form["email"]
+
+	if name != nil {
+		fmt.Println("name")
+	}
+
+	if email != nil {
+		fmt.Println("email")
 	}
 }
