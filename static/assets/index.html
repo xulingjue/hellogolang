@@ -1,190 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
-	<meta charset="utf-8"/>
-	<title>Hello Golang</title>
-
-	<!-- Mobile viewport optimisation -->
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!-- Mobile viewport optimisation -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello Golang</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link rel='stylesheet' href='bootstrap/css/bootstrap.css' type='text/css' media='all' />
+    <link rel='stylesheet' href='bootstrap/css/bootstrap-responsive.css' type='text/css' media='all' />
+    <link href="css/hello-golang.css" rel="stylesheet" type="text/css"/>
+	
+	<script language="javascript" type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+	<script language="javascript" type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
 
-	<!-- (en) Add your meta data here -->
-	<!-- (de) Fuegen Sie hier ihre Meta-Daten ein -->
-
-	<link href="yaml/flexible-grids.css" rel="stylesheet" type="text/css"/>
-	<!--[if lte IE 7]>
-	<link href="yaml/core/iehacks.css" rel="stylesheet" type="text/css" />
-	<![endif]-->
-	<link href="css/hello-golang.css" rel="stylesheet" type="text/css"/>
-
-	<!--[if lt IE 9]>
-	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
+	<style>
+	.container{
+		max-width: 960px;
+	}
+	</style>
 </head>
 <body>
-<header>
-	<div class="ym-wrapper">
-		<div class="ym-grid">
-		    <div class="ym-gbox hg-header-accont" >
-		     	登录&nbsp;|&nbsp;注册
-		    </div>
-		</div>
+	<div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+              	<a class="brand" href="/">Hello Golang</a>
+                <p class="navbar-text pull-right">
+              		<a href="#" class="navbar-link">登录</a>&nbsp;
+              		<a href="#" class="navbar-link">注册</a>
+            	</p>
 
-		<div class="hg-logo ym-wbox">
-			<h1>Hello Golang</h1>
-		</div>
-	</div>
-</header>
-<nav id="nav">
-	<div class="ym-wrapper">
-		<div class="ym-hlist">
-			<ul>
-				<li class="active"><strong>文章</strong></li>
-				<li><a href="#">话题</a></li>
-				<li><a href="#">关于</a></li>
-			</ul>
-		</div>
-	</div>
-</nav>
-<div id="main">
-	<div class="ym-wrapper">
-		<div class="ym-wbox">
-			<section class="ym-grid linearize-level-1">
-				<aside class="ym-g75 ym-gl">
-					<div class="ym-gbox-left ym-clearfix">
-					
-						<div class="ym-grid linearize-level-2">
-							<section class="hg-info info">
-									<article class="ym-g100 ym-grid">
-										<div class="ym-gbox">
-											<h6 class="hg-page-summary">全新的golang资讯</h6>
-										</div>
-									</article>
-							
-							</section>
-						</div>
+              	<div class="nav-collapse">
+	                <ul class="nav">
+	                	<li class="active"><a href="/">首页</a></li>
+	                  	<li><a href="/pub/qiye">话题</a></li>
+	                  	<li><a href="/pub/weibozhu">文章</a></li>
+	                </ul>
+              	</div><!--/.nav-collapse -->
+            </div>
+        </div>
+    </div>
 
-						<article class="ym-g100 ym-gr hg-atricle-item">
-							<h4>This is a nested column</h4>
 
-							<div class="hg-article-bar">
-								<span class="author">lingjue</span>
-								<span class="date">2012/12/10 22:56</span>
-								<span class="favourite">收藏：10</span>
-								<span class="read">阅读：20</span>
-							</div>
 
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-								
-						</article>
-
-						<article class="ym-g100 ym-gr hg-atricle-item">
-							<h4>This is a nested column</h4>
-
-							<div class="hg-article-bar">
-								<span class="author">lingjue</span>
-								<span class="date">2012/12/10 22:56</span>
-								<span class="favourite">收藏：10</span>
-								<span class="read">阅读：20</span>
-							</div>
-
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-								
-						</article>
-						
-					</div>
-				</aside>
-				<aside class="ym-g25 ym-gr">
-					<div class="ym-gbox-right ym-clearfix">
-						<div class="ym-grid linearize-level-2">
-							<section class="hg-info  hg-info-right-title">
-									<article class="ym-g100 ym-grid">
-										<div class="ym-gbox">
-											<h6 class="hg-page-summary">热门文章</h6>
-										</div>
-									</article>
-							</section>
-						
-					        <ul class="hg-top-article">
-								<li>
-									<a href="">
-										<span class="hg-top-article-comment">1</span>
-										<span class="hg-top-article-title">读懂《少年 Pi》之一：我有信仰读懂《少年 Pi》之一：我有信仰</span>
-									</a>
-								</li>
-								<li>
-									<a href="">
-										<span class="hg-top-article-comment">2</span>
-										<span class="hg-top-article-title">2012-12-24</span>
-									</a>
-								</li>
-							</ul>
-						</div>
-
-						<div class="ym-grid linearize-level-2">
-							<section class="hg-info hg-info-right-title">
-									<article class="ym-g100 ym-grid">
-										<div class="ym-gbox">
-											<h6 class="hg-page-summary">活跃话题</h6>
-										</div>
-									</article>
-							</section>
-
-							<ul class="hg-top-topic">
-								<li>
-									<a href="">
-										<span class="hg-top-topic-comment">1</span>
-										<span class="hg-top-topic-title">读懂《少年 Pi》之一：我有信仰读懂《少年 Pi》之一：我有信仰</span>
-									</a>
-								</li>
-								<li>
-									<a href="">
-										<span class="hg-top-topic-comment">2</span>
-										<span class="hg-top-topic-title">2012-12-24</span>
-									</a>
-								</li>
-							</ul>
-						</div>
-
-						<!--
-						<div class="ym-grid linearize-level-2">
-							<section class="hg-info hg-info-right-title">
-									<article class="ym-g100 ym-grid">
-										<div class="ym-gbox">
-											<h6 class="hg-page-summary">最新回复</h6>
-										</div>
-									</article>
-							</section>
-
-							<ul class="hg-top-post">
-					            <li>
-					                <a href="" class="hg-top-post">
-
-					                    <span class="hg-top-posts-title">读懂《少年 Pi》之一：我有信仰读懂《少年 Pi》之一：我有信仰</span>
-					                </a>
-					            </li>
-					            <li>
-					                <a href="" class="hg-top-post">
-					                    <span class="hg-top-posts-title">读懂《少年 Pi》之一：我有信仰?</span>
-					                </a>
-					            </li>
-					        </ul>
-						</div>
-						-->
-					</div>
-				</aside>
-			</section>
-		</div>
-	</div>
-</div>
-<footer>
-	<div class="ym-wrapper">
-		<div class="ym-wbox">
-			<p>? Company 2012 &ndash; Layout based on <a href="http://www.yaml.de">YAML</a></p>
-		</div>
-	</div>
-</footer>
-
-<!-- full skip link functionality in webkit browsers -->
-<script src="yaml/core/js/yaml-focusfix.js"></script>
 </body>
 </html>
