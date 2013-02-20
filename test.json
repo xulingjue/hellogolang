@@ -1,0 +1,41 @@
+{
+status: 1,
+description: "success",
+content: 
+{
+count: 2,
+channels: 
+[
+{
+id: "3",
+channel_name: "CCTV-1",
+channel_logo: "http://localhost/lephone/uploads/channellogo/a52d4eaf7be067773a9417548131ee27.jpg",
+channel_logo_thumb: "",
+created_on: "2013-02-04 15:22:18",
+sources: 
+[
+{
+channel_source_name: "CCTV-1",
+channel_source_url: "http://cntv.itv.doplive.com.cn/live591/index_128k.m3u8",
+channel_source_type: "m3u8"
+}
+]
+},
+{
+id: "4",
+channel_name: "CCTV-2",
+channel_logo: "http://localhost/lephone/uploads/channellogo/d21277f09bb3ae932f8a13447c4eef5c.jpg",
+channel_logo_thumb: "",
+created_on: "2013-02-04 15:26:40",
+sources: 
+[
+{
+channel_source_name: "CCTV-2",
+channel_source_url: "http://cntv.itv.doplive.com.cn/live592/index_128k.m3u8",
+channel_source_type: "m3u8"
+}
+]
+}
+]
+}
+}

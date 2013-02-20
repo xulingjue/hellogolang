@@ -6,113 +6,16 @@ h1, h2, h3, h4, h5, h6 {
 	font-family:"microsoft yahei";	
 }
 
-.ym-gr{
-	margin: 0;
-}
 
 
-/*自定义样式全部以hg开头*/
-.hg-logo{
-	padding-top: 0em !important;
+/*自定义样式*/
+.hg-main-container{
+	margin-top: 80px;
 }
-.hg-fbox-heading{
-	margin-bottom: 15px !important;
+.hg-account-login{
+	text-align: center;
 }
-
-.hg-header-accont{
-	float:right;
-}
-
-
-.hg-info-right-title{
-	margin-bottom: 1.0em;
-}
-.hg-top-article{
-	list-style-type:none;
-	margin:0 0 0 0;
-	margin-bottom: 1.0em;
-}
-.hg-top-article li{
+.hg-input-block{
 	display: block;
-	margin-left: 0;
-	line-height: 1.2em;
-}
-.hg-top-article li a{
-	position:relative;
-	display: block;
-	padding-left: 4px;
-	padding-right: 4px;
-	padding-top: 2px;
-	padding-bottom: 2px;
-}
-.hg-top-article-comment{
-	position:absolute;
-	display: inline-block;
-	font-weight: 700;
-	padding-top: 1px;
-}
-.hg-top-article-title{
-	padding-left: 20px;
-	display: inline-block;
-}
-
-
-
-.hg-info-right-topic{
-	margin-bottom: 1.0em;
-}
-.hg-top-topic{
-	list-style-type:none;
-	margin:0 0 0 0;
-	margin-bottom: 1.0em;
-}
-.hg-top-topic li{
-	display: block;
-	margin-left: 0;
-	line-height: 1.2em;
-}
-.hg-top-topic li a{
-	position:relative;
-	display: block;
-	padding-left: 4px;
-	padding-right: 4px;
-	padding-top: 2px;
-	padding-bottom: 2px;
-}
-.hg-top-topic-comment{
-	position:absolute;
-	display: inline-block;
-	font-weight: 700;
-	padding-top: 1px;
-}
-.hg-top-topic-title{
-	padding-left: 20px;
-	display: inline-block;
-}
-
-
-
-
-
-
-.hg-atricle-item{
-	padding-bottom: 20px;
-	border-bottom: 1px solid #E0EBF5;
-	width: 100%;
-	
-}
-.hg-left-blog{
-	border-top: 1px solid #ccc;
-}
-.hg-article-bar{
-	margin: 5px 0px 0px 0px;
-	font-size: 10px;
-}
-.hg-info{
-	background: #E0EBF5;
-}
-.hg-page-summary{
-	margin-top: 1.5em;
-	margin-bottom: 1.5em;
-	color: #375EAB;
+	height: auto;
 }
