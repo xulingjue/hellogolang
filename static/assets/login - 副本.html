@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<title>Hello Golang</title>
+
+	<!-- Mobile viewport optimisation -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- (en) Add your meta data here -->
+	<!-- (de) Fuegen Sie hier ihre Meta-Daten ein -->
+
+	<link href="yaml/flexible-grids.css" rel="stylesheet" type="text/css"/>
+	<!--[if lte IE 7]>
+	<link href="yaml/core/iehacks.css" rel="stylesheet" type="text/css" />
+	<![endif]-->
+	<link href="css/hello-golang.css" rel="stylesheet" type="text/css"/>
+
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+</head>
+<body>
+<header>
+	<div class="ym-wrapper">
+		<div class="ym-grid">
+		    <div class="ym-gbox hg-header-accont" >
+		     	登录&nbsp;|&nbsp;注册
+		    </div>
+		</div>
+
+		<div class="hg-logo ym-wbox">
+			<h1>Hello Golang</h1>
+		</div>
+	</div>
+</header>
+<nav id="nav">
+	<div class="ym-wrapper">
+		<div class="ym-hlist">
+			<ul>
+				<li class="active"><strong>文章</strong></li>
+				<li><a href="#">话题</a></li>
+				<li><a href="#">关于</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+<div id="main">
+	<div class="ym-wrapper">
+		<div class="ym-wbox">
+			<section class="ym-grid linearize-level-1">
+				<div class="ym-gbox" style="height:504px;">
+					<form method="post" action="" class="ym-form linearize-form">
+						<h6 class="ym-fbox-heading hg-fbox-heading">Hello Golang 账号注册</h6>
+						
+						<div class="ym-fbox-text">
+							<label for="email">E-Mail <sup class="ym-required" title="This field is mandatory.">*</sup></label>
+							<input type="text" name="email" id="email" size="20" aria-required="true">
+						</div>
+
+						<div class="ym-fbox-text ym-error" role="alert" aria-live="assertive">
+							<p class="ym-message">Field «Last name» not properly filled.</p>
+							<label for="password">Password <sup class="ym-required" title="This field is mandatory.">*</sup></label>
+							<input type="text" name="password" id="password" size="20" aria-required="true">
+						</div>
+
+						<div class="ym-fbox-text ym-error" role="alert" aria-live="assertive">
+							<p class="ym-message">Field «Last name» not properly filled.</p>
+							<label for="repassword">Confirm Password<sup class="ym-required" title="This field is mandatory.">*</sup></label>
+							<input type="text" name="repassword" id="repassword" size="20" aria-required="true">
+						</div>
+							
+						<div class="ym-fbox-button">
+							<input type="submit" value="注册" class="save" id="submit" name="submit">
+							已有账号，去<a href="#">登录</a>
+						</div>
+					</form>
+				</div>
+
+			</section>
+		</div>
+	</div>
+</div>
+<footer>
+	<div class="ym-wrapper">
+		<div class="ym-wbox">
+			<p>? Company 2012 &ndash; Layout based on <a href="http://www.yaml.de">YAML</a></p>
+		</div>
+	</div>
+</footer>
+
+<!-- full skip link functionality in webkit browsers -->
+<script src="yaml/core/js/yaml-focusfix.js"></script>
+</body>
+</html>
