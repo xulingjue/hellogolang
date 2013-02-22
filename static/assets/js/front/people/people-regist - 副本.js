@@ -2,10 +2,6 @@ $(document).ready(function(){
 /*
  * 注册表单验证
  */
-    jQuery.validator.addMethod("alnum", function(value, element) {
-      return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
-    }, "只能包括英文字母和数字");
-
     $("#regist_form").validate({
         onkeyup: false,
         errorElement: "p",
@@ -13,19 +9,17 @@ $(document).ready(function(){
         rules: {
           name: {
             required: true,
-            minlength: 3,
-            maxlength: 10,
-            //remote:"check.php",
+            minlength: 6,
+            remote: "process.php"
           },
           email: {
             required: true,
             email: true,
-            //remote:"check.php",
+            remote: "process.php"
           },
           password: {
             required: true,
-            minlength: 6,
-            alnum:[]
+            minlength: 6
           },
           repassword:{
             equalTo:"#password"
@@ -34,13 +28,13 @@ $(document).ready(function(){
         messages: {
           name: {
             required: "请输入用户名",
-            minlength: "用户名长度至少为四位",
-            maxlength: "用户名长度最长为十位"
+            minlength: "用户名长度至少为六位",
+            remote: "用户名已被注册"
           },
           email: {
             required: "请输入邮箱",
             email: "请输入正确的邮箱地址",
-          
+            remote: "邮箱已被注册"
           },
           password: {
             required: "请输入密码",
@@ -49,7 +43,8 @@ $(document).ready(function(){
           repassword: "两次输入的密码不一致"
         },
         errorPlacement: function(error, element) {
-          element.prev("label").find("span").html(error.text());
+
+          element.parent("div").addClass("ym-error").prepend(error);
         },
         success: function(label) {
           label.parent("div").removeClass("ym-error");

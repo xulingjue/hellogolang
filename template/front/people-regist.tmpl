@@ -1,44 +1,46 @@
 {{define "people-regist"}}
 {{template "header" .}}
-<div id="main">
-	<div class="ym-wrapper">
-		<div class="ym-wbox">
-			<section class="ym-grid linearize-level-1">
-				<div class="ym-gbox" style="height:504px;">
-					<form method="post" action="" class="ym-form linearize-form" id="regist_form">
-						<h6 class="ym-fbox-heading hg-fbox-heading">Hello Golang 账号注册</h6>
-						
-						<div class="ym-fbox-text" aria-live="assertive">
-							<label for="name">用户名 <sup class="ym-required" title="必填字段">*</sup></label>
-							<input type="text" name="name" id="name" size="20" />
-						</div>
+<!-- Begin page content -->
+    <div class="container ">
+        <div class="row hg-index-info hg-main-container">
+          <div class="span3"></div>
+          <div class="span6 well">
+            <form id="regist_form" action="" method="post">
+              <fieldset>
+                <legend><span class="hg-text-color">Hello Golang</span> 社区账号注册</legend>
 
-						<div class="ym-fbox-text" aria-live="assertive">
-							<label for="email">邮箱 <sup class="ym-required" title="必填字段">*</sup></label>
-							<input type="text" name="email" id="email" size="20" />
-						</div>
+                <label>用户名  <span class="hg-help-info"></span></label>
+                <input type="text" name="name" id="name" size="20" class="btn-block hg-input-block error" placeholder="用户名可以为中文，最长10位字符">
+                <!--<span class="help-block">Example block-level help text here. </span>
+              placeholder="用户名可以为中文，最长10位字符"-->
 
-						<div class="ym-fbox-text" aria-live="assertive">
-							<label for="password">密码 <sup class="ym-required" title="必填字段">*</sup></label>
-							<input type="password" name="password" id="password" class="required" size="20" />
-						</div>
+                <label>邮箱 <span class="hg-help-info"></span> </label>
+                <input type="text" name="email" id="email" size="20" class="btn-block hg-input-block" placeholder="请输入常用邮箱地址">
+                
 
-						<div class="ym-fbox-text" aria-live="assertive">
-							<label for="repassword">重复密码<sup class="ym-required" title="必填字段">*</sup></label>
-							<input type="password" name="repassword" id="repassword" size="20" />
-						</div>
-							
-						<div class="ym-fbox-button">
-							<input type="submit" value="注册" class="save" id="submit" name="submit" />
-							已有账号，去<a href="/login">登录</a>
-						</div>
-					</form>
-				</div>
+                <label>密码 <span class="hg-help-info"></span></label>
+                <input type="text" name="password" id="password" size="20" class="btn-block hg-input-block" placeholder="密码为8-20位，仅可用英文和数字">
+                <!--<span class="help-block">Example block-level help text here.</span>-->
 
-			</section>
-		</div>
-	</div>
-</div>
+                <label>重复密码 <span class="hg-help-info"></span></label>
+                <input type="text" name="repassword" id="repassword" size="20" class="btn-block hg-input-block" placeholder="请重复密码">
+                <!--<span class="help-block">Example block-level help text here.</span>-->
+
+                <!--
+                <label class="checkbox">
+                  <input type="checkbox"> 我同意 服务条款
+                </label>
+                -->
+				        <input type="submit" value="注册账号" class="btn" id="submit" name="submit" />
+              </fieldset>
+            </form>
+          </div>
+          <div class="span3"></div>
+        </div>
+    </div>
+
+    <div id="push"></div>
+<!-- End -->
 {{template "footer" .}}
 {{end}}
 

@@ -1,0 +1,59 @@
+{{define "header"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<title>Hello Golang</title>
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon" />
+	<!-- Mobile viewport optimisation -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- (en) Add your meta data here -->
+	<!-- (de) Fuegen Sie hier ihre Meta-Daten ein -->
+	<link href="/assets/yaml/flexible-grids.css" rel="stylesheet" type="text/css"/>
+	<!--[if lte IE 7]>
+	<link href="/assets/yaml/core/iehacks.css" rel="stylesheet" type="text/css" />
+	<![endif]-->
+	<link href="/assets/css/hello-golang.css" rel="stylesheet" type="text/css"/>
+
+	<script language="javascript" type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+	<!-- auto include js -->
+	{{range .extra_hs}} 
+	<script language="javascript" type="text/javascript" src="{{ .}}"></script>
+	{{end}}
+	<!-- auto include js -->
+	{{range .js}} 
+	<script language="javascript" type="text/javascript" src="/assets/js/{{ .}}"></script>
+	{{end}}
+	<!-- auto include css -->
+	{{range .css}} 
+	<script language="javascript" type="text/javascript" src="/assets/css/{{ .}}"></script>
+	{{end}}
+	
+</head>
+<body>
+<header>
+	<div class="ym-wrapper">
+		<div class="ym-grid">
+		    <div class="ym-gbox hg-header-accont" >
+		     	登录&nbsp;|&nbsp;注册
+		    </div>
+		</div>
+
+		<div class="ym-wbox hg-logo">
+			<h1>Hello Golang</h1>
+		</div>
+	</div>
+</header>
+<nav id="nav">
+	<div class="ym-wrapper">
+		<div class="ym-hlist">
+			<ul>
+				<li class="active"><strong>文章</strong></li>
+				<li><a href="#">话题</a></li>
+				<li><a href="#">关于</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+{{end}}
