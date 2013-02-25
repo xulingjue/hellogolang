@@ -2,6 +2,7 @@ package people
 
 import (
 	"fmt"
+	db "hellogolang/system/database"
 	hgHelper "hellogolang/system/helper"
 	"net/http"
 	"text/template"
@@ -11,6 +12,10 @@ import (
  * 登录操作
  */
 func Login(rw http.ResponseWriter, req *http.Request) {
+	hgDb, _ := db.Init()
+	hgDb.Find(1)
+	hgDb.Find(2)
+
 	if req.Method == "GET" {
 		tmpl, _ := template.ParseFiles("template/front/header.tmpl",
 			"template/front/people-login.tmpl",
