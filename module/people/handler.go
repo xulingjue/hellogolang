@@ -2,20 +2,23 @@ package people
 
 import (
 	"fmt"
-	db "hellogolang/system/database"
 	hgHelper "hellogolang/system/helper"
 	"net/http"
 	"text/template"
 )
 
+var (
+	pm PeopleModel
+)
+
+func init() {
+	pm = PeopleModel{"people"}
+}
+
 /*
  * 登录操作
  */
 func Login(rw http.ResponseWriter, req *http.Request) {
-	hgDb, _ := db.Init()
-	hgDb.Find(1)
-	hgDb.Find(2)
-
 	if req.Method == "GET" {
 		tmpl, _ := template.ParseFiles("template/front/header.tmpl",
 			"template/front/people-login.tmpl",
@@ -23,8 +26,12 @@ func Login(rw http.ResponseWriter, req *http.Request) {
 
 		tmpl.ExecuteTemplate(rw, "people-login", nil)
 		tmpl.Execute(rw, nil)
-	} else {
-
+	} else if req.Method == "POST" {
+		req.ParseForm()
+		for k, v := range req.Form {
+			fmt.Println("key:", k)
+			fmt.Println("val:", v)
+		}
 	}
 }
 
@@ -32,6 +39,8 @@ func Login(rw http.ResponseWriter, req *http.Request) {
  * 注册操作
  */
 func Regist(rw http.ResponseWriter, req *http.Request) {
+	pm.Find(1)
+
 	fmt.Println("method:", req.Method) //获取请求的方法
 	if req.Method == "GET" {
 		tmpl, _ := template.New("registView").ParseFiles(

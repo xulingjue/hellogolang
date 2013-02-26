@@ -1,11 +1,14 @@
 package people
 
 import (
-	"fmt"
 	db "hellogolang/system/database"
 )
 
-type struct PeopleModel{
-	
+type PeopleModel struct {
+	tableName string
 }
 
+func (pm *PeopleModel) Find(id int) string {
+	db.Query("select")
+	return ""
+}
