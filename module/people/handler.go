@@ -39,9 +39,6 @@ func Login(rw http.ResponseWriter, req *http.Request) {
  * 注册操作
  */
 func Regist(rw http.ResponseWriter, req *http.Request) {
-	pm.Find(1)
-
-	fmt.Println("method:", req.Method) //获取请求的方法
 	if req.Method == "GET" {
 		tmpl, _ := template.New("registView").ParseFiles(
 			"template/front/header.tmpl",
@@ -56,10 +53,12 @@ func Regist(rw http.ResponseWriter, req *http.Request) {
 		tmpl.ExecuteTemplate(rw, "people-regist", map[string]interface{}{"baseUrl": hgHelper.GetConfig("base_url"), "js": js, "extra_hs": extra_js})
 	} else {
 		req.ParseForm()
-		for k, v := range req.Form {
-			fmt.Println("key:", k)
-			fmt.Println("val:", v)
-		}
+		fmt.Println(req.Form["email"][0])
+		//var people People
+		//people.name = req.Form["name"]
+		//people.email = req.Form["email"]
+		//people.password = req.Form["password"]
+		//pm.Insert(people)
 	}
 }
 

@@ -6,32 +6,30 @@ package database
 import (
 	_ "code.google.com/p/go-mysql-driver/mysql"
 	"database/sql"
+	"fmt"
 	hgConfig "hellogolang/system/helper"
 )
 
 var (
-	db *sql.DB
+	HgSql *sql.DB
+	dbErr error
 )
 
 func init() {
-	if db == nil {
+	if HgSql == nil {
 		dbName := hgConfig.GetConfig("db_name")
 		dbHost := hgConfig.GetConfig("db_host")
 		dbUser := hgConfig.GetConfig("db_user")
 		dbPassword := hgConfig.GetConfig("db_password")
 
-		db, dbErr := sql.Open("mysql", dbUser+":"+dbPassword+"@tcp("+dbHost+")/"+dbName+"?charset=utf8")
-		if dbErr != nil {
+		HgSql, dbErr = sql.Open("mysql", dbUser+":"+dbPassword+"@tcp("+dbHost+")/"+dbName+"?charset=utf8")
 
-		}
 		//检查数据库连接
-		_, dbErr = db.Query("SELECT 1")
+		_, dbErr = HgSql.Query("SELECT 1")
 		if dbErr != nil {
-
+			fmt.Println("db error")
+		} else {
+			fmt.Println("db init success")
 		}
 	}
-}
-
-func Query(sql string) {
-
 }
