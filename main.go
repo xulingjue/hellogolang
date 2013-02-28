@@ -1,17 +1,17 @@
 package main
 
 import (
-	hgHelper "hellogolang/system/helper"
-	hgArticle "hellogolang/module/article"
 	hgPeople "hellogolang/module/people"
+	hgPost "hellogolang/module/post"
+	hgHelper "hellogolang/system/helper"
 	"net/http"
 	"os"
 )
 
 var handlers = map[string]func(http.ResponseWriter, *http.Request){
-	/*article*/
-	"/":        hgArticle.Page,
-	"/article": hgArticle.Item,
+	/*post*/
+	"/":     hgPost.Index,
+	"/post": hgPost.Item,
 
 	/*people*/
 	"/login":          hgPeople.Login,

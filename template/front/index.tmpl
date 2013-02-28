@@ -1,48 +1,6 @@
-<!DOCTYPE html>
-<html lang="zh">
-<head>
-    <meta charset="UTF-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <!-- Mobile viewport optimisation -->
-  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello Golang</title>
-    <meta name="keywords" content="" />
-    <meta name="description" content="" />
-    <link rel='stylesheet' href='bootstrap/css/bootstrap.css' type='text/css' media='all' />
-
-    <link href="css/hello-golang.css" rel="stylesheet" type="text/css"/>
-  	
-  	<script language="javascript" type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
-  	<script language="javascript" type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
-
-</head>
-<body>
-  <div id="wrap">
-  	<div class="navbar navbar-fixed-top">
-          <div class="navbar-inner">
-              <div class="container">
-                	<a class="brand" href="/">Hello Golang</a>
-                  <p class="navbar-text pull-right">
-                		<a href="#" class="navbar-link">登录</a>&nbsp;
-                		<a href="#" class="navbar-link">注册</a>
-              	</p>
-
-                	<div class="nav-collapse">
-  	                <ul class="nav">
-  	                	<li class="active"><a href="/">首页</a></li>
-  	                  	<li><a href="/pub/qiye">讨论</a></li>
-  	                  	<li><a href="/pub/weibozhu">文章</a></li>
-  	                </ul>
-                	</div><!--/.nav-collapse -->
-              </div>
-          </div>
-    </div>
-
-
-    <div class="container">
+{{define "index"}}
+{{template "header"}}
+<div class="container">
       <div class="row hg-index-info hg-main-container">
           <!--网站简介-->
           <div class="span8 hg-max-height-row">
@@ -54,28 +12,30 @@
           <!--登录框-->
           <div class="span4 hg-max-height-row">
             <div class="well hg-account-login hg-max-height-row">
-              <div class="control-group">
-                <div class="controls">
-                  <input type="text" class="btn-block hg-input-block" placeholder="邮箱">
+              <form action="" method="post">
+                <div class="control-group">
+                  <div class="controls">
+                    <input type="text" class="btn-block hg-input-block" placeholder="邮箱">
+                  </div>
                 </div>
-              </div>
-              <div class="control-group">
-                <div class="controls">
-                  <input type="text" class="btn-block hg-input-block" placeholder="密码">
+                <div class="control-group">
+                  <div class="controls">
+                    <input type="text" class="btn-block hg-input-block" placeholder="密码">
+                  </div>
                 </div>
-              </div>
 
-              <div class="control-group">
-                <div class="controls">
-                  <button class="btn btn-block btn-success" type="button">登录</button>
+                <div class="control-group">
+                  <div class="controls">
+                    <button class="btn btn-block btn-success" type="button">登录</button>
+                  </div>
                 </div>
-              </div>
-              
-              <div class="control-group">
-                <div class="controls">
-                  <button class="btn btn-block btn-info" type="button">注册</button>
+
+                <div class="control-group">
+                  <div class="controls">
+                    <a href="/regist" class="btn btn-block btn-info" type="button">注册</a>
+                  </div>
                 </div>
-              </div>
+              </form>
             </div>
           </div><!--登陆框 end-->
       </div>
@@ -148,7 +108,6 @@
               <div class="span8 hg-entity-list-entity-end"></div>
             </div>
         </div>
-
         <!--活跃用户-->
         <div class="span4">
           <table class="hg-active-user table table-hover">
@@ -159,13 +118,6 @@
           </table>
         </div>
       </div>
-    </div>
-  </div>
-
-  <div id="footer">
-      <div class="container">
-        <p class="muted credit">Example courtesy <a href="http://martinbean.co.uk">Martin Bean</a> and <a href="http://ryanfait.com/sticky-footer/">Ryan Fait</a>.</p>
-      </div>
-  </div>
-</body>
-</html>
+</div>
+{{template "footer"}}
+{{end}}

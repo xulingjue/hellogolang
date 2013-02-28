@@ -53,12 +53,13 @@ func Regist(rw http.ResponseWriter, req *http.Request) {
 		tmpl.ExecuteTemplate(rw, "people-regist", map[string]interface{}{"baseUrl": hgHelper.GetConfig("base_url"), "js": js, "extra_hs": extra_js})
 	} else {
 		req.ParseForm()
-		fmt.Println(req.Form["email"][0])
-		//var people People
-		//people.name = req.Form["name"]
-		//people.email = req.Form["email"]
-		//people.password = req.Form["password"]
-		//pm.Insert(people)
+		var people People
+		people.name = req.FormValue("name")
+		people.email = req.FormValue("email")
+		people.password = req.FormValue("password")
+		pm.Insert(people)
+
+		//写入session
 	}
 }
 
@@ -67,14 +68,22 @@ func Regist(rw http.ResponseWriter, req *http.Request) {
  */
 func AjaxIsExist(rw http.ResponseWriter, req *http.Request) {
 	req.ParseForm()
-	name := req.Form["name"]
-	email := req.Form["email"]
+	name := req.FormValue("name")
+	email := req.FormValue("email")
 
-	if name != nil {
-		fmt.Println("name")
+	if name != "" {
+		people, _ := pm.FindByName(name)
+		if people.idpeople != 0 {
+			fmt.Println("no people")
+		}
 	}
 
-	if email != nil {
-		fmt.Println("email")
+	if email != "" {
+		people, _ := pm.FindByEmail(email)
+		if people.idpeople != 0 {
+			fmt.Println("no people")
+		}
 	}
+
+	fmt.Println("has people")
 }
