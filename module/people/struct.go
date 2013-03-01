@@ -1,7 +1,7 @@
 package people
 
 type People struct {
-	idpeople   int
+	idpeople   int64
 	name       string
 	email      string
 	phone      string

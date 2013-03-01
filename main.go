@@ -17,6 +17,10 @@ var handlers = map[string]func(http.ResponseWriter, *http.Request){
 	"/login":          hgPeople.Login,
 	"/regist":         hgPeople.Regist,
 	"/people/isexist": hgPeople.AjaxIsExist,
+
+	/*test*/
+	"/sessionset": hgPeople.SessionSet,
+	"/sessionget": hgPeople.SessionGet,
 }
 
 func main() {

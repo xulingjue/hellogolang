@@ -1,6 +1,7 @@
 package people
 
 import (
+	"code.google.com/p/gorilla/sessions"
 	"fmt"
 	hgHelper "hellogolang/system/helper"
 	"net/http"
@@ -8,11 +9,13 @@ import (
 )
 
 var (
-	pm PeopleModel
+	pm    PeopleModel
+	store *sessions.CookieStore
 )
 
 func init() {
 	pm = PeopleModel{"people"}
+	store = sessions.NewCookieStore([]byte("hellogolang.org"))
 }
 
 /*
@@ -57,10 +60,29 @@ func Regist(rw http.ResponseWriter, req *http.Request) {
 		people.name = req.FormValue("name")
 		people.email = req.FormValue("email")
 		people.password = req.FormValue("password")
-		pm.Insert(people)
+		people.idpeople, err := pm.Insert(people)
+		
 
-		//写入session
 	}
+}
+
+func SessionSet(rw http.ResponseWriter, req *http.Request) {
+	//写入session
+	session, _ := store.Get(req, "hellogolang.org-user")
+	// Set some session values.
+	session.Values["name"] = "xulingjue"
+	session.Values["email"] = "xulingjue@email"
+	session.Values["idpeople"] = 1
+
+	// Save it.
+	session.Save(req, rw)
+}
+
+func SessionGet(rw http.ResponseWriter, req *http.Request) {
+	//写入session
+	session, _ := store.Get(req, "hellogolang.org-user")
+	// Set some session values.
+	fmt.Println(session.Values["name"])
 }
 
 /*

@@ -9,7 +9,7 @@ type PeopleModel struct {
 	tableName string
 }
 
-func (pm *PeopleModel) Find(id int) (People, error) {
+func (pm *PeopleModel) Find(id int64) (People, error) {
 	row := db.HgSql.QueryRow("select * from people where idpeople=?", id)
 	var people People
 	err := row.Scan(&people.idpeople, &people.name, &people.email, &people.phone, &people.avatar, &people.lastLogin, &people.createTime, &people.fansnum, &people.favnum, &people.password, &people.qq)
