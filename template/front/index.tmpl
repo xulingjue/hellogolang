@@ -2,48 +2,17 @@
 {{template "header"}}
 <div class="container">
       <div class="row hg-index-info hg-main-container">
-          <!--网站简介-->
+          <!--left-->
           <div class="span8 hg-max-height-row">
-            <div class="well hg-max-height-row">
-              <h2>Hello Golang</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+            <div class="row">
+              <div class="span8">
+                <div class="well">
+                  <h2>Hello Golang</h2>
+                  <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+                </div>
+              </div>
             </div>
-          </div><!--网站简介   end   -->
-          <!--登录框-->
-          <div class="span4 hg-max-height-row">
-            <div class="well hg-account-login hg-max-height-row">
-              <form action="" method="post">
-                <div class="control-group">
-                  <div class="controls">
-                    <input type="text" class="btn-block hg-input-block" placeholder="邮箱">
-                  </div>
-                </div>
-                <div class="control-group">
-                  <div class="controls">
-                    <input type="text" class="btn-block hg-input-block" placeholder="密码">
-                  </div>
-                </div>
 
-                <div class="control-group">
-                  <div class="controls">
-                    <button class="btn btn-block btn-success" type="button">登录</button>
-                  </div>
-                </div>
-
-                <div class="control-group">
-                  <div class="controls">
-                    <a href="/regist" class="btn btn-block btn-info" type="button">注册</a>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div><!--登陆框 end-->
-      </div>
-
-
-      <div class="row hg-index-content">
-          <div class="span8">
-            <!--文章条目-->
             <div class="row" >
               <div class="span6">
                 <div class="hg-entity-list-cat">
@@ -74,14 +43,13 @@
 
               <div class="span8 hg-entity-list-entity-end"></div>
             </div>
-            
 
-            <!--文章条目-->
+
             <div class="row" >
               <div class="span6">
                 <div class="hg-entity-list-cat">
                   <div>
-                      <a title="浏览“讨论”下的文章" href="http://www.ifanr.com/category/special/company">讨论</a>
+                      <a title="浏览“讨论”下的文章" href="http://www.ifanr.com/category/special/company">文章</a>
                   </div>
                   <div class="hg-entity-list-cat-arrow"></div>
                 </div>
@@ -107,16 +75,50 @@
 
               <div class="span8 hg-entity-list-entity-end"></div>
             </div>
-        </div>
-        <!--活跃用户-->
-        <div class="span4">
-          <table class="hg-active-user table table-hover">
-            <tr><th>活跃成员</th></tr>
-            <tr><td>&nbsp;</td></tr>
-            <tr><td>&nbsp;</td></tr>
-            <tr><td>&nbsp;</td></tr>
-          </table>
-        </div>
+
+
+
+          </div><!-- left end-->
+
+
+          <!--right-->
+          <div class="span4">
+            <div class="well">
+              <div class="control-group">
+                <div class="controls">
+                  <input type="text" class="btn-block hg-input-block" placeholder="邮箱">
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="controls">
+                  <input type="text" class="btn-block hg-input-block" placeholder="密码">
+                </div>
+              </div>
+
+              <div class="control-group">
+                <div class="controls">
+                  <button class="btn btn-block btn-success" type="button">登录</button>
+                </div>
+              </div>
+              
+              <div class="control-group">
+                <div class="controls">
+                  <button class="btn btn-block btn-info" type="button">注册</button>
+                </div>
+              </div>
+            </div>
+
+
+            <!-- 活跃成员 -->
+            <div>
+              <table class="hg-active-user table table-hover">
+                <tr><th>活跃成员</th></tr>
+                <tr><td>&nbsp;</td></tr>
+                <tr><td>&nbsp;</td></tr>
+                <tr><td>&nbsp;</td></tr>
+              </table>
+            </div><!-- 活跃成员 end-->
+          </div><!--right end-->
       </div>
 </div>
 {{template "footer"}}
