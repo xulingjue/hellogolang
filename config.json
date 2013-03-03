@@ -1,10 +1,10 @@
 {
 	"host": "http://localhost:9000",
 	"port": "9000",
-	"db_host":"192.168.1.151:3306",
+	"db_host":"127.0.0.1:3306",
 	"db_name":"hellogolang",
 	"db_user":"root",
-	"db_password":"adzure1105",
+	"db_password":"",
 	"smtp_username": "username@example.com",
 	"smtp_password": "password",
 	"smtp_host": "smtp.example.com",

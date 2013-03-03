@@ -60,8 +60,7 @@ func Regist(rw http.ResponseWriter, req *http.Request) {
 		people.name = req.FormValue("name")
 		people.email = req.FormValue("email")
 		people.password = req.FormValue("password")
-		people.idpeople, err := pm.Insert(people)
-		
+		pm.Insert(people)
 
 	}
 }

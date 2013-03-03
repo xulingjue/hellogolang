@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	hgPeople "hellogolang/module/people"
 	hgPost "hellogolang/module/post"
 	hgHelper "hellogolang/system/helper"
@@ -10,8 +11,9 @@ import (
 
 var handlers = map[string]func(http.ResponseWriter, *http.Request){
 	/*post*/
-	"/":     hgPost.Index,
-	"/post": hgPost.Item,
+	"/":            hgPost.Index,
+	"/post":        hgPost.Item,
+	"/post/create": hgPost.Create,
 
 	/*people*/
 	"/login":          hgPeople.Login,
@@ -34,7 +36,8 @@ func main() {
 	//启动服务器
 	startErr := http.ListenAndServe(":"+hgHelper.GetConfig("port"), nil) //设置监听的端口
 	if startErr != nil {
-		hgHelper.LogMessage("server start error")
+		//hgHelper.LogMessage("server start error")
+		fmt.Println("server start error")
 		os.Exit(1)
 	}
 }

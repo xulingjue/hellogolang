@@ -2,6 +2,7 @@ package helper
 
 import (
 	"encoding/json"
+	"fmt"
 	"os"
 )
 
@@ -14,6 +15,7 @@ func init() {
 	configFile, configFileErr := os.Open("config.json")
 	if configFileErr != nil {
 		//logMessage("read config.json error")
+		fmt.Println("read config.json error")
 		os.Exit(1)
 	}
 	defer configFile.Close()
@@ -22,6 +24,7 @@ func init() {
 	configFileErr = configFileDec.Decode(&config)
 	if configFileErr != nil {
 		//logMessage("config.json decode error")
+		fmt.Println("config.json decode error")
 		os.Exit(1)
 	}
 }
