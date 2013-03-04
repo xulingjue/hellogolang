@@ -1,5 +1,5 @@
 {{define "index"}}
-{{template "header"}}
+{{template "header" .}}
 <div class="container">
       <div class="row hg-index-info hg-main-container">
           <!--left-->
@@ -84,28 +84,30 @@
           <!--right-->
           <div class="span4">
             <div class="well">
+              <form method="post" action="/login" id="login-form">
               <div class="control-group">
                 <div class="controls">
-                  <input type="text" class="btn-block hg-input-block" placeholder="邮箱">
+                  <input type="text" name="name" class="btn-block hg-input-block" placeholder="邮箱">
                 </div>
               </div>
               <div class="control-group">
                 <div class="controls">
-                  <input type="text" class="btn-block hg-input-block" placeholder="密码">
+                  <input type="password" name="password" class="btn-block hg-input-block" placeholder="密码">
                 </div>
               </div>
 
               <div class="control-group">
                 <div class="controls">
-                  <button class="btn btn-block btn-success" type="button">登录</button>
+                  <a href="#" id="login-submit" class="btn btn-block btn-success">登录</a>
                 </div>
               </div>
               
               <div class="control-group">
                 <div class="controls">
-                  <button class="btn btn-block btn-info" type="button">注册</button>
+                  <a href="/regist" class="btn btn-block btn-info">没有账号？去注册！</a>
                 </div>
               </div>
+              </form>
             </div>
 
 
@@ -118,8 +120,18 @@
                 <tr><td>&nbsp;</td></tr>
               </table>
             </div><!-- 活跃成员 end-->
+
+            <div>
+              <table class="hg-active-user table table-hover">
+                <tr><th>人气文章</th></tr>
+                <tr><td>&nbsp;</td></tr>
+                <tr><td>&nbsp;</td></tr>
+                <tr><td>&nbsp;</td></tr>
+              </table>
+            </div>
+
           </div><!--right end-->
       </div>
 </div>
-{{template "footer"}}
+{{template "footer" .}}
 {{end}}

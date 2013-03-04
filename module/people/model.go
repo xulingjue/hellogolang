@@ -20,7 +20,7 @@ func (pm *PeopleModel) Find(id int64) (People, error) {
 }
 
 func (pm *PeopleModel) Insert(people People) (int64, error) {
-	stmt, err := db.HgSql.Prepare("INSERT people SET name=?,email=?,phone=?,avatar=?,create_time=now(),fansnum=?,favnum=?,password=?,qq=?")
+	stmt, err := db.HgSql.Prepare("INSERT people SET name=?,email=?,phone=?,avatar=?,create_time=now(),lastlogin=now(),fansnum=?,favnum=?,password=?,qq=?")
 	res, err := stmt.Exec(people.name, people.email, people.phone, people.avatar, people.fansnum, people.favnum, people.password, people.qq)
 	id, err := res.LastInsertId()
 	if err != nil {
@@ -34,7 +34,6 @@ func (pm *PeopleModel) FindByName(name string) (People, error) {
 	var people People
 	err := row.Scan(&people.idpeople, &people.name, &people.email, &people.phone, &people.avatar, &people.lastLogin, &people.createTime, &people.fansnum, &people.favnum, &people.password, &people.qq)
 	if err != nil {
-		panic(err)
 		return people, err
 	}
 	return people, nil
@@ -45,7 +44,6 @@ func (pm *PeopleModel) FindByEmail(email string) (People, error) {
 	var people People
 	err := row.Scan(&people.idpeople, &people.name, &people.email, &people.phone, &people.avatar, &people.lastLogin, &people.createTime, &people.fansnum, &people.favnum, &people.password, &people.qq)
 	if err != nil {
-		panic(err)
 		return people, err
 	}
 	return people, nil

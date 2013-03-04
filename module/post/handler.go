@@ -1,6 +1,7 @@
 package post
 
 import (
+	hgHelper "hellogolang/system/helper"
 	"net/http"
 	"text/template"
 )
@@ -14,7 +15,12 @@ func Index(rw http.ResponseWriter, req *http.Request) {
 		"template/front/index.tmpl",
 		"template/front/footer.tmpl")
 
-	tmpl.ExecuteTemplate(rw, "index", nil)
+	js := []string{
+		"front/people/index.js"}
+	extra_js := []string{
+		"http://jzaefferer.github.com/jquery-validation/jquery.validate.js"}
+
+	tmpl.ExecuteTemplate(rw, "index", map[string]interface{}{"baseUrl": hgHelper.GetConfig("base_url"), "js": js, "extra_js": extra_js})
 }
 
 /*

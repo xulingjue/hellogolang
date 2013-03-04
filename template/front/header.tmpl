@@ -26,10 +26,10 @@
   	<link href="/assets/css/{{ .}}" rel="stylesheet" type="text/css"/>
   	{{end}}
     <!-- auto include js -->
-  	{{range .extra_hs}} 
+  	{{range .extra_js}} 
   	<script language="javascript" type="text/javascript" src="{{ .}}"></script>
   	{{end}}
-  	<!-- auto include js -->
+
   	{{range .js}} 
   	<script language="javascript" type="text/javascript" src="/assets/js/{{ .}}"></script>
   	{{end}}
@@ -43,10 +43,13 @@
           <div class="navbar-inner">
               <div class="container">
                   <a class="brand" href="/">Hello Golang</a>
+
+                  <!--
                   <p class="navbar-text pull-right">
                     <a href="#" class="navbar-link">登录</a>&nbsp;
                     <a href="#" class="navbar-link">注册</a>
-                </p>
+                  </p>
+                  -->
 
                   <div class="nav-collapse">
                     <ul class="nav">

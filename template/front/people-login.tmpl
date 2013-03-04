@@ -5,31 +5,26 @@
         <div class="row hg-index-info hg-main-container">
           <div class="span3"></div>
           <div class="span6 well">
+            {{if .errorMessage}}
+            <div class="alert alert-error">
+              <button type="button" class="close" data-dismiss="alert">×</button>
+              用户名或密码错误
+            </div>
+            {{end}}
             <form>
               <fieldset>
-                <legend><span class="hg-text-color">Hello Golang</span> 社区账号注册</legend>
+                <legend><span class="hg-text-color">Hello Golang</span> 社区登录</legend>
 
-                <label>用户名</label>
-                <input type="text" class="btn-block hg-input-block" placeholder="用户名可以为中文，最长20位字符">
-                <!--<span class="help-block">Example block-level help text here.</span>-->
-
-                <label>邮箱</label>
-                <input type="text" class="btn-block hg-input-block" placeholder="请输入常用邮箱地址">
+                <label>用户名/邮箱</label>
+                <input type="text" class="btn-block hg-input-block" placeholder="用户名/邮箱">
                 <!--<span class="help-block">Example block-level help text here.</span>-->
 
                 <label>密码</label>
-                <input type="password" class="btn-block hg-input-block" placeholder="密码为8-20位，仅可用英文和数字">
+                <input type="password" class="btn-block hg-input-block" placeholder="密码">
                 <!--<span class="help-block">Example block-level help text here.</span>-->
 
-                <label>重复密码</label>
-                <input type="password" class="btn-block hg-input-block" placeholder="请重复密码">
-                <!--<span class="help-block">Example block-level help text here.</span>-->
-
-
-                <label class="checkbox">
-                  <input type="checkbox"> 我同意 服务条款
-                </label>
-                <button type="submit" class="btn">注册账号</button>
+         
+                <button type="submit" class="btn btn-success">登录社区</button>
               </fieldset>
             </form>
           </div>

@@ -1,7 +1,7 @@
 {
 	"host": "http://localhost:9000",
 	"port": "9000",
-	"db_host":"127.0.0.1:3306",
+	"db_host":"localhost:3306",
 	"db_name":"hellogolang",
 	"db_user":"root",
 	"db_password":"",

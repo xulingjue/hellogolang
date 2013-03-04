@@ -26,8 +26,8 @@
               <div class="container">
                 	<a class="brand" href="/">Hello Golang</a>
                   <p class="navbar-text pull-right">
-                		<a href="#" class="navbar-link">登录</a>&nbsp;
-                		<a href="#" class="navbar-link">注册</a>
+                		<a href="/login" class="navbar-link">登录</a>&nbsp;
+                		<a href="/regist" class="navbar-link">注册</a>
               	</p>
 
                 	<div class="nav-collapse">
@@ -90,34 +90,24 @@
 
           <!--right-->
           <div class="span4">
+            <!-- 登录后状态 -->
             <div class="well">
               <table class="table table-condensed" style="margin-bottom:0px;">
                 <tr><td style="width:100px;"><img src="image/default.png" width="80" class="img-rounded"></td><td>
                   <h5 style="margin:0;">许凌绝</h5>
                   发帖：10<br/>
-                  关注：10<br/>
+                 
                 </td></tr>
                 <tr>
                   <td colspan="2">
-                    <div style="margin-top:5px;">
-                      <div class="control-group">
-                        <div class="controls">
-                          <button class="btn btn-block btn-success" type="button">登录</button>
-                        </div>
-                      </div>
-                      
-                      <div class="control-group">
-                        <div class="controls">
-                          <button class="btn btn-block btn-info" type="button">注册</button>
-                        </div>
-                      </div>
+                    <div style="margin-top:5px;"> 
+                        <button class="btn btn-block btn-success" type="button">写文章</button>
                     </div>
                   </td>
                 </tr>
               </table>
-            </div>
-
-
+            </div> <!-- 登录后状态 end -->
+            
 
             <div>
               <table class="hg-active-user table table-hover">
@@ -127,6 +117,17 @@
                 <tr><td>&nbsp;</td></tr>
               </table>
             </div>
+
+
+            <div>
+              <table class="hg-active-user table table-hover">
+                <tr><th>人气文章</th></tr>
+                <tr><td>&nbsp;</td></tr>
+                <tr><td>&nbsp;</td></tr>
+                <tr><td>&nbsp;</td></tr>
+              </table>
+            </div>
+
           </div><!--right end-->
       </div>
     </div>

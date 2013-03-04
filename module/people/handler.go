@@ -3,6 +3,7 @@ package people
 import (
 	"code.google.com/p/gorilla/sessions"
 	"fmt"
+	hgPost "hellogolang/module/post"
 	hgHelper "hellogolang/system/helper"
 	"net/http"
 	"text/template"
@@ -31,9 +32,28 @@ func Login(rw http.ResponseWriter, req *http.Request) {
 		tmpl.Execute(rw, nil)
 	} else if req.Method == "POST" {
 		req.ParseForm()
-		for k, v := range req.Form {
-			fmt.Println("key:", k)
-			fmt.Println("val:", v)
+		name := req.FormValue("name")
+		password := req.FormValue("password")
+
+		people, _ := pm.FindByName(name)
+		if people.idpeople == 0 {
+			people, _ = pm.FindByEmail(name)
+		}
+
+		if people.idpeople != 0 && people.password == password {
+			hgPost.Index(rw, req)
+		} else {
+			tmpl, _ := template.ParseFiles("template/front/header.tmpl",
+				"template/front/people-login.tmpl",
+				"template/front/footer.tmpl")
+
+			js := []string{
+				"front/people/people-regist.js"}
+			extra_js := []string{
+				"http://jzaefferer.github.com/jquery-validation/jquery.validate.js"}
+
+			errorMessage := "loginError"
+			tmpl.ExecuteTemplate(rw, "people-login", map[string]interface{}{"errorMessage": errorMessage, "baseUrl": hgHelper.GetConfig("base_url"), "js": js, "extra_js": extra_js})
 		}
 	}
 }
@@ -53,7 +73,7 @@ func Regist(rw http.ResponseWriter, req *http.Request) {
 		extra_js := []string{
 			"http://jzaefferer.github.com/jquery-validation/jquery.validate.js"}
 
-		tmpl.ExecuteTemplate(rw, "people-regist", map[string]interface{}{"baseUrl": hgHelper.GetConfig("base_url"), "js": js, "extra_hs": extra_js})
+		tmpl.ExecuteTemplate(rw, "people-regist", map[string]interface{}{"baseUrl": hgHelper.GetConfig("base_url"), "js": js, "extra_js": extra_js})
 	} else {
 		req.ParseForm()
 		var people People
