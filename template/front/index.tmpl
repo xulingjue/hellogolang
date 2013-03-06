@@ -75,14 +75,29 @@
 
               <div class="span8 hg-entity-list-entity-end"></div>
             </div>
-
-
-
           </div><!-- left end-->
 
 
           <!--right-->
           <div class="span4">
+            {{if .people}}
+            <div class="well">
+              <table class="table table-condensed" style="margin-bottom:0px;">
+                <tr><td style="width:100px;"><img src="/assets/image/default.png" width="80" style="max-width:80px;" class="img-rounded"></td><td>
+                  <h5 style="margin:0;">{{ .people.Name }}</h5>
+                  发帖：10<br/>
+                 
+                </td></tr>
+                <tr>
+                  <td colspan="2">
+                    <div style="margin-top:5px;"> 
+                        <a href="/post/create" class="btn btn-block btn-success" type="button">写文章</a>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </div> <!-- 登录后状态 end -->
+            {{ else}}
             <div class="well">
               <form method="post" action="/login" id="login-form">
               <div class="control-group">
@@ -109,6 +124,7 @@
               </div>
               </form>
             </div>
+            {{ end }}
 
 
             <!-- 活跃成员 -->

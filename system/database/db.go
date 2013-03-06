@@ -8,7 +8,7 @@ import (
 	"database/sql"
 	"fmt"
 	_ "github.com/Go-SQL-Driver/MySQL"
-	hgConfig "hellogolang/system/helper"
+	"hellogolang/system/helper"
 )
 
 var (
@@ -18,10 +18,10 @@ var (
 
 func init() {
 	if HgSql == nil {
-		dbName := hgConfig.GetConfig("db_name")
-		dbHost := hgConfig.GetConfig("db_host")
-		dbUser := hgConfig.GetConfig("db_user")
-		dbPassword := hgConfig.GetConfig("db_password")
+		dbName := helper.GetConfig("db_name")
+		dbHost := helper.GetConfig("db_host")
+		dbUser := helper.GetConfig("db_user")
+		dbPassword := helper.GetConfig("db_password")
 
 		HgSql, dbErr = sql.Open("mysql", dbUser+":"+dbPassword+"@tcp("+dbHost+")/"+dbName+"?charset=utf8")
 		fmt.Println(dbUser + ":" + dbPassword + "@tcp(" + dbHost + ")/" + dbName + "?charset=utf8")

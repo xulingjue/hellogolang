@@ -2,27 +2,23 @@ package main
 
 import (
 	"fmt"
-	hgPeople "hellogolang/module/people"
-	hgPost "hellogolang/module/post"
+	hgFrontHandler "hellogolang/application/handler/front"
 	hgHelper "hellogolang/system/helper"
 	"net/http"
 	"os"
 )
 
 var handlers = map[string]func(http.ResponseWriter, *http.Request){
+	"/": hgFrontHandler.Index,
 	/*post*/
-	"/":            hgPost.Index,
-	"/post":        hgPost.Item,
-	"/post/create": hgPost.Create,
+	"/post":        hgFrontHandler.PostItem,
+	"/post/create": hgFrontHandler.PostCreate,
 
 	/*people*/
-	"/login":          hgPeople.Login,
-	"/regist":         hgPeople.Regist,
-	"/people/isexist": hgPeople.AjaxIsExist,
-
-	/*test*/
-	"/sessionset": hgPeople.SessionSet,
-	"/sessionget": hgPeople.SessionGet,
+	"/login":          hgFrontHandler.Login,
+	"/logout":         hgFrontHandler.Logout,
+	"/regist":         hgFrontHandler.Regist,
+	"/people/isexist": hgFrontHandler.PeopleAjaxIsExist,
 }
 
 func main() {

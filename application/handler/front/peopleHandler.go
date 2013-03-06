@@ -1,23 +1,11 @@
-package people
+package front
 
 import (
-	"code.google.com/p/gorilla/sessions"
 	"fmt"
-	hgPost "hellogolang/module/post"
-	hgHelper "hellogolang/system/helper"
+	"hellogolang/application/model"
 	"net/http"
 	"text/template"
 )
-
-var (
-	pm    PeopleModel
-	store *sessions.CookieStore
-)
-
-func init() {
-	pm = PeopleModel{"people"}
-	store = sessions.NewCookieStore([]byte("hellogolang.org"))
-}
 
 /*
  * 登录操作
@@ -35,25 +23,31 @@ func Login(rw http.ResponseWriter, req *http.Request) {
 		name := req.FormValue("name")
 		password := req.FormValue("password")
 
-		people, _ := pm.FindByName(name)
-		if people.idpeople == 0 {
-			people, _ = pm.FindByEmail(name)
+		people, _ := peopleModel.FindByName(name)
+		if people.Idpeople == 0 {
+			people, _ = peopleModel.FindByEmail(name)
 		}
 
-		if people.idpeople != 0 && people.password == password {
-			hgPost.Index(rw, req)
+		if people.Idpeople != 0 && people.Password == password {
+			session, _ := store.Get(req, "hellogolang.org-user")
+			session.Values["name"] = people.Name
+			session.Values["email"] = people.Email
+			session.Values["idpeople"] = people.Idpeople
+
+			session.Save(req, rw)
+			Index(rw, req)
 		} else {
 			tmpl, _ := template.ParseFiles("template/front/header.tmpl",
 				"template/front/people-login.tmpl",
 				"template/front/footer.tmpl")
 
-			js := []string{
-				"front/people/people-regist.js"}
-			extra_js := []string{
+			siteInfo.Js = []string{
+				"js/front/people/people-regist.js"}
+			siteInfo.ExtraJs = []string{
 				"http://jzaefferer.github.com/jquery-validation/jquery.validate.js"}
 
 			errorMessage := "loginError"
-			tmpl.ExecuteTemplate(rw, "people-login", map[string]interface{}{"errorMessage": errorMessage, "baseUrl": hgHelper.GetConfig("base_url"), "js": js, "extra_js": extra_js})
+			tmpl.ExecuteTemplate(rw, "people-login", map[string]interface{}{"errorMessage": errorMessage, "siteInfo": siteInfo})
 		}
 	}
 }
@@ -68,21 +62,29 @@ func Regist(rw http.ResponseWriter, req *http.Request) {
 			"template/front/people-regist.tmpl",
 			"template/front/footer.tmpl")
 
-		js := []string{
-			"front/people/people-regist.js"}
-		extra_js := []string{
+		siteInfo.Js = []string{
+			"js/front/people/people-regist.js"}
+		siteInfo.ExtraJs = []string{
 			"http://jzaefferer.github.com/jquery-validation/jquery.validate.js"}
 
-		tmpl.ExecuteTemplate(rw, "people-regist", map[string]interface{}{"baseUrl": hgHelper.GetConfig("base_url"), "js": js, "extra_js": extra_js})
+		tmpl.ExecuteTemplate(rw, "people-regist", map[string]interface{}{"siteInfo": siteInfo})
 	} else {
 		req.ParseForm()
-		var people People
-		people.name = req.FormValue("name")
-		people.email = req.FormValue("email")
-		people.password = req.FormValue("password")
-		pm.Insert(people)
+		var people model.People
+		people.Name = req.FormValue("name")
+		people.Email = req.FormValue("email")
+		people.Password = req.FormValue("password")
+		peopleModel.Insert(people)
 
 	}
+}
+
+/*
+ *退出
+ */
+func Logout(rw http.ResponseWriter, req *http.Request) {
+	session, _ := store.Get(req, "hellogolang.org-user")
+	session.Flashes()
 }
 
 func SessionSet(rw http.ResponseWriter, req *http.Request) {
@@ -102,26 +104,28 @@ func SessionGet(rw http.ResponseWriter, req *http.Request) {
 	session, _ := store.Get(req, "hellogolang.org-user")
 	// Set some session values.
 	fmt.Println(session.Values["name"])
+	var people model.People
+	people.Idpeople = session.Values["idpeople"].(int64)
 }
 
 /*
  * ajax 判断用户是否存在 
  */
-func AjaxIsExist(rw http.ResponseWriter, req *http.Request) {
+func PeopleAjaxIsExist(rw http.ResponseWriter, req *http.Request) {
 	req.ParseForm()
 	name := req.FormValue("name")
 	email := req.FormValue("email")
 
 	if name != "" {
-		people, _ := pm.FindByName(name)
-		if people.idpeople != 0 {
+		people, _ := peopleModel.FindByName(name)
+		if people.Idpeople != 0 {
 			fmt.Println("no people")
 		}
 	}
 
 	if email != "" {
-		people, _ := pm.FindByEmail(email)
-		if people.idpeople != 0 {
+		people, _ := peopleModel.FindByEmail(email)
+		if people.Idpeople != 0 {
 			fmt.Println("no people")
 		}
 	}

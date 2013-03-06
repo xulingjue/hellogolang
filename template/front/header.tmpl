@@ -22,19 +22,19 @@
     <![endif]-->
 
     <!-- auto include css -->
-  	{{range .css}} 
-  	<link href="/assets/css/{{ .}}" rel="stylesheet" type="text/css"/>
+  	{{range .siteInfo.Css}} 
+  	<link href="/assets/{{ .}}" rel="stylesheet" type="text/css"/>
   	{{end}}
     <!-- auto include js -->
-  	{{range .extra_js}} 
+  	{{range .siteInfo.ExtraJs}} 
   	<script language="javascript" type="text/javascript" src="{{ .}}"></script>
   	{{end}}
 
-  	{{range .js}} 
-  	<script language="javascript" type="text/javascript" src="/assets/js/{{ .}}"></script>
+  	{{range .siteInfo.Js}} 
+  	<script language="javascript" type="text/javascript" src="/assets/{{ .}}"></script>
   	{{end}}
 
-
+    <link rel="shortcut icon" href="/assets/favicon.ico">
   </head>
 
   <body>
@@ -53,9 +53,10 @@
 
                   <div class="nav-collapse">
                     <ul class="nav">
-                      <li class="active"><a href="/">首页</a></li>
-                        <li><a href="/pub/qiye">讨论</a></li>
-                        <li><a href="/pub/weibozhu">文章</a></li>
+                        <li {{if StringEqual .siteInfo.CurrentNav "index"}}class="active"{{end}}><a href="/">首页</a></li>
+                        <li {{if StringEqual .siteInfo.CurrentNav "argument"}}class="active"{{end}}><a href="/">讨论</a></li>
+                        <li {{if StringEqual .siteInfo.CurrentNav "article"}}class="active"{{end}}><a href="/post">文章</a></li>
+                        
                     </ul>
                   </div><!--/.nav-collapse -->
               </div>
