@@ -13,18 +13,29 @@ h1, h2, h3, h4, h5, h6 {
     height: auto !important;
     height: 100%;
     /* Negative indent footer by it's height */
-    margin: 0 auto -60px;
+    margin: 0 auto -90px;
 }
 
 /* Set the fixed height of the footer here */
 #push {
-    height: 60px;
+    height: 90px;
 }
 
 #footer {
-	height: 60px;
+	height: 90px;
     background-color: #f5f5f5;
 }
+
+#footer .container p{
+	font-size: 12px;
+	margin: 0 ;
+	text-align: center;
+}
+
+/* Custom page CSS
+      -------------------------------------------------- */
+      /* Not required for template or sticky footer method. */
+
 
 
 /* Lastly, apply responsive CSS fixes as necessary */
@@ -39,7 +50,14 @@ h1, h2, h3, h4, h5, h6 {
 
 
 
+
+
 /*自定义样式*/
+
+.table-user-message td{
+	border-bottom: 1px solid #dddddd;
+}
+
 .hg-main-container{
 	margin-top: 80px;
 }
@@ -54,9 +72,7 @@ h1, h2, h3, h4, h5, h6 {
 .hg-max-height-row{
 	height: 100%;
 }
-.hg-index-info{
-	height: 180px;
-}
+
 .bs-docs-example {
 	position: relative;
 	margin: 15px 0;
@@ -79,29 +95,15 @@ h1, h2, h3, h4, h5, h6 {
 
 
 
-#footer {
-    height: 60px;
-}
-#footer {
-    background-color: #f5f5f5;
-}
-
-
-
-.credit {
-    margin: 20px 0;
-}
-
-
 /* Admin Box */
 .admin-box {
 	border: 1px solid #d6e6f0;
-/*	-webkit-border-top-left-radius: 5px;
+	-webkit-border-top-left-radius: 5px;
 	-webkit-border-top-right-radius: 5px;
 	-moz-border-radius-topleft: 5px;
 	-moz-border-radius-topright: 5px;
 	border-top-left-radius: 5px;
-	border-top-right-radius: 5px;*/
+	border-top-right-radius: 5px;
 	margin-bottom: 18px;
 
 	-ms-overflow-x: scroll;
@@ -242,14 +244,8 @@ h1, h2, h3, h4, h5, h6 {
 	text-align: right;
 	margin-top: 6px;	
 }
-
-
-
-
-
-
 .hg-active-user th{
-	background: #E0EBF5;
+	background: #f5f5f5;
 	height: 36px;
 	line-height: 36px;
 	color: #375EAB;
@@ -258,6 +254,7 @@ h1, h2, h3, h4, h5, h6 {
 	
 	margin: 0;
 }
+
 
 
 

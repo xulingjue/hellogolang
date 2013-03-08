@@ -1,9 +1,10 @@
 {{define "index"}}
 {{template "header" .}}
-<div class="container">
-      <div class="row hg-index-info hg-main-container">
+<!-- Begin page content -->
+      <div class="container">
+        <div class="row  hg-main-container">
           <!--left-->
-          <div class="span8 hg-max-height-row">
+          <div class="span8">
             <div class="row">
               <div class="span8">
                 <div class="well">
@@ -43,46 +44,13 @@
 
               <div class="span8 hg-entity-list-entity-end"></div>
             </div>
-
-
-            <div class="row" >
-              <div class="span6">
-                <div class="hg-entity-list-cat">
-                  <div>
-                      <a title="浏览“讨论”下的文章" href="http://www.ifanr.com/category/special/company">文章</a>
-                  </div>
-                  <div class="hg-entity-list-cat-arrow"></div>
-                </div>
-                <h5 class="hg-entity-list-name yahei"><a href="http://www.ifanr.com/250227" rel="external" title="Permalink to  数字时代的大逃亡" target="_blank">数字时代的大逃亡</a>
-                </h5>
-              </div>
-
-              <div class="span2">
-                <span class="label label-warning hg-entity-list-recomend-num">7 回复</span>
-              </div>
-
-              <div class="span8 hg-entity-list-author-row">
-                <span class="">2013/2/21</span> | <a href="#">凌绝</a>
-              </div>
-
-              <div class="span8 hg-entity-list-content-row">
-                昨日，新浪发布 2012 年第四季度及全年财报，财报显示新浪第四季度净营收 1.391 亿美元，同比增长 4%，净利润 240 万美元，同比降低 74.2%，全年营收 5.293 亿美元，同比增长 10%，净利润为 3170 万美元。
-              </div>
-
-              <div class="span8 hg-entity-list-more">
-                <button class="btn btn-mini btn-info" type="button">详细>></button>
-              </div>
-
-              <div class="span8 hg-entity-list-entity-end"></div>
-            </div>
           </div><!-- left end-->
-
 
           <!--right-->
           <div class="span4">
             {{if .people}}
             <div class="well">
-              <table class="table table-condensed" style="margin-bottom:0px;">
+              <table class="table table-user-message" style="margin-bottom:0px;">
                 <tr><td style="width:100px;"><img src="/assets/image/default.png" width="80" style="max-width:80px;" class="img-rounded"></td><td>
                   <h5 style="margin:0;">{{ .people.Name }}</h5>
                   发帖：10<br/>
@@ -90,15 +58,6 @@
                   
                   加入：2012-08-19<br/>
                 </td></tr>
-                <!--
-                <tr>
-                  <td colspan="2">
-                    <div style="margin-top:5px;"> 
-                        <button class="btn btn-block btn-success" type="button">写文章</button>
-                    </div>
-                  </td>
-                </tr>
-                -->
               </table>
             </div> <!-- 登录后状态 end -->
             {{ else}}
@@ -129,9 +88,8 @@
               </form>
             </div>
             {{ end }}
+            
 
-
-            <!-- 活跃成员 -->
             <div>
               <table class="hg-active-user table table-hover">
                 <tr><th>活跃成员</th></tr>
@@ -139,7 +97,8 @@
                 <tr><td>&nbsp;</td></tr>
                 <tr><td>&nbsp;</td></tr>
               </table>
-            </div><!-- 活跃成员 end-->
+            </div>
+
 
             <div>
               <table class="hg-active-user table table-hover">
@@ -151,7 +110,8 @@
             </div>
 
           </div><!--right end-->
+   
+        </div>
       </div>
-</div>
 {{template "footer" .}}
 {{end}}
