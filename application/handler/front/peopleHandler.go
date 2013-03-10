@@ -3,6 +3,7 @@ package front
 import (
 	"fmt"
 	"hellogolang/application/model"
+	"hellogolang/system/tmplfunc"
 	"net/http"
 	"text/template"
 )
@@ -12,16 +13,24 @@ import (
  */
 func Login(rw http.ResponseWriter, req *http.Request) {
 	if req.Method == "GET" {
-		tmpl, _ := template.ParseFiles("template/front/header.tmpl",
+
+		tmpl := template.New("people-login.tmpl")
+		tmpl.Funcs(template.FuncMap{"StringEqual": tmplfunc.StringEqual, "Int64Equal": tmplfunc.Int64Equal})
+		tmpl.ParseFiles(
+			"template/front/header.tmpl",
 			"template/front/people-login.tmpl",
 			"template/front/footer.tmpl")
 
-		tmpl.ExecuteTemplate(rw, "people-login", nil)
-		tmpl.Execute(rw, nil)
+		siteInfo.CurrentNav = ""
+
+		tmpl.ExecuteTemplate(rw, "people-login", map[string]interface{}{"siteInfo": siteInfo})
 	} else if req.Method == "POST" {
 		req.ParseForm()
 		name := req.FormValue("name")
 		password := req.FormValue("password")
+
+		fmt.Println(name)
+		fmt.Println(password)
 
 		people, _ := peopleModel.FindByName(name)
 		if people.Idpeople == 0 {
@@ -37,12 +46,15 @@ func Login(rw http.ResponseWriter, req *http.Request) {
 			session.Save(req, rw)
 			Index(rw, req)
 		} else {
-			tmpl, _ := template.ParseFiles("template/front/header.tmpl",
+			tmpl := template.New("people-login.tmpl")
+			tmpl.Funcs(template.FuncMap{"StringEqual": tmplfunc.StringEqual, "Int64Equal": tmplfunc.Int64Equal})
+			tmpl.ParseFiles(
+				"template/front/header.tmpl",
 				"template/front/people-login.tmpl",
 				"template/front/footer.tmpl")
 
 			siteInfo.Js = []string{
-				"js/front/people/people-regist.js"}
+				"js/front/people/people-login.js"}
 			siteInfo.ExtraJs = []string{
 				"http://jzaefferer.github.com/jquery-validation/jquery.validate.js"}
 
@@ -57,7 +69,9 @@ func Login(rw http.ResponseWriter, req *http.Request) {
  */
 func Regist(rw http.ResponseWriter, req *http.Request) {
 	if req.Method == "GET" {
-		tmpl, _ := template.New("registView").ParseFiles(
+		tmpl := template.New("registView")
+		tmpl.Funcs(template.FuncMap{"StringEqual": tmplfunc.StringEqual, "Int64Equal": tmplfunc.Int64Equal})
+		tmpl.ParseFiles(
 			"template/front/header.tmpl",
 			"template/front/people-regist.tmpl",
 			"template/front/footer.tmpl")
@@ -74,7 +88,17 @@ func Regist(rw http.ResponseWriter, req *http.Request) {
 		people.Name = req.FormValue("name")
 		people.Email = req.FormValue("email")
 		people.Password = req.FormValue("password")
-		peopleModel.Insert(people)
+		people.Idpeople, _ = peopleModel.Insert(people)
+
+		if people.Idpeople != 0 {
+			session, _ := store.Get(req, "hellogolang.org-user")
+			session.Values["name"] = people.Name
+			session.Values["email"] = people.Email
+			session.Values["idpeople"] = people.Idpeople
+
+			session.Save(req, rw)
+			Index(rw, req)
+		}
 
 	}
 }

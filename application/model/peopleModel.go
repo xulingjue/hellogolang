@@ -39,7 +39,7 @@ func (pm *PeopleModel) Find(id int64) (People, error) {
 }
 
 func (pm *PeopleModel) Insert(people People) (int64, error) {
-	stmt, err := db.HgSql.Prepare("INSERT people SET name=?,email=?,phone=?,avatar=?,create_time=now(),lastlogin=now(),fansnum=?,favnum=?,password=?,qq=?")
+	stmt, err := db.HgSql.Prepare("INSERT people SET name=?,email=?,phone=?,avatar=?,create_time=CURDATE(),lastlogin=now(),fansnum=?,favnum=?,password=?,qq=?")
 	res, err := stmt.Exec(people.Name, people.Email, people.Phone, people.Avatar, people.Fansnum, people.Favnum, people.Password, people.QQ)
 	id, err := res.LastInsertId()
 	if err != nil {

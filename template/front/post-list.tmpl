@@ -1,4 +1,4 @@
-{{define "index"}}
+{{define "post-list"}}
 {{template "header" .}}
 <!-- Begin page content -->
       <div class="container">
@@ -8,8 +8,7 @@
             <div class="row">
               <div class="span8">
                 <div class="well">
-                  <h2>Hello Golang</h2>
-                  <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+                  <p>全新的golang资讯，经典的golang教程！ </p>
                 </div>
               </div>
             </div>
@@ -48,50 +47,13 @@
 
           <!--right-->
           <div class="span4">
-            {{if .people}}
-            <div class="well">
-              <table class="table table-user-message" style="margin-bottom:0px;">
-                <tr><td style="width:85px; padding-left:0px;"><img src="/assets/image/default.png" width="80" style="max-width:80px;" class="img-rounded"></td><td>
-                  <h5 style="margin:0;">{{ .people.Name }}</h5>
-                  发帖：10<br/>
-                  讨论：10<br/>
-                  
-                  加入：2012-08-19<br/>
-                </td></tr>
-              </table>
-            </div> <!-- 登录后状态 end -->
-            {{ else}}
-            <div class="well">
-              <form method="post" action="/login" id="login-form">
-              <div class="control-group">
-                <div class="controls">
-                  <input type="text" name="name" class="btn-block hg-input-block" placeholder="邮箱">
-                </div>
-              </div>
-              <div class="control-group">
-                <div class="controls">
-                  <input type="password" name="password" class="btn-block hg-input-block" placeholder="密码">
-                </div>
-              </div>
 
-              <div class="control-group">
-                <div class="controls">
-                  <a href="#" id="login-submit" class="btn btn-block btn-success">登录</a>
-                </div>
-              </div>
-              
-              <div class="control-group">
-                <div class="controls">
-                  <a href="/regist" class="btn btn-block btn-info">没有账号？去注册！</a>
-                </div>
-              </div>
-              </form>
-            </div>
-            {{ end }}
+     
+       
 
             <div>
               <table class="hg-active-user table table-hover">
-                <tr><th>活跃成员</th></tr>
+                <tr><th>最新文章</th></tr>
                 <tr><td>&nbsp;</td></tr>
                 <tr><td>&nbsp;</td></tr>
                 <tr><td>&nbsp;</td></tr>
@@ -100,7 +62,7 @@
 
             <div>
               <table class="hg-active-user table table-hover">
-                <tr><th>人气文章</th></tr>
+                <tr><th>阅读排行</th></tr>
                 <tr><td>&nbsp;</td></tr>
                 <tr><td>&nbsp;</td></tr>
                 <tr><td>&nbsp;</td></tr>

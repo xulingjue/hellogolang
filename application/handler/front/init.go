@@ -6,15 +6,18 @@ import (
 )
 
 var (
-	peopleModel model.PeopleModel
-	store       *sessions.CookieStore
-	siteInfo    SiteInfo
+	peopleModel   model.PeopleModel
+	postModel     model.PostModel
+	postTypeModel model.PostTypeModel
+	store         *sessions.CookieStore
+	siteInfo      SiteInfo
 )
 
 func init() {
 	peopleModel = model.PeopleModel{"people"}
-	//hgHandler = HgHandler{}
 	store = sessions.NewCookieStore([]byte("hellogolang.org"))
+	postTypeModel = model.PostTypeModel{"post_type"}
+	postModel = model.PostModel{"post"}
 }
 
 /*

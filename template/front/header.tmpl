@@ -38,7 +38,7 @@
   <body>
     <!-- Part 1: Wrap all page content here -->
     <div id="wrap">
-      <div class="navbar navbar-fixed-top">
+      <div class="navbar navbar-fixed-top navbar-inverse">
           <div class="navbar-inner">
               <div class="container">
                   <a class="brand" href="/">Hello Golang</a>
@@ -52,7 +52,9 @@
                   <div class="nav-collapse">
                     <ul class="nav">
                         <li {{if StringEqual .siteInfo.CurrentNav "index"}}class="active"{{end}}><a href="/">首页</a></li>
+                        <!--
                         <li {{if StringEqual .siteInfo.CurrentNav "argument"}}class="active"{{end}}><a href="/">讨论</a></li>
+                        -->
                         <li {{if StringEqual .siteInfo.CurrentNav "article"}}class="active"{{end}}><a href="/post">文章</a></li>
                         
                     </ul>

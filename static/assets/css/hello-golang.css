@@ -23,7 +23,7 @@ h1, h2, h3, h4, h5, h6 {
 
 #footer {
 	height: 90px;
-    background-color: #f5f5f5;
+	
 }
 
 #footer .container p{
@@ -32,12 +32,18 @@ h1, h2, h3, h4, h5, h6 {
 	text-align: center;
 }
 
+#footer .container hr{
+	margin: 0;
+	margin-bottom: 5px;
+	border-bottom: 1px solid #375EAB;
+}
+
 /* Custom page CSS
       -------------------------------------------------- */
       /* Not required for template or sticky footer method. */
 
 
-
+/*覆盖已有样式*/
 /* Lastly, apply responsive CSS fixes as necessary */
 @media (max-width: 767px) {
     #footer {
@@ -48,14 +54,51 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 
+.well{
+	background-color:#E0EBF5;
+	border: 1px solid #375EAB;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+}
+
+a {
+	color: #375EAB;
+}
+
+.navbar-inverse .navbar-inner {
+	background-color: #375EAB;
+	background-image: -moz-linear-gradient(top, #375EAB, #222222);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#375EAB), to(#222222));
+	background-image: -webkit-linear-gradient(top, #375EAB, #222222);
+	background-image: -o-linear-gradient(top, #375EAB, #222222);
+	background-image: linear-gradient(to bottom, #375EAB, #222222);
+	background-repeat: repeat-x;
+	border-color: #375EAB;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff222222', endColorstr='#ff111111', GradientType=0);
+}
+
 
 
 
 
 /*自定义样式*/
+.reply-item-line hr{
+	margin: 0;
+	margin: 10px 0 10px 0;
+	border-bottom: 1px solid #375EAB;
+}
+.reply-item{
+	margin-top: 8px;
+}
+.entry-meta{
+	font-size: 12px;
+	margin: 10px 0 10px 0;
+}
 
 .table-user-message td{
-	border-bottom: 1px solid #dddddd;
+	border-bottom: 1px solid #375EAB;
+	border-top: 1px solid #375EAB;
 }
 
 .hg-main-container{
@@ -236,7 +279,7 @@ h1, h2, h3, h4, h5, h6 {
 	margin-top: 10px;
 }
 .hg-entity-list-entity-end{
-	border-bottom: 1px solid #ddd;	
+	border-bottom: 1px solid #375EAB;	
 	margin-top: 10px;
 	margin-bottom: 15px;
 }
@@ -245,15 +288,23 @@ h1, h2, h3, h4, h5, h6 {
 	margin-top: 6px;	
 }
 .hg-active-user th{
-	background: #f5f5f5;
+	background: #E0EBF5;
 	height: 36px;
 	line-height: 36px;
 	color: #375EAB;
 	font-size: 16px;
 	padding: 0 10px;
+	border-top: 1px solid #375EAB;	
+	border-bottom: 1px solid #375EAB;	
 	
 	margin: 0;
 }
+
+.hg-active-user td{
+	border-top: 1px solid #E0EBF5;	
+	border-bottom: 1px solid #E0EBF5;	
+}
+
 
 
 

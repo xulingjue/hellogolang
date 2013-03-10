@@ -11,8 +11,9 @@ import (
 var handlers = map[string]func(http.ResponseWriter, *http.Request){
 	"/": hgFrontHandler.Index,
 	/*post*/
-	"/post":        hgFrontHandler.PostItem,
+	"/post":        hgFrontHandler.PostPage,
 	"/post/create": hgFrontHandler.PostCreate,
+	"/post/item":   hgFrontHandler.PostItem,
 
 	/*people*/
 	"/login":          hgFrontHandler.Login,
@@ -36,4 +37,5 @@ func main() {
 		fmt.Println("server start error")
 		os.Exit(1)
 	}
+
 }
