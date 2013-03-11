@@ -2,9 +2,10 @@ package front
 
 import (
 	//"code.google.com/p/gorilla/sessions"
-	"fmt"
+	//"fmt"
 	"hellogolang/system/tmplfunc"
 	"net/http"
+	"strconv"
 	"text/template"
 )
 
@@ -33,9 +34,18 @@ func PostPage(rw http.ResponseWriter, req *http.Request) {
  *	查看单个文章页
  */
 func PostItem(rw http.ResponseWriter, req *http.Request) {
-	post, _ := postModel.Find(1)
-	fmt.Println(post.Author.Name)
-	fmt.Println(post.Content)
+	req.ParseForm()
+
+	pageSize, err := strconv.Atoi(req.FormValue("pageSize"))
+	page, err := strconv.Atoi(req.FormValue("page"))
+	postId, err := strconv.ParseInt(req.FormValue("postId"), 10, 64)
+
+	if err != nil {
+
+	}
+
+	post, _ := postModel.Find(postId)
+	postReplies, _ := postModel.FindAllReply(postId, page, pageSize)
 
 	tmpl := template.New("post-itemView")
 	tmpl.Funcs(template.FuncMap{"StringEqual": tmplfunc.StringEqual, "Int64Equal": tmplfunc.Int64Equal})
@@ -50,7 +60,7 @@ func PostItem(rw http.ResponseWriter, req *http.Request) {
 		"js/front/post/post-list.js"}
 	siteInfo.CurrentNav = "article"
 
-	tmpl.ExecuteTemplate(rw, "post-item", map[string]interface{}{"siteInfo": siteInfo})
+	tmpl.ExecuteTemplate(rw, "post-item", map[string]interface{}{"siteInfo": siteInfo, "post": post, "postReplies": postReplies})
 	tmpl.Execute(rw, nil)
 }
 

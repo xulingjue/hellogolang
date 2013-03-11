@@ -13,6 +13,8 @@ import (
 func Index(rw http.ResponseWriter, req *http.Request) {
 	people := isLogin(req)
 
+	postModel.FindAll(1, 20)
+
 	tmpl := template.New("registView")
 	tmpl.Funcs(template.FuncMap{"StringEqual": tmplfunc.StringEqual, "Int64Equal": tmplfunc.Int64Equal})
 	tmpl.ParseFiles(

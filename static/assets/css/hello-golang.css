@@ -77,12 +77,23 @@ a {
 	border-color: #375EAB;
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff222222', endColorstr='#ff111111', GradientType=0);
 }
-
+.pagination{
+	margin-top: 50px;
+}
 
 
 
 
 /*自定义样式*/
+.replay-panel-btn{
+	margin-top: 10px;
+}
+.replay-panel{
+	margin: 40px 0 40px 0;
+}
+.reply-mess{
+	font-size: 12px;
+}
 .reply-item-line hr{
 	margin: 0;
 	margin: 10px 0 10px 0;
