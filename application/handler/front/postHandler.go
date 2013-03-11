@@ -10,6 +10,39 @@ import (
 )
 
 /*
+ *首页
+ */
+
+func Index(rw http.ResponseWriter, req *http.Request) {
+	people := isLogin(req)
+
+	req.ParseForm()
+	pageSize, err := strconv.Atoi(req.FormValue("pageSize"))
+	page, err := strconv.Atoi(req.FormValue("page"))
+
+	if err != nil {
+
+	}
+
+	posts, _ := postModel.FindAll(page, pageSize, map[string]string{})
+
+	tmpl := template.New("indexView")
+	tmpl.Funcs(template.FuncMap{"StringEqual": tmplfunc.StringEqual, "Int64Equal": tmplfunc.Int64Equal})
+	tmpl.ParseFiles(
+		"template/front/header.tmpl",
+		"template/front/index.tmpl",
+		"template/front/footer.tmpl")
+
+	siteInfo.Js = []string{
+		"js/front/people/index.js"}
+	siteInfo.ExtraJs = []string{
+		"http://jzaefferer.github.com/jquery-validation/jquery.validate.js"}
+	siteInfo.CurrentNav = "index"
+
+	tmpl.ExecuteTemplate(rw, "index", map[string]interface{}{"people": people, "siteInfo": siteInfo, "posts": posts})
+}
+
+/*
  *	文章分页列表
  */
 func PostPage(rw http.ResponseWriter, req *http.Request) {
@@ -89,4 +122,8 @@ func PostCreate(rw http.ResponseWriter, req *http.Request) {
 	} else if req.Method == "POST" {
 
 	}
+}
+
+func Test(rw http.ResponseWriter, req *http.Request) {
+	postModel.FindAll(1, 1, map[string]string{})
 }

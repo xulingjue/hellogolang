@@ -14,11 +14,12 @@
               </div>
             </div>
 
+            {{range .posts}}
             <div class="row" >
               <div class="span6">
                 <div class="hg-entity-list-cat">
                   <div>
-                      <a title="浏览“讨论”下的文章" href="http://www.ifanr.com/category/special/company">文章</a>
+                      <a title="浏览“讨论”下的文章" href="http://www.ifanr.com/category/special/company">{{ .Type.Name }}</a>
                   </div>
                   <div class="hg-entity-list-cat-arrow"></div>
                 </div>
@@ -44,6 +45,8 @@
 
               <div class="span8 hg-entity-list-entity-end"></div>
             </div>
+            {{end}}
+
           </div><!-- left end-->
 
           <!--right-->

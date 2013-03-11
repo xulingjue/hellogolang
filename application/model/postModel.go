@@ -48,17 +48,46 @@ func (pm *PostModel) Find(id int64) (Post, error) {
 	return post, nil
 }
 
-func (pm *PostModel) FindAll(page int, pageSize int, conditions map[string]interface{}) {
+func (pm *PostModel) FindAll(page int, pageSize int, agrs map[string]string) ([]Post, error) {
 	sql := "select post.idpost,post.content,post.create_time,post.reprint_from,post.reprint_url,post.read_num,post.reply_num,post.title," +
 		"people.idpeople,people.name,people.avatar," +
 		"post_class.idpost_class,post_class.idpost_type,post_class.name," +
 		"post_type.idpost_type,post_type.name " +
 		"from post left join post_class on post_class.idpost_class=post.idpost_class left join people on people.idpeople=post.idpeople left join post_type on post_type.idpost_type=post_class.idpost_type "
 
-	if len(conditions) > 0 {
-		fmt.Println("success")
+	orderby := "order by post.create_time desc limit ?,?"
+
+	if len(agrs) > 0 {
+		sql = sql + " where "
+	} else {
+		sql = sql + " and "
 	}
 
+	for k, v := range agrs {
+		sql = sql + " " + k + v + " and"
+	}
+
+	sql = sql + " 1=1 " + orderby
+
+	rows, err := db.HgSql.Query(sql, (page-1)*pageSize, pageSize)
+
+	var posts []Post
+	if err == nil {
+		for rows.Next() {
+			var post Post
+			err := rows.Scan(&post.Idpost, &post.Content, &post.CreateTime, &post.ReprintFrom, &post.ReprintUrl, &post.ReadNum, &post.ReplyNum,
+				&post.Author.Idpeople, &post.Author.Name, &post.Author.Avatar,
+				&post.Class.IdPostClass, &post.Class.IdPostType, &post.Class.Name,
+				&post.Type.IdPostType, &post.Type.Name,
+			)
+			if err == nil {
+				posts = append(posts, post)
+			}
+		}
+	} else {
+		fmt.Println(err)
+	}
+	return posts, nil
 }
 
 func (pm *PostModel) Insert(post Post) {
