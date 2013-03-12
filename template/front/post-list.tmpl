@@ -13,28 +13,29 @@
               </div>
             </div>
 
+            {{range .posts}}
             <div class="row" >
               <div class="span6">
                 <div class="hg-entity-list-cat">
                   <div>
-                      <a title="浏览“讨论”下的文章" href="http://www.ifanr.com/category/special/company">文章</a>
+                      <a title="浏览“{{ .Type.Name }}”下的文章" href="#">{{ .Type.Name }}</a>
                   </div>
                   <div class="hg-entity-list-cat-arrow"></div>
                 </div>
-                <h5 class="hg-entity-list-name yahei"><a href="http://www.ifanr.com/250227" rel="external" title="Permalink to  数字时代的大逃亡" target="_blank">数字时代的大逃亡</a>
+                <h5 class="hg-entity-list-name yahei"><a href="/post/item?postId={{ .Idpost}}" rel="external" title="Permalink to  {{ .Title }}" target="_blank">{{ .Title }}</a>
                 </h5>
               </div>
 
               <div class="span2">
-                <span class="label label-warning hg-entity-list-recomend-num">7 回复</span>
+                <span class="label label-warning hg-entity-list-recomend-num">{{ .ReplyNum }} 回复</span>
               </div>
 
               <div class="span8 hg-entity-list-author-row">
-                <span class="">2013/2/21</span> | <a href="#">凌绝</a>
+                <span class="">{{ .CreateTime }}</span> | <a href="#">{{ .Author.Name }}</a>
               </div>
 
               <div class="span8 hg-entity-list-content-row">
-                昨日，新浪发布 2012 年第四季度及全年财报，财报显示新浪第四季度净营收 1.391 亿美元，同比增长 4%，净利润 240 万美元，同比降低 74.2%，全年营收 5.293 亿美元，同比增长 10%，净利润为 3170 万美元。
+                {{ .Content }}
               </div>
 
               <div class="span8 hg-entity-list-more">
@@ -43,6 +44,8 @@
 
               <div class="span8 hg-entity-list-entity-end"></div>
             </div>
+            {{end}}
+
           </div><!-- left end-->
 
           <!--right-->
