@@ -17,14 +17,13 @@ func Index(rw http.ResponseWriter, req *http.Request) {
 	people := isLogin(req)
 
 	req.ParseForm()
-	pageSize, err := strconv.Atoi(req.FormValue("pageSize"))
+	pageSize := 20
 	page, err := strconv.Atoi(req.FormValue("page"))
-
 	if err != nil {
-
+		page = 1
 	}
 
-	posts, _ := postModel.FindAll(page, pageSize, map[string]string{})
+	posts, _ := postModel.FindAll(page, pageSize, map[string]string{"post.parentid =": "'0'"})
 
 	tmpl := template.New("indexView")
 	tmpl.Funcs(template.FuncMap{"StringEqual": tmplfunc.StringEqual, "Int64Equal": tmplfunc.Int64Equal})
@@ -46,6 +45,18 @@ func Index(rw http.ResponseWriter, req *http.Request) {
  *	文章分页列表
  */
 func PostPage(rw http.ResponseWriter, req *http.Request) {
+
+	req.ParseForm()
+	pageSize := 20
+	page, err := strconv.Atoi(req.FormValue("page"))
+	if err != nil {
+		page = 1
+	}
+
+	postType := req.FormValue("postType")
+
+	posts, _ := postModel.FindAll(page, pageSize, map[string]string{"post.parentid =": "'0'", "post_type.idpost_type": postType})
+
 	tmpl := template.New("post-pageView")
 	tmpl.Funcs(template.FuncMap{"StringEqual": tmplfunc.StringEqual, "Int64Equal": tmplfunc.Int64Equal})
 	tmpl.ParseFiles(
@@ -59,7 +70,7 @@ func PostPage(rw http.ResponseWriter, req *http.Request) {
 		"js/front/post/post-list.js"}
 	siteInfo.CurrentNav = "article"
 
-	tmpl.ExecuteTemplate(rw, "post-list", map[string]interface{}{"siteInfo": siteInfo})
+	tmpl.ExecuteTemplate(rw, "post-list", map[string]interface{}{"siteInfo": siteInfo, "posts": posts})
 	tmpl.Execute(rw, nil)
 }
 

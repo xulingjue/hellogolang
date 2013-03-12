@@ -75,13 +75,15 @@ func (pm *PostModel) FindAll(page int, pageSize int, agrs map[string]string) ([]
 	if err == nil {
 		for rows.Next() {
 			var post Post
-			err := rows.Scan(&post.Idpost, &post.Content, &post.CreateTime, &post.ReprintFrom, &post.ReprintUrl, &post.ReadNum, &post.ReplyNum,
+			err := rows.Scan(&post.Idpost, &post.Content, &post.CreateTime, &post.ReprintFrom, &post.ReprintUrl, &post.ReadNum, &post.ReplyNum, &post.Title,
 				&post.Author.Idpeople, &post.Author.Name, &post.Author.Avatar,
 				&post.Class.IdPostClass, &post.Class.IdPostType, &post.Class.Name,
 				&post.Type.IdPostType, &post.Type.Name,
 			)
 			if err == nil {
 				posts = append(posts, post)
+			} else {
+				fmt.Println(err)
 			}
 		}
 	} else {
