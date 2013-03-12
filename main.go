@@ -14,6 +14,7 @@ var handlers = map[string]func(http.ResponseWriter, *http.Request){
 	"/post":        hgFrontHandler.PostPage,
 	"/post/create": hgFrontHandler.PostCreate,
 	"/post/item":   hgFrontHandler.PostItem,
+	"/test":        hgFrontHandler.Test,
 
 	/*people*/
 	"/login":          hgFrontHandler.Login,
