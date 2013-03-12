@@ -3,4 +3,6 @@ $(document).ready(function(){
 		$("#login-form").submit();
 		return false;
 	});
+
+	prettyPrint();
 })

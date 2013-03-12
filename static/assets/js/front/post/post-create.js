@@ -46,10 +46,15 @@ KindEditor.ready(function(K) {
 						});
 					});
 				});
+
+
 				K.create('#contentqq', {
-					themeType : 'qq',
+					themeType : 'simple',
 					items : [
-						'bold','italic','underline','fontname','fontsize','forecolor','hilitecolor','plug-align','plug-order','plug-indent','link'
-					]
+						'code','bold','italic','link'
+					],
+					htmlTags:{
+						code : ['color', 'size', 'face', '.background-color']
+					}
 				});
 });

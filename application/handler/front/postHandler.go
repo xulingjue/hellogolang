@@ -123,7 +123,7 @@ func PostCreate(rw http.ResponseWriter, req *http.Request) {
 			"template/front/footer.tmpl")
 
 		siteInfo.Js = []string{
-			"kindeditor/kindeditor-min.js",
+			"kindeditor/kindeditor-all.js",
 			"kindeditor/lang/zh_CN.js",
 			"js/front/post/post-create.js"}
 		siteInfo.CurrentNav = "article"
