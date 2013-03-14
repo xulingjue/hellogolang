@@ -55,6 +55,7 @@ KindEditor.ready(function(K) {
 					],
 					htmlTags:{
 						code : ['color', 'size', 'face', '.background-color']
-					}
+					},
+					filterMode:false
 				});
 });

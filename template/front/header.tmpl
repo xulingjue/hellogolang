@@ -45,12 +45,18 @@
           <div class="navbar-inner">
               <div class="container">
                   <a class="brand" href="/">Hello Golang</a>
-                  <!--
+                  {{if .people}}
+                  <p class="navbar-text pull-right">
+                    <a href="#" class="navbar-link">{{ .people.Name }}</a>&nbsp;
+                    <a href="#" class="navbar-link">退出</a>
+                  </p>
+
+                  {{ else}}
                   <p class="navbar-text pull-right">
                     <a href="#" class="navbar-link">登录</a>&nbsp;
                     <a href="#" class="navbar-link">注册</a>
                   </p>
-                  -->
+                  {{ end }}
 
                   <div class="nav-collapse">
                     <ul class="nav">

@@ -2,7 +2,8 @@ package front
 
 import (
 	//"code.google.com/p/gorilla/sessions"
-	//"fmt"
+	"fmt"
+	"hellogolang/application/model"
 	"hellogolang/system/tmplfunc"
 	"net/http"
 	"strconv"
@@ -113,7 +114,11 @@ func PostItem(rw http.ResponseWriter, req *http.Request) {
  */
 func PostCreate(rw http.ResponseWriter, req *http.Request) {
 	if req.Method == "GET" {
-		postTypes := postTypeModel.FindAll()
+		postType, err := strconv.Atoi(req.FormValue("postType"))
+		if err != nil {
+
+		}
+		postClass := postClassModel.FindAll(postType)
 
 		tmpl := template.New("post-createView")
 		tmpl.Funcs(template.FuncMap{"StringEqual": tmplfunc.StringEqual, "Int64Equal": tmplfunc.Int64Equal})
@@ -128,10 +133,30 @@ func PostCreate(rw http.ResponseWriter, req *http.Request) {
 			"js/front/post/post-create.js"}
 		siteInfo.CurrentNav = "article"
 
-		tmpl.ExecuteTemplate(rw, "post-create", map[string]interface{}{"siteInfo": siteInfo, "postTypes": postTypes})
+		tmpl.ExecuteTemplate(rw, "post-create", map[string]interface{}{"siteInfo": siteInfo, "postClass": postClass})
 		tmpl.Execute(rw, nil)
 	} else if req.Method == "POST" {
+		req.ParseForm()
+		people := isLogin(req)
+		var post model.Post
+		var err error
 
+		post.IdpostClass, err = strconv.ParseInt(req.FormValue("post_class"), 10, 64)
+		if err != nil {
+			fmt.Println(err)
+		}
+		post.Content = req.FormValue("content")
+		post.ReprintFrom = req.FormValue("reprint_from")
+		post.ReprintUrl = req.FormValue("reprint_url")
+		post.Title = req.FormValue("title")
+		post.Idpeople = people.Idpeople
+
+		post.Idpeople = 1
+		post.Parentid = 0
+		post.ReadNum = 0
+		post.ReplyNum = 0
+
+		postModel.Insert(post)
 	}
 }
 

@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-func isLogin(req *http.Request) interface{} {
+func isLogin(req *http.Request) model.People {
 	session, _ := store.Get(req, "hellogolang.org-user")
 	var people model.People
 	if session.Values["idpeople"] != nil {
@@ -14,5 +14,5 @@ func isLogin(req *http.Request) interface{} {
 		people.Name = session.Values["name"].(string)
 		return people
 	}
-	return nil
+	return people
 }

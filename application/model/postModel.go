@@ -92,8 +92,27 @@ func (pm *PostModel) FindAll(page int, pageSize int, agrs map[string]string) ([]
 	return posts, nil
 }
 
-func (pm *PostModel) Insert(post Post) {
+func (pm *PostModel) Insert(post Post) (int64, error) {
+	stmt, err := db.HgSql.Prepare("INSERT post SET idpeople=?,content=?,parentid=?,idpost_class=?,reprint_from=?,reprint_url=?,read_num=?,reply_num=?,title=?,create_time=now()")
+	if err != nil {
+		fmt.Println(err)
+		return 0, nil
+	}
 
+	res, err := stmt.Exec(post.Idpeople, post.Content, post.Parentid, post.IdpostClass, post.ReprintFrom, post.ReprintUrl, post.ReadNum, post.ReplyNum, post.Title)
+
+	if err != nil {
+		fmt.Println(post.IdpostClass)
+		fmt.Println(err)
+		return 0, nil
+	}
+
+	id, err := res.LastInsertId()
+
+	if err != nil {
+		return 0, err
+	}
+	return id, nil
 }
 
 func (pm *PostModel) FindAllReply(postId int64, page int, pageSize int) ([]Post, error) {

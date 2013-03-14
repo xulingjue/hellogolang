@@ -2,32 +2,29 @@
 {{template "header" .}}
       <div class="container">
           <div class="row hg-main-container">
-            
               <div class="span8">
-                <div class="well hg-max-height-row">
-                <h5>栏目</h5>
-                <select >
-                  {{range .postTypes}} 
-                    <option>{{.Name}}</option>
-                  {{end}}
-                </select>
+                <form action="/post/create" method="post">
+                  <div class="well hg-max-height-row">
+                  <h5>栏目</h5>
+                  <select name="post_class">
+                    {{range .postClass}} 
+                      <option value="{{.IdPostClass}}">{{.Name}}</option>
+                    {{end}}
+                  </select>
 
-                <h5>标题</h5>
-                <input type="text" class="hg-input-block btn-block" name=""/>
-               
-                
-                <h5>正文</h5>
-                <textarea id="contentqq" name="content" style="width:100%;height:330px;visibility:hidden;"></textarea>
-                <h5>出处</h5>
-                <input type="text" class="hg-input-block btn-block" name=""/>
-                <h5>源地址</h5>
-                <input type="text" class="hg-input-block btn-block" name=""/>
-                <br/>
-                <input type="submit" value="发表" class="btn btn-success"/>
-                </div>
+                  <h5>标题</h5>
+                  <input type="text" class="hg-input-block btn-block" name="title"/>
+                  <h5>正文</h5>
+                  <textarea id="contentqq" name="content" style="width:100%;height:330px;visibility:hidden;"></textarea>
+                  <h5>出处</h5>
+                  <input type="text" class="hg-input-block btn-block" name="reprint_from"/>
+                  <h5>源地址</h5>
+                  <input type="text" class="hg-input-block btn-block" name="reprint_url"/>
+                  <br/>
+                  <input type="submit" value="发表" class="btn btn-success"/>
+                  </div>
+                </form>
               </div>
-               
-              
           </div>
       </div>
 {{template "footer" .}}
