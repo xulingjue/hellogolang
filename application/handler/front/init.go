@@ -6,11 +6,12 @@ import (
 )
 
 var (
-	peopleModel   model.PeopleModel
-	postModel     model.PostModel
-	postTypeModel model.PostTypeModel
-	store         *sessions.CookieStore
-	siteInfo      SiteInfo
+	peopleModel    model.PeopleModel
+	postModel      model.PostModel
+	postTypeModel  model.PostTypeModel
+	postClassModel model.PostClassModel
+	store          *sessions.CookieStore
+	siteInfo       SiteInfo
 )
 
 func init() {
@@ -18,6 +19,7 @@ func init() {
 	store = sessions.NewCookieStore([]byte("hellogolang.org"))
 	postTypeModel = model.PostTypeModel{"post_type"}
 	postModel = model.PostModel{"post"}
+	postClassModel = model.PostClassModel{"post_class"}
 }
 
 /*

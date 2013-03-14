@@ -14,3 +14,8 @@ type PostClass struct {
 type PostClassModel struct {
 	TableName string
 }
+
+func (pcm *PostClassModel) FindAll(id int) []PostClass {
+	var postClass []PostClass
+	return postClass
+}

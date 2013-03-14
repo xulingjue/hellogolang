@@ -26,7 +26,7 @@ func Index(rw http.ResponseWriter, req *http.Request) {
 	posts, _ := postModel.FindAll(page, pageSize, map[string]string{"post.parentid =": "'0'"})
 
 	tmpl := template.New("indexView")
-	tmpl.Funcs(template.FuncMap{"StringEqual": tmplfunc.StringEqual, "Int64Equal": tmplfunc.Int64Equal})
+	tmpl.Funcs(template.FuncMap{"StringEqual": tmplfunc.StringEqual, "Int64Equal": tmplfunc.Int64Equal, "RemoveHtmlTag": tmplfunc.RemoveHtmlTag})
 	tmpl.ParseFiles(
 		"template/front/header.tmpl",
 		"template/front/index.tmpl",
@@ -55,7 +55,7 @@ func PostPage(rw http.ResponseWriter, req *http.Request) {
 
 	postType := req.FormValue("postType")
 
-	posts, _ := postModel.FindAll(page, pageSize, map[string]string{"post.parentid =": "'0'", "post_type.idpost_type": postType})
+	posts, _ := postModel.FindAll(page, pageSize, map[string]string{"post.parentid =": "'0'", "post_type.idpost_type =": postType})
 
 	tmpl := template.New("post-pageView")
 	tmpl.Funcs(template.FuncMap{"StringEqual": tmplfunc.StringEqual, "Int64Equal": tmplfunc.Int64Equal})
@@ -70,7 +70,7 @@ func PostPage(rw http.ResponseWriter, req *http.Request) {
 		"js/front/post/post-list.js"}
 	siteInfo.CurrentNav = "article"
 
-	tmpl.ExecuteTemplate(rw, "post-list", map[string]interface{}{"siteInfo": siteInfo, "posts": posts})
+	tmpl.ExecuteTemplate(rw, "post-list", map[string]interface{}{"siteInfo": siteInfo, "posts": posts, "postType": postType})
 	tmpl.Execute(rw, nil)
 }
 
