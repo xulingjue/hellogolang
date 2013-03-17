@@ -4,6 +4,7 @@ import (
 	//"code.google.com/p/gorilla/sessions"
 	"fmt"
 	"hellogolang/application/model"
+	"hellogolang/system/library"
 	"hellogolang/system/tmplfunc"
 	"net/http"
 	"strconv"
@@ -18,20 +19,29 @@ func Index(rw http.ResponseWriter, req *http.Request) {
 	people := isLogin(req)
 
 	req.ParseForm()
-	pageSize := 20
+	pageSize := 2
 	page, err := strconv.Atoi(req.FormValue("page"))
 	if err != nil {
 		page = 1
 	}
 
-	posts, _ := postModel.FindAll(page, pageSize, map[string]string{"post.parentid =": "'0'"})
+	posts, _ := postModel.FindAll(page, pageSize, map[string]string{})
+	count, _ := postModel.FindAllCount(map[string]string{})
+
+	var pageHelper library.Page
+	pageHelper.Count = count
+	pageHelper.PageSize = pageSize
+	pageHelper.PageNum = page
+	pageHelper.BaseUrl = "/?page="
+	pageHelper.Compute()
 
 	tmpl := template.New("indexView")
-	tmpl.Funcs(template.FuncMap{"StringEqual": tmplfunc.StringEqual, "Int64Equal": tmplfunc.Int64Equal, "RemoveHtmlTag": tmplfunc.RemoveHtmlTag})
+	tmpl.Funcs(template.FuncMap{"StringEqual": tmplfunc.StringEqual, "Int64Equal": tmplfunc.Int64Equal, "IntEqual": tmplfunc.IntEqual, "RemoveHtmlTag": tmplfunc.RemoveHtmlTag})
 	tmpl.ParseFiles(
 		"template/front/header.tmpl",
 		"template/front/index.tmpl",
-		"template/front/footer.tmpl")
+		"template/front/footer.tmpl",
+		"template/front/page.tmpl")
 
 	siteInfo.Js = []string{
 		"js/front/people/index.js"}
@@ -39,7 +49,7 @@ func Index(rw http.ResponseWriter, req *http.Request) {
 		"http://jzaefferer.github.com/jquery-validation/jquery.validate.js"}
 	siteInfo.CurrentNav = "index"
 
-	tmpl.ExecuteTemplate(rw, "index", map[string]interface{}{"people": people, "siteInfo": siteInfo, "posts": posts})
+	tmpl.ExecuteTemplate(rw, "index", map[string]interface{}{"people": people, "siteInfo": siteInfo, "posts": posts, "pageHelper": pageHelper})
 }
 
 /*
@@ -48,22 +58,39 @@ func Index(rw http.ResponseWriter, req *http.Request) {
 func PostPage(rw http.ResponseWriter, req *http.Request) {
 
 	req.ParseForm()
-	pageSize := 20
+	pageSize := 2
 	page, err := strconv.Atoi(req.FormValue("page"))
 	if err != nil {
 		page = 1
 	}
 
-	postType := req.FormValue("postType")
+	conditions := make(map[string]string)
+	var pageHelper library.Page
 
-	posts, _ := postModel.FindAll(page, pageSize, map[string]string{"post.parentid =": "'0'", "post_type.idpost_type =": postType})
+	postClass := req.FormValue("cat")
+	_, err = strconv.Atoi(req.FormValue("cat"))
+	if err == nil {
+		conditions["post.idpost_class ="] = postClass
+		pageHelper.BaseUrl = "/post?cat=" + postClass + "&page="
+	} else {
+		pageHelper.BaseUrl = "/post?page="
+	}
+
+	posts, _ := postModel.FindAll(page, pageSize, conditions)
+	count, _ := postModel.FindAllCount(conditions)
+
+	pageHelper.Count = count
+	pageHelper.PageSize = pageSize
+	pageHelper.PageNum = page
+	pageHelper.Compute()
 
 	tmpl := template.New("post-pageView")
-	tmpl.Funcs(template.FuncMap{"StringEqual": tmplfunc.StringEqual, "Int64Equal": tmplfunc.Int64Equal})
+	tmpl.Funcs(template.FuncMap{"StringEqual": tmplfunc.StringEqual, "Int64Equal": tmplfunc.Int64Equal, "IntEqual": tmplfunc.IntEqual, "RemoveHtmlTag": tmplfunc.RemoveHtmlTag})
 	tmpl.ParseFiles(
 		"template/front/header.tmpl",
 		"template/front/post-list.tmpl",
-		"template/front/footer.tmpl")
+		"template/front/footer.tmpl",
+		"template/front/page.tmpl")
 
 	siteInfo.Js = []string{
 		"kindeditor/kindeditor-min.js",
@@ -71,7 +98,7 @@ func PostPage(rw http.ResponseWriter, req *http.Request) {
 		"js/front/post/post-list.js"}
 	siteInfo.CurrentNav = "article"
 
-	tmpl.ExecuteTemplate(rw, "post-list", map[string]interface{}{"siteInfo": siteInfo, "posts": posts, "postType": postType})
+	tmpl.ExecuteTemplate(rw, "post-list", map[string]interface{}{"siteInfo": siteInfo, "posts": posts, "postClass": postClass, "pageHelper": pageHelper})
 	tmpl.Execute(rw, nil)
 }
 
@@ -81,16 +108,20 @@ func PostPage(rw http.ResponseWriter, req *http.Request) {
 func PostItem(rw http.ResponseWriter, req *http.Request) {
 	req.ParseForm()
 
-	pageSize, err := strconv.Atoi(req.FormValue("pageSize"))
 	page, err := strconv.Atoi(req.FormValue("page"))
-	postId, err := strconv.ParseInt(req.FormValue("postId"), 10, 64)
+	if err != nil {
+		page = 1
+	}
 
+	postIdStr := req.FormValue("postId")
+	postId, err := strconv.ParseInt(postIdStr, 10, 64)
 	if err != nil {
 
 	}
 
+	pageSize := 10
 	post, _ := postModel.Find(postId)
-	postReplies, _ := postModel.FindAllReply(postId, page, pageSize)
+	comments, _ := commentModel.FindAll(page, pageSize, map[string]string{"comment.idpost=": postIdStr})
 
 	tmpl := template.New("post-itemView")
 	tmpl.Funcs(template.FuncMap{"StringEqual": tmplfunc.StringEqual, "Int64Equal": tmplfunc.Int64Equal})
@@ -102,10 +133,11 @@ func PostItem(rw http.ResponseWriter, req *http.Request) {
 	siteInfo.Js = []string{
 		"kindeditor/kindeditor-min.js",
 		"kindeditor/lang/zh_CN.js",
-		"js/front/post/post-list.js"}
+		"js/front/post/post-item.js"}
 	siteInfo.CurrentNav = "article"
 
-	tmpl.ExecuteTemplate(rw, "post-item", map[string]interface{}{"siteInfo": siteInfo, "post": post, "postReplies": postReplies})
+	//tmpl.ExecuteTemplate(rw, "post-item", map[string]interface{}{"siteInfo": siteInfo, "post": post, "postReplies": postReplies})
+	tmpl.ExecuteTemplate(rw, "post-item", map[string]interface{}{"siteInfo": siteInfo, "post": post, "comments": comments})
 	tmpl.Execute(rw, nil)
 }
 
@@ -152,7 +184,6 @@ func PostCreate(rw http.ResponseWriter, req *http.Request) {
 		post.Idpeople = people.Idpeople
 
 		post.Idpeople = 1
-		post.Parentid = 0
 		post.ReadNum = 0
 		post.ReplyNum = 0
 

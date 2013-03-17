@@ -8,18 +8,18 @@ import (
 var (
 	peopleModel    model.PeopleModel
 	postModel      model.PostModel
-	postTypeModel  model.PostTypeModel
 	postClassModel model.PostClassModel
 	store          *sessions.CookieStore
 	siteInfo       SiteInfo
+	commentModel   model.CommentModel
 )
 
 func init() {
 	peopleModel = model.PeopleModel{"people"}
 	store = sessions.NewCookieStore([]byte("hellogolang.org"))
-	postTypeModel = model.PostTypeModel{"post_type"}
 	postModel = model.PostModel{"post"}
 	postClassModel = model.PostClassModel{"post_class"}
+	commentModel = model.CommentModel{"comment"}
 }
 
 /*

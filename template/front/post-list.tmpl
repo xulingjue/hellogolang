@@ -18,7 +18,7 @@
               <div class="span6">
                 <div class="hg-entity-list-cat">
                   <div>
-                      <a title="浏览“{{ .Type.Name }}”下的文章" href="#">{{ .Type.Name }}</a>
+                      <a title="浏览“{{ .Class.Name }}”下的文章" href="#">{{ .Class.Name }}</a>
                   </div>
                   <div class="hg-entity-list-cat-arrow"></div>
                 </div>
@@ -35,16 +35,20 @@
               </div>
 
               <div class="span8 hg-entity-list-content-row">
-                {{ .Content }}
+                {{ RemoveHtmlTag .Content }}
               </div>
 
               <div class="span8 hg-entity-list-more">
-                <button class="btn btn-mini btn-info" type="button">详细>></button>
+                <a class="btn btn-mini btn-info" href="/post/item?postId={{ .Idpost }}&page=1" type="button">详细>></a>
               </div>
 
               <div class="span8 hg-entity-list-entity-end"></div>
             </div>
             {{end}}
+
+
+            {{template "page" .}}
+         
 
           </div><!-- left end-->
 

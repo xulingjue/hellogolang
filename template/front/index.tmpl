@@ -19,7 +19,7 @@
               <div class="span6">
                 <div class="hg-entity-list-cat">
                   <div>
-                      <a title="浏览“{{ .Type.Name }}”下的文章" href="#">{{ .Type.Name }}</a>
+                      <a href="/post?cat={{.Class.IdPostClass}}" target="{{.Idpost}}_window" title="浏览“{{ .Class.Name }}”下的文章" href="#">{{ .Class.Name }}</a>
                   </div>
                   <div class="hg-entity-list-cat-arrow"></div>
                 </div>
@@ -46,6 +46,8 @@
               <div class="span8 hg-entity-list-entity-end"></div>
             </div>
             {{end}}
+
+            {{template "page" .}}
 
           </div><!-- left end-->
 

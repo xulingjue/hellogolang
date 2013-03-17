@@ -1,0 +1,21 @@
+{{define "page"}}
+{{ $baseUrl := .pageHelper.BaseUrl}}
+{{ $pageNum := .pageHelper.PageNum}}
+<div class="pagination text-center">
+  <ul>
+    
+    {{if .pageHelper.PreLink}}
+    <li ><a href="{{$baseUrl}}{{.pageHelper.PreLink}}">上一页</a></li>
+    {{end}}
+
+    {{range .pageHelper.Links}} 
+      <li {{ if IntEqual . $pageNum }}class="active"{{end}} ><a  href="{{$baseUrl}}{{.}}">{{.}}</a></li>
+    {{end}}
+
+    {{if .pageHelper.NextLink}}
+    <li ><a href="{{$baseUrl}}{{.pageHelper.NextLink}}">下一页</a></li>
+    {{end}}
+
+  </ul>
+</div>
+{{end}}

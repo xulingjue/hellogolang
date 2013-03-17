@@ -31,7 +31,7 @@
                 <div><span class="label label-info">{{ .post.ReplyNum }}&nbsp;回复</span></div>
 
                 <div>
-                  {{range .postReplies}} 
+                  {{range .comments}} 
                   <div class="row reply-item">
                     <div class="span8">
                       <div class="reply-item-line"><hr/></div>
@@ -40,7 +40,7 @@
                       <img src="/assets/image/default.png" width="80" class="img-rounded"/>
                     </div>
                     <div class="span7">
-                      <div class="reply-mess"><a>{{ .Author.Name}}</a> {{ .CreateTime}}</div>
+                      <div class="reply-mess"><a>xx{{ .Author.Name}}</a> {{ .CreateTime}}</div>
                       <div class="reply-content">{{ .Content}}</div>
                     </div>
                   </div>

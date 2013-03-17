@@ -6,9 +6,9 @@ import (
 )
 
 type PostClass struct {
-	IdPostClass int64
+	IdpostClass int64
 	Name        string
-	IdPostType  int64
+	Parent      int64
 }
 
 type PostClassModel struct {
@@ -17,13 +17,13 @@ type PostClassModel struct {
 
 func (pcm *PostClassModel) FindAll(id int) []PostClass {
 
-	rows, err := db.HgSql.Query("SELECT idpost_class,name,idpost_type FROM post_class where idpost_type = ?", id)
+	rows, err := db.HgSql.Query("SELECT idpost_class,name FROM post_class", id)
 
 	var postClass []PostClass
 	if err == nil {
 		for rows.Next() {
 			var pc PostClass
-			err = rows.Scan(&pc.IdPostClass, &pc.Name, &pc.IdPostType)
+			err = rows.Scan(&pc.IdpostClass, &pc.Name, &pc.Parent)
 			if err == nil {
 				postClass = append(postClass, pc)
 			}
