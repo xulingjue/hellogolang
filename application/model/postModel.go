@@ -60,6 +60,8 @@ func (pm *PostModel) FindAllCount(agrs map[string]string) (int, error) {
 
 	sql = sql + " 1=1 "
 
+	fmt.Println(sql)
+
 	var num int
 
 	rows := db.HgSql.QueryRow(sql)
@@ -124,7 +126,6 @@ func (pm *PostModel) Insert(post Post) (int64, error) {
 	res, err := stmt.Exec(post.Idpeople, post.Content, post.IdpostClass, post.ReprintFrom, post.ReprintUrl, post.ReadNum, post.ReplyNum, post.Title)
 
 	if err != nil {
-		fmt.Println(post.IdpostClass)
 		fmt.Println(err)
 		return 0, nil
 	}

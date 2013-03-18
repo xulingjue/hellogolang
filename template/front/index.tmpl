@@ -19,11 +19,11 @@
               <div class="span6">
                 <div class="hg-entity-list-cat">
                   <div>
-                      <a href="/post?cat={{.Class.IdPostClass}}" target="{{.Idpost}}_window" title="浏览“{{ .Class.Name }}”下的文章" href="#">{{ .Class.Name }}</a>
+                      <a href="/post?cat={{.Class.IdpostClass}}" target="{{.Idpost}}_window" title="浏览“{{ .Class.Name }}”下的文章" href="#">{{ .Class.Name }}</a>
                   </div>
                   <div class="hg-entity-list-cat-arrow"></div>
                 </div>
-                <h5 class="hg-entity-list-name yahei"><a href="http://www.ifanr.com/250227" rel="external" title="Permalink to  {{ .Title }}" target="_blank">{{ .Title }}</a>
+                <h5 class="hg-entity-list-name yahei"><a href="/post/item?postId={{ .Idpost}}" rel="external" title="Permalink to  {{ .Title }}" target="_blank">{{ .Title }}</a>
                 </h5>
               </div>
 
@@ -40,7 +40,7 @@
               </div>
 
               <div class="span8 hg-entity-list-more">
-                <button class="btn btn-mini btn-info" type="button">详细>></button>
+                <a class="btn btn-mini btn-info" target="_blank" href="/post/item?postId={{ .Idpost }}&page=1" type="button">详细>></a>
               </div>
 
               <div class="span8 hg-entity-list-entity-end"></div>
@@ -53,7 +53,7 @@
 
           <!--right-->
           <div class="span4">
-            {{if .people}}
+            {{if .people.Idpeople}}
             <div class="well">
               <table class="table table-user-message" style="margin-bottom:0px;">
                 <tr><td style="width:85px; padding-left:0px;"><img src="/assets/image/default.png" width="80" style="max-width:80px;" class="img-rounded"></td><td>

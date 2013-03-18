@@ -108,7 +108,13 @@ func Regist(rw http.ResponseWriter, req *http.Request) {
  */
 func Logout(rw http.ResponseWriter, req *http.Request) {
 	session, _ := store.Get(req, "hellogolang.org-user")
-	session.Flashes()
+	session.Values["name"] = nil
+	session.Values["email"] = nil
+	session.Values["idpeople"] = nil
+
+	// Save it.
+	session.Save(req, rw)
+
 }
 
 func SessionSet(rw http.ResponseWriter, req *http.Request) {

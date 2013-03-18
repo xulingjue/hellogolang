@@ -24,6 +24,13 @@ type People struct {
 	QQ         string
 }
 
+func (p *People) IsNil() bool {
+	if p.Idpeople == 0 {
+		return true
+	}
+	return false
+}
+
 type PeopleModel struct {
 	TableName string
 }

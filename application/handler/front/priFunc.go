@@ -8,6 +8,7 @@ import (
 func isLogin(req *http.Request) model.People {
 	session, _ := store.Get(req, "hellogolang.org-user")
 	var people model.People
+
 	if session.Values["idpeople"] != nil {
 		people.Idpeople = session.Values["idpeople"].(int64)
 		people.Email = session.Values["email"].(string)
