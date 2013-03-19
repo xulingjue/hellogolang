@@ -60,8 +60,6 @@ func (pm *PostModel) FindAllCount(agrs map[string]string) (int, error) {
 
 	sql = sql + " 1=1 "
 
-	fmt.Println(sql)
-
 	var num int
 
 	rows := db.HgSql.QueryRow(sql)

@@ -23,14 +23,16 @@ func Login(rw http.ResponseWriter, req *http.Request) {
 
 		siteInfo.CurrentNav = ""
 
+		siteInfo.Js = []string{
+			"js/front/people/people-login.js"}
+		siteInfo.ExtraJs = []string{
+			"http://jzaefferer.github.com/jquery-validation/jquery.validate.js"}
+
 		tmpl.ExecuteTemplate(rw, "people-login", map[string]interface{}{"siteInfo": siteInfo})
 	} else if req.Method == "POST" {
 		req.ParseForm()
 		name := req.FormValue("name")
 		password := req.FormValue("password")
-
-		fmt.Println(name)
-		fmt.Println(password)
 
 		people, _ := peopleModel.FindByName(name)
 		if people.Idpeople == 0 {
@@ -44,7 +46,7 @@ func Login(rw http.ResponseWriter, req *http.Request) {
 			session.Values["idpeople"] = people.Idpeople
 
 			session.Save(req, rw)
-			Index(rw, req)
+			http.Redirect(rw, req, "/", http.StatusFound)
 		} else {
 			tmpl := template.New("people-login.tmpl")
 			tmpl.Funcs(template.FuncMap{"StringEqual": tmplfunc.StringEqual, "Int64Equal": tmplfunc.Int64Equal})
@@ -115,6 +117,7 @@ func Logout(rw http.ResponseWriter, req *http.Request) {
 	// Save it.
 	session.Save(req, rw)
 
+	http.Redirect(rw, req, "/", http.StatusFound)
 }
 
 func SessionSet(rw http.ResponseWriter, req *http.Request) {
@@ -149,16 +152,19 @@ func PeopleAjaxIsExist(rw http.ResponseWriter, req *http.Request) {
 	if name != "" {
 		people, _ := peopleModel.FindByName(name)
 		if people.Idpeople != 0 {
-			fmt.Println("no people")
+			fmt.Fprintf(rw, "false")
+			return
 		}
 	}
 
 	if email != "" {
 		people, _ := peopleModel.FindByEmail(email)
 		if people.Idpeople != 0 {
-			fmt.Println("no people")
+			fmt.Fprintf(rw, "false")
+			return
 		}
 	}
 
-	fmt.Println("has people")
+	fmt.Fprintf(rw, "true")
+	return
 }

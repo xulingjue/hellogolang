@@ -96,7 +96,10 @@ func PostPage(rw http.ResponseWriter, req *http.Request) {
 		"kindeditor/kindeditor-min.js",
 		"kindeditor/lang/zh_CN.js",
 		"js/front/post/post-list.js"}
-	siteInfo.CurrentNav = "article"
+
+	postClassId, _ := strconv.ParseInt(postClass, 10, 64)
+	classInfo := postClassModel.Find(postClassId)
+	siteInfo.CurrentNav = classInfo.Code
 
 	tmpl.ExecuteTemplate(rw, "post-list", map[string]interface{}{"siteInfo": siteInfo, "posts": posts, "postClass": postClass, "pageHelper": pageHelper})
 	tmpl.Execute(rw, nil)
@@ -107,6 +110,8 @@ func PostPage(rw http.ResponseWriter, req *http.Request) {
  */
 func PostItem(rw http.ResponseWriter, req *http.Request) {
 	req.ParseForm()
+
+	people := isLogin(req)
 
 	page, err := strconv.Atoi(req.FormValue("page"))
 	if err != nil {
@@ -143,10 +148,13 @@ func PostItem(rw http.ResponseWriter, req *http.Request) {
 		"kindeditor/kindeditor-min.js",
 		"kindeditor/lang/zh_CN.js",
 		"js/front/post/post-item.js"}
+	siteInfo.ExtraJs = []string{
+		"http://jzaefferer.github.com/jquery-validation/jquery.validate.js"}
+
 	siteInfo.CurrentNav = "article"
 
 	//tmpl.ExecuteTemplate(rw, "post-item", map[string]interface{}{"siteInfo": siteInfo, "post": post, "postReplies": postReplies})
-	tmpl.ExecuteTemplate(rw, "post-item", map[string]interface{}{"siteInfo": siteInfo, "post": post, "comments": comments, "pageHelper": pageHelper})
+	tmpl.ExecuteTemplate(rw, "post-item", map[string]interface{}{"people": people, "siteInfo": siteInfo, "post": post, "comments": comments, "pageHelper": pageHelper})
 	tmpl.Execute(rw, nil)
 }
 
@@ -155,11 +163,8 @@ func PostItem(rw http.ResponseWriter, req *http.Request) {
  */
 func PostCreate(rw http.ResponseWriter, req *http.Request) {
 	if req.Method == "GET" {
-		postType, err := strconv.Atoi(req.FormValue("postType"))
-		if err != nil {
 
-		}
-		postClass := postClassModel.FindAll(postType)
+		postClass := postClassModel.FindAll()
 
 		tmpl := template.New("post-createView")
 		tmpl.Funcs(template.FuncMap{"StringEqual": tmplfunc.StringEqual, "Int64Equal": tmplfunc.Int64Equal})
@@ -172,7 +177,7 @@ func PostCreate(rw http.ResponseWriter, req *http.Request) {
 			"kindeditor/kindeditor-all.js",
 			"kindeditor/lang/zh_CN.js",
 			"js/front/post/post-create.js"}
-		siteInfo.CurrentNav = "article"
+		siteInfo.CurrentNav = "none"
 
 		tmpl.ExecuteTemplate(rw, "post-create", map[string]interface{}{"siteInfo": siteInfo, "postClass": postClass})
 		tmpl.Execute(rw, nil)
@@ -198,7 +203,27 @@ func PostCreate(rw http.ResponseWriter, req *http.Request) {
 		post.ReplyNum = 0
 
 		postModel.Insert(post)
+		http.Redirect(rw, req, "/post?cat="+req.FormValue("post_class"), http.StatusFound)
 	}
+}
+
+func CommentCreate(rw http.ResponseWriter, req *http.Request) {
+	req.ParseForm()
+	postId, _ := strconv.ParseInt(req.FormValue("postId"), 10, 64)
+	people := isLogin(req)
+	content := req.FormValue("content")
+
+	fmt.Println(content)
+	var comment model.Comment
+
+	comment.Idpost = postId
+	comment.Content = content
+	comment.Idpeople = people.Idpeople
+	comment.Parent = 0
+
+	commentModel.Insert(comment)
+
+	http.Redirect(rw, req, "/post/item?postId="+req.FormValue("postId"), http.StatusFound)
 }
 
 func Test(rw http.ResponseWriter, req *http.Request) {

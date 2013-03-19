@@ -11,10 +11,10 @@ import (
 var handlers = map[string]func(http.ResponseWriter, *http.Request){
 	"/": hgFrontHandler.Index,
 	/*post*/
-	"/post":        hgFrontHandler.PostPage,
-	"/post/create": hgFrontHandler.PostCreate,
-	"/post/item":   hgFrontHandler.PostItem,
-	"/test":        hgFrontHandler.Test,
+	"/post":         hgFrontHandler.PostPage,
+	"/post/create":  hgFrontHandler.PostCreate,
+	"/post/item":    hgFrontHandler.PostItem,
+	"/post/comment": hgFrontHandler.CommentCreate,
 
 	/*people*/
 	"/login":          hgFrontHandler.Login,

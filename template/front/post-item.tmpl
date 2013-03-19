@@ -21,10 +21,19 @@
                   </div>
                 </article>
 
-                <div class="replay-panel">
-                  <textarea id="contentqq" name="content" style="width:100%;height:160px;visibility:hidden;"></textarea>
-                  <div class="text-right replay-panel-btn"><button class="btn btn-primary">发表回复</button></div>
-                </div>
+                <form action="/post/comment" id="comment_form" method="post">
+                  <div class="replay-panel">
+                    <textarea name="content" id="contentqq" style="width:100%;height:160px;visibility:hidden;"></textarea>
+                    <input type="hidden" name="postId" value="{{.post.Idpost}}" />
+                    
+                    
+                    <div class="text-right replay-panel-btn">
+                      {{if not .people.Idpeople }}请先&nbsp;&nbsp;<a href="/login">登录</a>&nbsp;|&nbsp;<a href="/regist">注册</a>&nbsp;&nbsp;{{end}}
+                      <input type="submit" class="btn btn-success {{if not .people.Idpeople }} disabled {{end}}" value="发表回复" /></div>
+                  </div>
+                </form>
+
+                <input type="text" value="0" name="contetnum"/>
 
 
 
@@ -40,7 +49,7 @@
                       <img src="/assets/image/default.png" width="80" class="img-rounded"/>
                     </div>
                     <div class="span7">
-                      <div class="reply-mess"><a>xx{{ .Author.Name}}</a> {{ .CreateTime}}</div>
+                      <div class="reply-mess"><a>{{ .Author.Name}}</a> {{ .CreateTime}}</div>
                       <div class="reply-content">{{ .Content}}</div>
                     </div>
                   </div>

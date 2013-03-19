@@ -6,51 +6,29 @@ $(document).ready(function(){
       return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
     }, "只能包括英文字母和数字");
 
-    $("#regist_form").validate({
+    $("#login-form").validate({
         errorElement: "p",
         rules: {
           name: {
             required: true,
-            minlength: 4,
-            maxlength: 10,
-            remote:"/people/isexist",
-            alnum:[],
-          },
-          email: {
-            required: true,
-            email: true,
-            remote:"/people/isexist",
           },
           password: {
             required: true,
             minlength: 6,
             alnum:[],
           },
-          repassword:{
-            equalTo:"#password"
-          }
+
         },
         messages: {
           name: {
-            required: "请输入用户名",
-            minlength: "用户名长度至少为四位",
-            maxlength: "用户名长度最长为十位",
-            remote: "对不起，该用户名已被注册",
-            alnum: "用户名只能为英文或数字",
-          },
-          email: {
-            required: "请输入邮箱",
-            email: "请输入正确的邮箱地址",
-            remote: "对不起，改邮箱已被注册",
+            required: "请输入用户名/邮箱",
           },
           password: {
             required: "请输入密码",
             minlength: "密码长度至少为六位",
             alnum: "密码只能为英文或数字",
           },
-          repassword:{
-            equalTo:"两次输入的密码不一致",
-          } 
+
         },
         errorPlacement: function(error, element) {
           element.prev("label").find("span").html(error.text());

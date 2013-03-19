@@ -10,7 +10,7 @@ type Comment struct {
 	Idpost     int64
 	CreateTime string
 	Content    string
-	IdPeople   int64
+	Idpeople   int64
 	Parent     int64
 	Author     People
 }
@@ -35,9 +35,9 @@ func (cm *CommentModel) FindAllCountByPostID(postId int64) (int, error) {
 }
 
 func (cm *CommentModel) FindAllByPostID(postId int64, page int, pageSize int) ([]Comment, error) {
-	sql := "select comment.idcomment,comment.idpost,comment.create_time,comment.content,comment.idpeople,comment.parent," +
+	sql := "select comment.idcomment,comment.idpost,comment.create_time,comment.content,comment.Idpeople,comment.parent," +
 		" people.idpeople,people.name,people.avatar from comment " +
-		" left join people on comment.idpeople=people.idpeople where comment.idpost=? order by comment.create_time desc limit ?,?"
+		" left join people on comment.Idpeople=people.idpeople where comment.idpost=? order by comment.create_time desc limit ?,?"
 
 	rows, err := db.HgSql.Query(sql, postId, (page-1)*pageSize, pageSize)
 
@@ -45,7 +45,7 @@ func (cm *CommentModel) FindAllByPostID(postId int64, page int, pageSize int) ([
 	if err == nil {
 		for rows.Next() {
 			var comment Comment
-			err := rows.Scan(&comment.Idcomment, &comment.Idpost, &comment.CreateTime, &comment.Content, &comment.IdPeople, &comment.Parent,
+			err := rows.Scan(&comment.Idcomment, &comment.Idpost, &comment.CreateTime, &comment.Content, &comment.Idpeople, &comment.Parent,
 				&comment.Author.Idpeople, &comment.Author.Name, &comment.Author.Avatar,
 			)
 			if err == nil {
@@ -61,9 +61,9 @@ func (cm *CommentModel) FindAllByPostID(postId int64, page int, pageSize int) ([
 }
 
 func (cm *CommentModel) FindAll(page int, pageSize int, agrs map[string]string) ([]Comment, error) {
-	sql := "select comment.idcomment,comment.idpost,comment.create_time,comment.content,comment.idpeople,comment.parent," +
+	sql := "select comment.idcomment,comment.idpost,comment.create_time,comment.content,comment.Idpeople,comment.parent," +
 		" people.idpeople,people.name,people.avatar from comment " +
-		" left join people on comment.idpeople=people.idpeople "
+		" left join people on comment.Idpeople=people.idpeople "
 
 	orderby := "order by comment.create_time desc limit ?,?"
 
@@ -79,15 +79,13 @@ func (cm *CommentModel) FindAll(page int, pageSize int, agrs map[string]string) 
 
 	sql = sql + " 1=1 " + orderby
 
-	fmt.Println(sql)
-
 	rows, err := db.HgSql.Query(sql, (page-1)*pageSize, pageSize)
 
 	var comments []Comment
 	if err == nil {
 		for rows.Next() {
 			var comment Comment
-			err := rows.Scan(&comment.Idcomment, &comment.Idpost, &comment.CreateTime, &comment.Content, &comment.IdPeople, &comment.Parent,
+			err := rows.Scan(&comment.Idcomment, &comment.Idpost, &comment.CreateTime, &comment.Content, &comment.Idpeople, &comment.Parent,
 				&comment.Author.Idpeople, &comment.Author.Name, &comment.Author.Avatar,
 			)
 			if err == nil {
@@ -128,4 +126,14 @@ func (cm *CommentModel) FindAllCount(agrs map[string]string) (int, error) {
 	}
 
 	return num, nil
+}
+
+func (cm *CommentModel) Insert(comment Comment) (int64, error) {
+	stmt, err := db.HgSql.Prepare("INSERT comment SET idpost=?,content=?,idpeople=?,parent=?,create_time=now()")
+	res, err := stmt.Exec(comment.Idpost, comment.Content, comment.Idpeople, comment.Parent)
+	id, err := res.LastInsertId()
+	if err != nil {
+		return 0, err
+	}
+	return id, nil
 }

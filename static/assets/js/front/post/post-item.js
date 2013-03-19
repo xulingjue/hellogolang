@@ -1,5 +1,13 @@
 $(document).ready(function(){
 	prettyPrint();
+
+	$("#comment_form").submit(function(){
+		if($("input[name='contetnum']").val()==0){
+			alert("请输入回复内容！");
+			return false;
+		}
+		return true;
+	})
 });
 
 
@@ -55,6 +63,10 @@ KindEditor.ready(function(K) {
 					themeType : 'qq',
 					items : [
 						'forecolor','plug-align','plug-order','plug-indent','link'
-					]
+					],
+					afterChange : function() {
+						K("input[name='contetnum']").val(this.count('text'));
+					}
+
 				});
 });
