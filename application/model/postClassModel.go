@@ -36,7 +36,6 @@ func (pcm *PostClassModel) FindAll() []PostClass {
 
 func (pcm *PostClassModel) Find(id int64) PostClass {
 	sql := "select idpost_class,name,parent,code from post_class where idpost_class=?"
-
 	row := db.HgSql.QueryRow(sql, id)
 	var postClass PostClass
 	err := row.Scan(&postClass.IdpostClass, &postClass.Name, &postClass.Parent, &postClass.Code)

@@ -60,9 +60,9 @@ KindEditor.ready(function(K) {
 					});
 				});
 				K.create('#contentqq', {
-					themeType : 'qq',
+					themeType : 'sample',
 					items : [
-						'forecolor','plug-align','plug-order','plug-indent','link'
+						'link'
 					],
 					afterChange : function() {
 						K("input[name='contetnum']").val(this.count('text'));

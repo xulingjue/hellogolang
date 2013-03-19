@@ -26,7 +26,8 @@ func Index(rw http.ResponseWriter, req *http.Request) {
 	}
 
 	posts, _ := postModel.FindAll(page, pageSize, map[string]string{})
-	count, _ := postModel.FindAllCount(map[string]string{})
+	//count, _ := postModel.FindAllCount(map[string]string{})
+	count := 20
 
 	var pageHelper library.Page
 	pageHelper.Count = count
@@ -77,7 +78,8 @@ func PostPage(rw http.ResponseWriter, req *http.Request) {
 	}
 
 	posts, _ := postModel.FindAll(page, pageSize, conditions)
-	count, _ := postModel.FindAllCount(conditions)
+	//count, _ := postModel.FindAllCount(conditions)
+	count := 10
 
 	pageHelper.Count = count
 	pageHelper.PageSize = pageSize
@@ -97,12 +99,14 @@ func PostPage(rw http.ResponseWriter, req *http.Request) {
 		"kindeditor/lang/zh_CN.js",
 		"js/front/post/post-list.js"}
 
-	postClassId, _ := strconv.ParseInt(postClass, 10, 64)
-	classInfo := postClassModel.Find(postClassId)
-	siteInfo.CurrentNav = classInfo.Code
+	//postClassId, _ := strconv.ParseInt(postClass, 10, 64)
+
+	siteInfo.CurrentNav = "article"
 
 	tmpl.ExecuteTemplate(rw, "post-list", map[string]interface{}{"siteInfo": siteInfo, "posts": posts, "postClass": postClass, "pageHelper": pageHelper})
 	tmpl.Execute(rw, nil)
+
+	fmt.Println("post page end")
 }
 
 /*
@@ -192,7 +196,7 @@ func PostCreate(rw http.ResponseWriter, req *http.Request) {
 		if err != nil {
 			fmt.Println(err)
 		}
-		post.Content = req.FormValue("content")
+		post.Content = "dd"
 		post.ReprintFrom = req.FormValue("reprint_from")
 		post.ReprintUrl = req.FormValue("reprint_url")
 		post.Title = req.FormValue("title")
