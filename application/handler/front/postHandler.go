@@ -16,6 +16,8 @@ import (
  */
 
 func Index(rw http.ResponseWriter, req *http.Request) {
+	fmt.Println("path", req.URL.Path)
+
 	people := isLogin(req)
 
 	req.ParseForm()
@@ -57,6 +59,7 @@ func Index(rw http.ResponseWriter, req *http.Request) {
  *	文章分页列表
  */
 func PostPage(rw http.ResponseWriter, req *http.Request) {
+	fmt.Println("path", req.URL.Path)
 
 	req.ParseForm()
 	pageSize := 2
@@ -113,6 +116,8 @@ func PostPage(rw http.ResponseWriter, req *http.Request) {
  *	查看单个文章页
  */
 func PostItem(rw http.ResponseWriter, req *http.Request) {
+	fmt.Println("path", req.URL.Path)
+
 	req.ParseForm()
 
 	people := isLogin(req)
@@ -166,6 +171,8 @@ func PostItem(rw http.ResponseWriter, req *http.Request) {
  *	创建文章
  */
 func PostCreate(rw http.ResponseWriter, req *http.Request) {
+	fmt.Println("path", req.URL.Path)
+
 	if req.Method == "GET" {
 
 		postClass := postClassModel.FindAll()
@@ -196,7 +203,7 @@ func PostCreate(rw http.ResponseWriter, req *http.Request) {
 		if err != nil {
 			fmt.Println(err)
 		}
-		post.Content = "dd"
+		post.Content = req.FormValue("content")
 		post.ReprintFrom = req.FormValue("reprint_from")
 		post.ReprintUrl = req.FormValue("reprint_url")
 		post.Title = req.FormValue("title")
@@ -212,6 +219,8 @@ func PostCreate(rw http.ResponseWriter, req *http.Request) {
 }
 
 func CommentCreate(rw http.ResponseWriter, req *http.Request) {
+	fmt.Println("path", req.URL.Path)
+
 	req.ParseForm()
 	postId, _ := strconv.ParseInt(req.FormValue("postId"), 10, 64)
 	people := isLogin(req)
@@ -228,8 +237,4 @@ func CommentCreate(rw http.ResponseWriter, req *http.Request) {
 	commentModel.Insert(comment)
 
 	http.Redirect(rw, req, "/post/item?postId="+req.FormValue("postId"), http.StatusFound)
-}
-
-func Test(rw http.ResponseWriter, req *http.Request) {
-	postModel.FindAll(1, 1, map[string]string{})
 }

@@ -91,13 +91,13 @@ func (pm *PostModel) FindAll(page int, pageSize int, agrs map[string]string) ([]
 	}
 
 	sql = sql + " 1=1 " + orderby
-	fmt.Println("start sql")
+
 	rows, err := db.HgSql.Query(sql, (page-1)*pageSize, pageSize)
-	fmt.Println("end sql")
+
 	var posts []Post
 	if err == nil {
 		for rows.Next() {
-			fmt.Println("one item")
+
 			var post Post
 			err := rows.Scan(&post.Idpost, &post.Content, &post.CreateTime, &post.ReprintFrom, &post.ReprintUrl, &post.ReadNum, &post.ReplyNum, &post.Title,
 				&post.Author.Idpeople, &post.Author.Name, &post.Author.Avatar,

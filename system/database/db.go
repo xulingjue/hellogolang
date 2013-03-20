@@ -4,16 +4,16 @@
 package database
 
 import (
-	//_ "code.google.com/p/go-mysql-driver/mysql"
-	"database/sql"
 	"fmt"
-	_ "github.com/Go-SQL-Driver/MySQL"
 	"hellogolang/system/helper"
+
+	"github.com/ziutek/mymysql/mysql"
+	_ "github.com/ziutek/mymysql/native" // Native engine
+	// _ "github.com/ziutek/mymysql/thrsafe" // Thread safe engine
 )
 
 var (
-	HgSql *sql.DB
-	dbErr error
+	HgSql mysql.Conn
 )
 
 func init() {
@@ -23,14 +23,14 @@ func init() {
 		dbUser := helper.GetConfig("db_user")
 		dbPassword := helper.GetConfig("db_password")
 
-		HgSql, dbErr = sql.Open("mysql", dbUser+":"+dbPassword+"@tcp("+dbHost+")/"+dbName+"?charset=utf8")
-		fmt.Println(dbUser + ":" + dbPassword + "@tcp(" + dbHost + ")/" + dbName + "?charset=utf8")
-		//检查数据库连接
-		_, dbErr = HgSql.Query("SELECT 1")
-		if dbErr != nil {
-			panic(dbErr)
+		HgSql = mysql.New("tcp", "", dbHost, dbUser, dbPassword, dbName)
+		err := HgSql.Connect()
+		if err != nil {
+			panic(err)
+			fmt.Println("db connect error")
 		} else {
 			fmt.Println("db init success")
 		}
 	}
+
 }

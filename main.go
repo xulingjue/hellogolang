@@ -11,16 +11,16 @@ import (
 var handlers = map[string]func(http.ResponseWriter, *http.Request){
 	"/": hgFrontHandler.Index,
 	/*post*/
-	"/post":         hgFrontHandler.PostPage,
-	"/post/create":  hgFrontHandler.PostCreate,
-	"/post/item":    hgFrontHandler.PostItem,
-	"/post/comment": hgFrontHandler.CommentCreate,
+	"/post/":         hgFrontHandler.PostPage,
+	"/post/create/":  hgFrontHandler.PostCreate,
+	"/post/item/":    hgFrontHandler.PostItem,
+	"/post/comment/": hgFrontHandler.CommentCreate,
 
 	/*people*/
-	"/login":          hgFrontHandler.Login,
-	"/logout":         hgFrontHandler.Logout,
-	"/regist":         hgFrontHandler.Regist,
-	"/people/isexist": hgFrontHandler.PeopleAjaxIsExist,
+	"/login/":          hgFrontHandler.Login,
+	"/logout/":         hgFrontHandler.Logout,
+	"/regist/":         hgFrontHandler.Regist,
+	"/people/isexist/": hgFrontHandler.PeopleAjaxIsExist,
 }
 
 func main() {

@@ -70,6 +70,10 @@ func Login(rw http.ResponseWriter, req *http.Request) {
  * 注册操作
  */
 func Regist(rw http.ResponseWriter, req *http.Request) {
+	fmt.Println("path", req.URL.Path)
+	post, _ := postModel.Test(9)
+	fmt.Println(post.Content)
+
 	if req.Method == "GET" {
 		tmpl := template.New("registView")
 		tmpl.Funcs(template.FuncMap{"StringEqual": tmplfunc.StringEqual, "Int64Equal": tmplfunc.Int64Equal})
