@@ -29,41 +29,92 @@ type PeopleModel struct {
 }
 
 func (pm *PeopleModel) Find(id int64) (People, error) {
-	row := db.HgSql.QueryRow("select * from people where idpeople=?", id)
+	sql := "select * from people where idpeople=%d"
+
 	var people People
-	err := row.Scan(&people.Idpeople, &people.Name, &people.Email, &people.Phone, &people.Avatar, &people.LastLogin, &people.CreateTime, &people.Fansnum, &people.Favnum, &people.Password, &people.QQ)
+	rows, res, err := db.HgSql.Query(sql, id)
+	row, err := res.GetRow()
+
 	if err != nil {
 		return people, err
 	}
+
+	// You can get converted value
+	people.Idpeople = row.Int64(0)
+	people.Name = row.Str(1)
+	people.Email = row.Str(2)
+	people.Phone = row.Str(3)
+	people.Avatar = row.Str(4)
+	people.LastLogin = row.Str(5)
+	people.CreateTime = row.Str(6)
+	people.Fansnum = row.Int(7)
+	people.Favnum = row.Int(8)
+	people.Password = row.Str(9)
+	people.QQ = row.Str(10)
+
 	return people, nil
 }
 
 func (pm *PeopleModel) Insert(people People) (int64, error) {
 	stmt, err := db.HgSql.Prepare("INSERT people SET name=?,email=?,phone=?,avatar=?,create_time=CURDATE(),lastlogin=now(),fansnum=?,favnum=?,password=?,qq=?")
-	res, err := stmt.Exec(people.Name, people.Email, people.Phone, people.Avatar, people.Fansnum, people.Favnum, people.Password, people.QQ)
-	id, err := res.LastInsertId()
+	rows, res, err := stmt.Exec(people.Name, people.Email, people.Phone, people.Avatar, people.Fansnum, people.Favnum, people.Password, people.QQ)
+
 	if err != nil {
 		return 0, err
 	}
-	return id, nil
+	return 1, nil
 }
 
 func (pm *PeopleModel) FindByName(name string) (People, error) {
-	row := db.HgSql.QueryRow("select * from people where name=?", name)
+	sql := "select * from people where name=?"
+
 	var people People
-	err := row.Scan(&people.Idpeople, &people.Name, &people.Email, &people.Phone, &people.Avatar, &people.LastLogin, &people.CreateTime, &people.Fansnum, &people.Favnum, &people.Password, &people.QQ)
+	rows, res, err := db.HgSql.Query(sql, name)
+	row, err := res.GetRow()
+
 	if err != nil {
 		return people, err
 	}
+
+	// You can get converted value
+	people.Idpeople = row.Int64(0)
+	people.Name = row.Str(1)
+	people.Email = row.Str(2)
+	people.Phone = row.Str(3)
+	people.Avatar = row.Str(4)
+	people.LastLogin = row.Str(5)
+	people.CreateTime = row.Str(6)
+	people.Fansnum = row.Int(7)
+	people.Favnum = row.Int(8)
+	people.Password = row.Str(9)
+	people.QQ = row.Str(10)
+
 	return people, nil
 }
 
 func (pm *PeopleModel) FindByEmail(email string) (People, error) {
-	row := db.HgSql.QueryRow("select * from people where email=?", email)
+	sql := "select * from people where email=?"
+
 	var people People
-	err := row.Scan(&people.Idpeople, &people.Name, &people.Email, &people.Phone, &people.Avatar, &people.LastLogin, &people.CreateTime, &people.Fansnum, &people.Favnum, &people.Password, &people.QQ)
+	rows, res, err := db.HgSql.Query(sql, email)
+	row, err := res.GetRow()
+
 	if err != nil {
 		return people, err
 	}
+
+	// You can get converted value
+	people.Idpeople = row.Int64(0)
+	people.Name = row.Str(1)
+	people.Email = row.Str(2)
+	people.Phone = row.Str(3)
+	people.Avatar = row.Str(4)
+	people.LastLogin = row.Str(5)
+	people.CreateTime = row.Str(6)
+	people.Fansnum = row.Int(7)
+	people.Favnum = row.Int(8)
+	people.Password = row.Str(9)
+	people.QQ = row.Str(10)
+
 	return people, nil
 }

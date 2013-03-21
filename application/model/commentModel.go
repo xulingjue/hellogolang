@@ -44,13 +44,7 @@ func (cm *CommentModel) FindAllByPostID(postId int64, page int, pageSize int) ([
 
 	var comments []Comment
 	for _, row := range rows {
-		for _, col := range row {
-			if col == nil {
-				// col has NULL value
-			} else {
-				// Do something with text in col (type []byte)
-			}
-		}
+
 		var comment Comment
 		// You can get converted value
 		comment.Idcomment = row.Int64(0) // Zero value
@@ -94,13 +88,7 @@ func (cm *CommentModel) FindAll(page int, pageSize int, agrs map[string]string) 
 	var comments []Comment
 
 	for _, row := range rows {
-		for _, col := range row {
-			if col == nil {
-				// col has NULL value
-			} else {
-				// Do something with text in col (type []byte)
-			}
-		}
+
 		var comment Comment
 		// You can get converted value
 		comment.Idcomment = row.Int64(0) // Zero value

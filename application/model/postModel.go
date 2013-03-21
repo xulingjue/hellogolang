@@ -29,18 +29,37 @@ func (pm *PostModel) Find(id int64) (Post, error) {
 	sql := "select post.idpost,post.content,post.create_time,post.reprint_from,post.reprint_url,post.read_num,post.reply_num,post.title," +
 		"people.idpeople,people.name,people.avatar," +
 		"post_class.idpost_class,post_class.parent,post_class.name " +
-		"from post left join post_class on post_class.idpost_class=post.idpost_class left join people on people.idpeople=post.idpeople where idpost=?"
+		"from post left join post_class on post_class.idpost_class=post.idpost_class left join people on people.idpeople=post.idpeople where idpost=%d"
 
-	row := db.HgSql.QueryRow(sql, id)
+	rows, res, err := db.HgSql.QueryRow(sql, id)
+	row, err := res.GetRow()
+
 	var post Post
-	err := row.Scan(&post.Idpost, &post.Content, &post.CreateTime, &post.ReprintFrom, &post.ReprintUrl, &post.ReadNum, &post.ReplyNum, &post.Title,
-		&post.Author.Idpeople, &post.Author.Name, &post.Author.Avatar,
-		&post.Class.IdpostClass, &post.Class.Parent, &post.Class.Name,
-	)
+
+	if err != nil {
+		return post, err
+	}
+
+	post.Idpost = row.Int64(0)
+	post.Content = row.Str(1)
+	post.CreateTime = row.Str(2)
+	post.ReprintFrom = row.Str(3)
+	post.ReprintUrl = row.Str(4)
+	post.ReadNum = row.Int(5)
+	post.ReplyNum = row.Int(6)
+	post.Title = row.Str(7)
+	post.Author.Idpeople = row.Int64(8)
+	post.Author.Name = row.Str(9)
+	post.Author.Avatar = row.Str(10)
+	post.Class.IdpostClass = row.Int64(11)
+	post.Class.Parent = row.Int64(12)
+	post.Class.Name = row.Str(13)
+
 	if err != nil {
 		fmt.Print(err)
 		return post, err
 	}
+
 	return post, nil
 }
 
@@ -60,14 +79,14 @@ func (pm *PostModel) FindAllCount(agrs map[string]string) (int, error) {
 
 	sql = sql + " 1=1 "
 
-	var num int
-
-	rows := db.HgSql.QueryRow(sql)
-	err := rows.Scan(&num)
+	rows, res, err := db.HgSql.Query(sql)
 
 	if err != nil {
-		return num, err
+		return 0, err
 	}
+
+	row, err := res.GetRow()
+	num := row.Int(0)
 
 	return num, nil
 }
@@ -78,7 +97,7 @@ func (pm *PostModel) FindAll(page int, pageSize int, agrs map[string]string) ([]
 		"post_class.idpost_class,post_class.parent,post_class.name " +
 		"from post left join post_class on post_class.idpost_class=post.idpost_class left join people on people.idpeople=post.idpeople "
 
-	orderby := "order by post.create_time desc limit ?,?"
+	orderby := "order by post.create_time desc limit %d,%d"
 
 	if len(agrs) > 0 {
 		sql = sql + " where "
@@ -92,49 +111,42 @@ func (pm *PostModel) FindAll(page int, pageSize int, agrs map[string]string) ([]
 
 	sql = sql + " 1=1 " + orderby
 
-	rows, err := db.HgSql.Query(sql, (page-1)*pageSize, pageSize)
+	rows, res, err := db.HgSql.Query(sql, (page-1)*pageSize, pageSize)
 
 	var posts []Post
-	if err == nil {
-		for rows.Next() {
+	for _, row := range rows {
+		var post Post
+		// You can get converted value
+		post.Idpost = row.Int64(0)
+		post.Content = row.Str(1)
+		post.CreateTime = row.Str(2)
+		post.ReprintFrom = row.Str(3)
+		post.ReprintUrl = row.Str(4)
+		post.ReadNum = row.Int(5)
+		post.ReplyNum = row.Int(6)
+		post.Title = row.Str(7)
+		post.Author.Idpeople = row.Int64(8)
+		post.Author.Name = row.Str(9)
+		post.Author.Avatar = row.Str(10)
+		post.Class.IdpostClass = row.Int64(11)
+		post.Class.Parent = row.Int64(12)
+		post.Class.Name = row.Str(13)
 
-			var post Post
-			err := rows.Scan(&post.Idpost, &post.Content, &post.CreateTime, &post.ReprintFrom, &post.ReprintUrl, &post.ReadNum, &post.ReplyNum, &post.Title,
-				&post.Author.Idpeople, &post.Author.Name, &post.Author.Avatar,
-				&post.Class.IdpostClass, &post.Class.Parent, &post.Class.Name,
-			)
-			if err == nil {
-				posts = append(posts, post)
-			} else {
-				fmt.Println(err)
-			}
-		}
-	} else {
-		fmt.Println(err)
+		posts = append(posts, post)
 	}
+
 	return posts, nil
 }
 
 func (pm *PostModel) Insert(post Post) (int64, error) {
 	stmt, err := db.HgSql.Prepare("INSERT post SET idpeople=?,content=?,idpost_class=?,reprint_from=?,reprint_url=?,read_num=?,reply_num=?,title=?,create_time=now()")
-	if err != nil {
-		fmt.Println(err)
-		return 0, nil
-	}
 
-	fmt.Println(post.Content)
-
-	res, err := stmt.Exec(post.Idpeople, post.Content, post.IdpostClass, post.ReprintFrom, post.ReprintUrl, post.ReadNum, post.ReplyNum, post.Title)
+	rows, res, err := stmt.Exec(post.Idpeople, post.Content, post.IdpostClass, post.ReprintFrom, post.ReprintUrl, post.ReadNum, post.ReplyNum, post.Title)
 
 	if err != nil {
 		fmt.Println(err)
 		return 0, nil
 	}
 
-	id, err := res.LastInsertId()
-
-	if err != nil {
-		return 0, err
-	}
-	return id, nil
+	return 0, nil
 }
