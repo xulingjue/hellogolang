@@ -31,33 +31,31 @@ func (pm *PostModel) Find(id int64) (Post, error) {
 		"post_class.idpost_class,post_class.parent,post_class.name " +
 		"from post left join post_class on post_class.idpost_class=post.idpost_class left join people on people.idpeople=post.idpeople where idpost=%d"
 
-	rows, res, err := db.HgSql.QueryRow(sql, id)
-	row, err := res.GetRow()
-
+	rows, _, err := db.HgSql.Query(sql, id)
 	var post Post
 
 	if err != nil {
+		fmt.Println(err)
 		return post, err
 	}
 
-	post.Idpost = row.Int64(0)
-	post.Content = row.Str(1)
-	post.CreateTime = row.Str(2)
-	post.ReprintFrom = row.Str(3)
-	post.ReprintUrl = row.Str(4)
-	post.ReadNum = row.Int(5)
-	post.ReplyNum = row.Int(6)
-	post.Title = row.Str(7)
-	post.Author.Idpeople = row.Int64(8)
-	post.Author.Name = row.Str(9)
-	post.Author.Avatar = row.Str(10)
-	post.Class.IdpostClass = row.Int64(11)
-	post.Class.Parent = row.Int64(12)
-	post.Class.Name = row.Str(13)
+	for _, row := range rows {
+		post.Idpost = row.Int64(0)
+		post.Content = row.Str(1)
+		post.CreateTime = row.Str(2)
+		post.ReprintFrom = row.Str(3)
+		post.ReprintUrl = row.Str(4)
+		post.ReadNum = row.Int(5)
+		post.ReplyNum = row.Int(6)
+		post.Title = row.Str(7)
+		post.Author.Idpeople = row.Int64(8)
+		post.Author.Name = row.Str(9)
+		post.Author.Avatar = row.Str(10)
+		post.Class.IdpostClass = row.Int64(11)
+		post.Class.Parent = row.Int64(12)
+		post.Class.Name = row.Str(13)
 
-	if err != nil {
-		fmt.Print(err)
-		return post, err
+		return post, nil
 	}
 
 	return post, nil
@@ -79,16 +77,18 @@ func (pm *PostModel) FindAllCount(agrs map[string]string) (int, error) {
 
 	sql = sql + " 1=1 "
 
-	rows, res, err := db.HgSql.Query(sql)
+	rows, _, err := db.HgSql.Query(sql)
 
 	if err != nil {
+		fmt.Println(err)
 		return 0, err
 	}
 
-	row, err := res.GetRow()
-	num := row.Int(0)
+	for _, row := range rows {
+		return row.Int(0), nil
+	}
 
-	return num, nil
+	return 0, nil
 }
 
 func (pm *PostModel) FindAll(page int, pageSize int, agrs map[string]string) ([]Post, error) {
@@ -111,9 +111,14 @@ func (pm *PostModel) FindAll(page int, pageSize int, agrs map[string]string) ([]
 
 	sql = sql + " 1=1 " + orderby
 
-	rows, res, err := db.HgSql.Query(sql, (page-1)*pageSize, pageSize)
+	rows, _, err := db.HgSql.Query(sql, (page-1)*pageSize, pageSize)
 
 	var posts []Post
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
 	for _, row := range rows {
 		var post Post
 		// You can get converted value
@@ -141,12 +146,12 @@ func (pm *PostModel) FindAll(page int, pageSize int, agrs map[string]string) ([]
 func (pm *PostModel) Insert(post Post) (int64, error) {
 	stmt, err := db.HgSql.Prepare("INSERT post SET idpeople=?,content=?,idpost_class=?,reprint_from=?,reprint_url=?,read_num=?,reply_num=?,title=?,create_time=now()")
 
-	rows, res, err := stmt.Exec(post.Idpeople, post.Content, post.IdpostClass, post.ReprintFrom, post.ReprintUrl, post.ReadNum, post.ReplyNum, post.Title)
+	_, res, err := stmt.Exec(post.Idpeople, post.Content, post.IdpostClass, post.ReprintFrom, post.ReprintUrl, post.ReadNum, post.ReplyNum, post.Title)
 
 	if err != nil {
 		fmt.Println(err)
 		return 0, nil
 	}
 
-	return 0, nil
+	return res.InsertId(), nil
 }

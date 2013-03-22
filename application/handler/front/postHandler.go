@@ -28,8 +28,7 @@ func Index(rw http.ResponseWriter, req *http.Request) {
 	}
 
 	posts, _ := postModel.FindAll(page, pageSize, map[string]string{})
-	//count, _ := postModel.FindAllCount(map[string]string{})
-	count := 20
+	count, _ := postModel.FindAllCount(map[string]string{})
 
 	var pageHelper library.Page
 	pageHelper.Count = count
@@ -75,14 +74,13 @@ func PostPage(rw http.ResponseWriter, req *http.Request) {
 	_, err = strconv.Atoi(req.FormValue("cat"))
 	if err == nil {
 		conditions["post.idpost_class ="] = postClass
-		pageHelper.BaseUrl = "/post?cat=" + postClass + "&page="
+		pageHelper.BaseUrl = "/post/?cat=" + postClass + "&page="
 	} else {
-		pageHelper.BaseUrl = "/post?page="
+		pageHelper.BaseUrl = "/post/?page="
 	}
 
 	posts, _ := postModel.FindAll(page, pageSize, conditions)
-	//count, _ := postModel.FindAllCount(conditions)
-	count := 10
+	count, _ := postModel.FindAllCount(conditions)
 
 	pageHelper.Count = count
 	pageHelper.PageSize = pageSize
@@ -109,7 +107,6 @@ func PostPage(rw http.ResponseWriter, req *http.Request) {
 	tmpl.ExecuteTemplate(rw, "post-list", map[string]interface{}{"siteInfo": siteInfo, "posts": posts, "postClass": postClass, "pageHelper": pageHelper})
 	tmpl.Execute(rw, nil)
 
-	fmt.Println("post page end")
 }
 
 /*
@@ -139,7 +136,7 @@ func PostItem(rw http.ResponseWriter, req *http.Request) {
 
 	var pageHelper library.Page
 
-	pageHelper.BaseUrl = "/post/item?postId=" + strconv.FormatInt(postId, 10) + "&page="
+	pageHelper.BaseUrl = "/post/item/?postId=" + strconv.FormatInt(postId, 10) + "&page="
 	pageHelper.Count = count
 	pageHelper.PageSize = pageSize
 	pageHelper.PageNum = page
@@ -162,7 +159,6 @@ func PostItem(rw http.ResponseWriter, req *http.Request) {
 
 	siteInfo.CurrentNav = "article"
 
-	//tmpl.ExecuteTemplate(rw, "post-item", map[string]interface{}{"siteInfo": siteInfo, "post": post, "postReplies": postReplies})
 	tmpl.ExecuteTemplate(rw, "post-item", map[string]interface{}{"people": people, "siteInfo": siteInfo, "post": post, "comments": comments, "pageHelper": pageHelper})
 	tmpl.Execute(rw, nil)
 }
@@ -175,7 +171,7 @@ func PostCreate(rw http.ResponseWriter, req *http.Request) {
 
 	if req.Method == "GET" {
 
-		postClass := postClassModel.FindAll()
+		postClass, _ := postClassModel.FindAll()
 
 		tmpl := template.New("post-createView")
 		tmpl.Funcs(template.FuncMap{"StringEqual": tmplfunc.StringEqual, "Int64Equal": tmplfunc.Int64Equal})

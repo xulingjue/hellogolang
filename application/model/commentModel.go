@@ -1,17 +1,17 @@
 package model
 
 import (
-	//"fmt"
+	"fmt"
 	db "hellogolang/system/database"
 )
 
 type Comment struct {
-	Idcomment  int64
-	Idpost     int64
+	Idcomment  uint64
+	Idpost     uint64
 	CreateTime string
 	Content    string
-	Idpeople   int64
-	Parent     int64
+	Idpeople   uint64
+	Parent     uint64
 	Author     People
 }
 
@@ -19,20 +19,22 @@ type CommentModel struct {
 	TableName string
 }
 
-func (cm *CommentModel) FindAllCountByPostID(postId int64) (int, error) {
+func (cm *CommentModel) FindAllCountByPostID(postId uint64) (int, error) {
 	sql := "select count(*) as total " +
 		"from comment where comment.idpost=%d"
 
-	rows, res, err := db.HgSql.Query(sql, postId)
+	rows, _, err := db.HgSql.Query(sql, postId)
 
 	if err != nil {
 		return 0, err
 	}
 
-	row, err := res.GetRow()
-	num := row.Int(0)
+	for _, row := range rows {
+		fmt.Println(row.Int(0))
+		return row.Int(0), nil
+	}
 
-	return num, nil
+	return 0, nil
 }
 
 func (cm *CommentModel) FindAllByPostID(postId int64, page int, pageSize int) ([]Comment, error) {
@@ -40,7 +42,10 @@ func (cm *CommentModel) FindAllByPostID(postId int64, page int, pageSize int) ([
 		" people.idpeople,people.name,people.avatar from comment " +
 		" left join people on comment.Idpeople=people.idpeople where comment.idpost=%d order by comment.create_time desc limit %d,%d"
 
-	rows, res, err := db.HgSql.Query(sql, postId, (page-1)*pageSize, pageSize)
+	rows, _, err := db.HgSql.Query(sql, postId, (page-1)*pageSize, pageSize)
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	var comments []Comment
 	for _, row := range rows {
@@ -83,9 +88,12 @@ func (cm *CommentModel) FindAll(page int, pageSize int, agrs map[string]string) 
 
 	sql = sql + " 1=1 " + orderby
 
-	rows, res, err := db.HgSql.Query(sql, (page-1)*pageSize, pageSize)
-
 	var comments []Comment
+	rows, _, err := db.HgSql.Query(sql, (page-1)*pageSize, pageSize)
+
+	if err != nil {
+		return comments, err
+	}
 
 	for _, row := range rows {
 
@@ -124,7 +132,7 @@ func (cm *CommentModel) FindAllCount(agrs map[string]string) (int, error) {
 
 	sql = sql + " 1=1 "
 
-	rows, res, err := db.HgSql.Query(sql)
+	_, res, err := db.HgSql.Query(sql)
 
 	if err != nil {
 		return 0, err
@@ -138,7 +146,10 @@ func (cm *CommentModel) FindAllCount(agrs map[string]string) (int, error) {
 
 func (cm *CommentModel) Insert(comment Comment) (int64, error) {
 	stmt, err := db.HgSql.Prepare("INSERT comment SET idpost=?,content=?,idpeople=?,parent=?,create_time=now()")
-	rows, res, err := stmt.Exec(comment.Idpost, comment.Content, comment.Idpeople, comment.Parent)
+	_, _, err = stmt.Exec(comment.Idpost, comment.Content, comment.Idpeople, comment.Parent)
+	if err != nil {
+		fmt.Println(err)
+	}
 	/*	id, err := rows.LastInsertId()
 		if err != nil {
 			return 0, err

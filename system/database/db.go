@@ -24,6 +24,8 @@ func init() {
 		dbPassword := helper.GetConfig("db_password")
 
 		HgSql = mysql.New("tcp", "", dbHost, dbUser, dbPassword, dbName)
+		HgSql.Register("SET NAMES utf8")
+
 		err := HgSql.Connect()
 		if err != nil {
 			panic(err)

@@ -16,11 +16,15 @@ type PostClassModel struct {
 	TableName string
 }
 
-func (pcm *PostClassModel) FindAll() []PostClass {
-
-	rows, res, err := db.HgSql.Query("SELECT idpost_class,name,parent,code FROM post_class")
+func (pcm *PostClassModel) FindAll() ([]PostClass, error) {
 
 	var postClass []PostClass
+	rows, _, err := db.HgSql.Query("SELECT idpost_class,name,parent,code FROM post_class")
+
+	if err != nil {
+		fmt.Println(err)
+		return postClass, nil
+	}
 
 	for _, row := range rows {
 		var pc PostClass
@@ -36,15 +40,27 @@ func (pcm *PostClassModel) FindAll() []PostClass {
 	return postClass, nil
 }
 
-func (pcm *PostClassModel) Find(id int64) PostClass {
+func (pcm *PostClassModel) Find(id int64) (PostClass, error) {
 	sql := "select idpost_class,name,parent,code from post_class where idpost_class=%d"
-	rows, res, err := db.HgSql.Query(sql, id)
 
 	var postClass PostClass
-	err := row.Scan(&postClass.IdpostClass, &postClass.Name, &postClass.Parent, &postClass.Code)
+	_, res, err := db.HgSql.Query(sql, id)
+	row, err := res.GetRow()
+
+	if err != nil {
+		fmt.Println(err)
+		return postClass, err
+	}
+
+	postClass.IdpostClass = row.Int64(0)
+	postClass.Name = row.Str(1)
+	postClass.Parent = row.Int64(2)
+	postClass.Code = row.Str(3)
+
 	if err != nil {
 		fmt.Print(err)
-		return postClass
+		return postClass, err
 	}
-	return postClass
+
+	return postClass, nil
 }

@@ -71,8 +71,6 @@ func Login(rw http.ResponseWriter, req *http.Request) {
  */
 func Regist(rw http.ResponseWriter, req *http.Request) {
 	fmt.Println("path", req.URL.Path)
-	post, _ := postModel.Test(9)
-	fmt.Println(post.Content)
 
 	if req.Method == "GET" {
 		tmpl := template.New("registView")

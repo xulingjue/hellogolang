@@ -288,6 +288,8 @@ a {
 .hg-entity-list-content-row{
 	font-family: "Microsoft Yahei",arial,helvetica,sans-serif;
 	margin-top: 10px;
+	word-wrap: break-word; 
+	word-break: normal;
 }
 .hg-entity-list-entity-end{
 	border-bottom: 1px solid #375EAB;	
@@ -314,6 +316,14 @@ a {
 .hg-active-user td{
 	border-top: 1px solid #E0EBF5;	
 	border-bottom: 1px solid #E0EBF5;	
+}
+
+.entry-content{
+	word-wrap: break-word; 
+	word-break: normal;
+	font-family: "Microsoft Yahei",arial,helvetica,sans-serif;
+	font-size: 16px;
+	margin-top: 15px;
 }
 
 
