@@ -34,5 +34,4 @@ func init() {
 			fmt.Println("db init success")
 		}
 	}
-
 }
