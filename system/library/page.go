@@ -20,14 +20,19 @@ func (p *Page) Compute() {
 			p.TotalPage = p.Count/p.PageSize + 1
 		}
 
-		if p.TotalPage > 5 {
-			if p.PageNum > 1 {
-				p.PreLink = p.PageNum - 1
-			}
-			if p.PageNum < p.TotalPage {
-				p.NextLink = p.PageNum + 1
-			}
+		if p.PageNum > 1 {
+			p.PreLink = p.PageNum - 1
+		} else {
+			p.PreLink = 1
+		}
 
+		if p.PageNum < p.TotalPage {
+			p.NextLink = p.PageNum + 1
+		} else {
+			p.NextLink = p.TotalPage
+		}
+
+		if p.TotalPage > 5 {
 			index := 1
 			if p.PageNum > 3 && p.TotalPage-p.PageNum > 1 {
 				index = p.PageNum - 2
@@ -39,7 +44,6 @@ func (p *Page) Compute() {
 			for i := 0; i < 5 && index+i < p.TotalPage+1; i++ {
 				p.Links = append(p.Links, index+i)
 			}
-
 		} else {
 			for index := 1; index < p.TotalPage+1; index++ {
 				p.Links = append(p.Links, index)

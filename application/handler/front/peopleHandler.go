@@ -9,9 +9,9 @@ import (
 )
 
 /*
- * 登录操作
+ * 登录操作  计划改为ajax登录
  */
-func Login(rw http.ResponseWriter, req *http.Request) {
+func Login(rw http.ResponseWriter, req *http.Request) { //ok
 	if req.Method == "GET" {
 
 		tmpl := template.New("people-login.tmpl")
@@ -34,12 +34,12 @@ func Login(rw http.ResponseWriter, req *http.Request) {
 		name := req.FormValue("name")
 		password := req.FormValue("password")
 
-		people, _ := peopleModel.FindByName(name)
-		if people.Idpeople == 0 {
-			people, _ = peopleModel.FindByEmail(name)
+		people := peopleModel.FindByName(name)
+		if people == nil {
+			people = peopleModel.FindByEmail(name)
 		}
 
-		if people.Idpeople != 0 && people.Password == password {
+		if people != nil && people.Password == password {
 			session, _ := store.Get(req, "hellogolang.org-user")
 			session.Values["name"] = people.Name
 			session.Values["email"] = people.Email
@@ -92,7 +92,7 @@ func Regist(rw http.ResponseWriter, req *http.Request) {
 		people.Name = req.FormValue("name")
 		people.Email = req.FormValue("email")
 		people.Password = req.FormValue("password")
-		people.Idpeople, _ = peopleModel.Insert(people)
+		people.Idpeople = peopleModel.Insert(people)
 
 		if people.Idpeople != 0 {
 			session, _ := store.Get(req, "hellogolang.org-user")
@@ -101,7 +101,7 @@ func Regist(rw http.ResponseWriter, req *http.Request) {
 			session.Values["idpeople"] = people.Idpeople
 
 			session.Save(req, rw)
-			Index(rw, req)
+			http.Redirect(rw, req, "/", http.StatusFound)
 		}
 
 	}
@@ -110,7 +110,7 @@ func Regist(rw http.ResponseWriter, req *http.Request) {
 /*
  *退出
  */
-func Logout(rw http.ResponseWriter, req *http.Request) {
+func Logout(rw http.ResponseWriter, req *http.Request) { //ok
 	session, _ := store.Get(req, "hellogolang.org-user")
 	session.Values["name"] = nil
 	session.Values["email"] = nil
@@ -122,7 +122,7 @@ func Logout(rw http.ResponseWriter, req *http.Request) {
 	http.Redirect(rw, req, "/", http.StatusFound)
 }
 
-func SessionSet(rw http.ResponseWriter, req *http.Request) {
+func SessionSet(rw http.ResponseWriter, req *http.Request) { //ok
 	//写入session
 	session, _ := store.Get(req, "hellogolang.org-user")
 	// Set some session values.
@@ -134,34 +134,34 @@ func SessionSet(rw http.ResponseWriter, req *http.Request) {
 	session.Save(req, rw)
 }
 
-func SessionGet(rw http.ResponseWriter, req *http.Request) {
+func SessionGet(rw http.ResponseWriter, req *http.Request) { //ok
 	//写入session
 	session, _ := store.Get(req, "hellogolang.org-user")
 	// Set some session values.
 	fmt.Println(session.Values["name"])
 	var people model.People
-	people.Idpeople = session.Values["idpeople"].(int64)
+	people.Idpeople = session.Values["idpeople"].(uint64)
 }
 
 /*
  * ajax 判断用户是否存在 
  */
-func PeopleAjaxIsExist(rw http.ResponseWriter, req *http.Request) {
+func PeopleAjaxIsExist(rw http.ResponseWriter, req *http.Request) { //ok
 	req.ParseForm()
 	name := req.FormValue("name")
 	email := req.FormValue("email")
 
 	if name != "" {
-		people, _ := peopleModel.FindByName(name)
-		if people.Idpeople != 0 {
+		people := peopleModel.FindByName(name)
+		if people != nil {
 			fmt.Fprintf(rw, "false")
 			return
 		}
 	}
 
 	if email != "" {
-		people, _ := peopleModel.FindByEmail(email)
-		if people.Idpeople != 0 {
+		people := peopleModel.FindByEmail(email)
+		if people != nil {
 			fmt.Fprintf(rw, "false")
 			return
 		}

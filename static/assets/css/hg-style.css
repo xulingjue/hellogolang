@@ -1,0 +1,32 @@
+#loginform p, .form p {display:block; margin-bottom:10px!important; font-size:1.2em;}
+.textfield input {display:block; width:100%; height:25px; line-height:24px; border:solid 1px #ccc;}
+#footerwrap .credit {width: auto;}
+#footerwrap .copyright{width: 100%;text-align: center;}
+
+.nositebar-content{
+	background:none!important;
+}
+.nositebar-main{
+	width:100%!important;
+	min-height:500px;
+}
+.horizontal-form{
+	
+}
+.horizontal-form label{
+	padding-right:10px;
+	display:block;
+	float:left;
+	width:25%;
+	text-align:right;
+}
+.horizontal-form input[type="text"]{
+	width:65%;
+	display:block;
+}
+
+
+account {
+	display:block;
+	margin-bottom: 30px;
+}

@@ -16,8 +16,6 @@ import (
  */
 
 func Index(rw http.ResponseWriter, req *http.Request) {
-	fmt.Println("path", req.URL.Path)
-
 	people := isLogin(req)
 
 	req.ParseForm()
@@ -27,8 +25,7 @@ func Index(rw http.ResponseWriter, req *http.Request) {
 		page = 1
 	}
 
-	posts, _ := postModel.FindAll(page, pageSize, map[string]string{})
-	count, _ := postModel.FindAllCount(map[string]string{})
+	posts, count := postModel.FindAll(page, pageSize, map[string]string{})
 
 	var pageHelper library.Page
 	pageHelper.Count = count
@@ -79,8 +76,7 @@ func PostPage(rw http.ResponseWriter, req *http.Request) {
 		pageHelper.BaseUrl = "/post/?page="
 	}
 
-	posts, _ := postModel.FindAll(page, pageSize, conditions)
-	count, _ := postModel.FindAllCount(conditions)
+	posts, count := postModel.FindAll(page, pageSize, conditions)
 
 	pageHelper.Count = count
 	pageHelper.PageSize = pageSize
@@ -113,8 +109,6 @@ func PostPage(rw http.ResponseWriter, req *http.Request) {
  *	查看单个文章页
  */
 func PostItem(rw http.ResponseWriter, req *http.Request) {
-	fmt.Println("path", req.URL.Path)
-
 	req.ParseForm()
 
 	people := isLogin(req)
@@ -124,19 +118,18 @@ func PostItem(rw http.ResponseWriter, req *http.Request) {
 		page = 1
 	}
 
-	postId, err := strconv.ParseInt(req.FormValue("postId"), 10, 64)
+	postId, err := strconv.ParseUint(req.FormValue("postId"), 10, 64)
 	if err != nil {
 
 	}
 
 	pageSize := 2
-	post, _ := postModel.Find(postId)
-	comments, _ := commentModel.FindAllByPostID(postId, page, pageSize)
-	count, _ := commentModel.FindAllCountByPostID(postId)
+	post := postModel.Find(postId)
+	comments, count := commentModel.FindAllByPostID(postId, page, pageSize)
 
 	var pageHelper library.Page
 
-	pageHelper.BaseUrl = "/post/item/?postId=" + strconv.FormatInt(postId, 10) + "&page="
+	pageHelper.BaseUrl = "/post/item/?postId=" + strconv.FormatUint(postId, 10) + "&page="
 	pageHelper.Count = count
 	pageHelper.PageSize = pageSize
 	pageHelper.PageNum = page
@@ -171,7 +164,7 @@ func PostCreate(rw http.ResponseWriter, req *http.Request) {
 
 	if req.Method == "GET" {
 
-		postClass, _ := postClassModel.FindAll()
+		postClass := postClassModel.FindAll()
 
 		tmpl := template.New("post-createView")
 		tmpl.Funcs(template.FuncMap{"StringEqual": tmplfunc.StringEqual, "Int64Equal": tmplfunc.Int64Equal})
@@ -195,7 +188,7 @@ func PostCreate(rw http.ResponseWriter, req *http.Request) {
 		var err error
 		var post model.Post
 
-		post.IdpostClass, err = strconv.ParseInt(req.FormValue("post_class"), 10, 64)
+		post.Class.IdpostClass, err = strconv.ParseUint(req.FormValue("post_class"), 10, 64)
 		if err != nil {
 			fmt.Println(err)
 		}
@@ -203,9 +196,8 @@ func PostCreate(rw http.ResponseWriter, req *http.Request) {
 		post.ReprintFrom = req.FormValue("reprint_from")
 		post.ReprintUrl = req.FormValue("reprint_url")
 		post.Title = req.FormValue("title")
-		post.Idpeople = people.Idpeople
+		post.Author.Idpeople = people.Idpeople
 
-		post.Idpeople = 1
 		post.ReadNum = 0
 		post.ReplyNum = 0
 
@@ -218,16 +210,15 @@ func CommentCreate(rw http.ResponseWriter, req *http.Request) {
 	fmt.Println("path", req.URL.Path)
 
 	req.ParseForm()
-	postId, _ := strconv.ParseInt(req.FormValue("postId"), 10, 64)
+	postId, _ := strconv.ParseUint(req.FormValue("postId"), 10, 64)
 	people := isLogin(req)
 	content := req.FormValue("content")
 
-	fmt.Println(content)
 	var comment model.Comment
 
 	comment.Idpost = postId
 	comment.Content = content
-	comment.Idpeople = people.Idpeople
+	comment.Author = *people
 	comment.Parent = 0
 
 	commentModel.Insert(comment)

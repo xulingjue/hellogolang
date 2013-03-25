@@ -1,0 +1,84 @@
+{{define "post-list"}}
+{{template "header" .}}
+<!-- Begin page content -->
+      <div class="container">
+        <div class="row  hg-main-container">
+          <!--left-->
+          <div class="span8">
+            <div class="row">
+              <div class="span8">
+                <div class="well">
+                  <p>最新的golang资讯，经典的golang教程！ </p>
+                </div>
+              </div>
+            </div>
+
+            {{range .posts}}
+            <div class="row" >
+              <div class="span6">
+                <div class="hg-entity-list-cat">
+                  <div>
+                      <a title="浏览“{{ .Class.Name }}”下的文章" href="#">{{ .Class.Name }}</a>
+                  </div>
+                  <div class="hg-entity-list-cat-arrow"></div>
+                </div>
+                <h5 class="hg-entity-list-name yahei"><a href="/post/item?postId={{ .Idpost}}" rel="external" title="Permalink to  {{ .Title }}" target="_blank">{{ .Title }}</a>
+                </h5>
+              </div>
+
+              <div class="span2">
+                <span class="label label-warning hg-entity-list-recomend-num">{{ .ReplyNum }} 回复</span>
+              </div>
+
+              <div class="span8 hg-entity-list-author-row">
+                <span class="">{{ .CreateTime }}</span> | <a href="#">{{ .Author.Name }}</a>
+              </div>
+
+              <div class="span8 hg-entity-list-content-row">
+                {{ RemoveHtmlTag .Content }}
+              </div>
+
+              <div class="span8 hg-entity-list-more">
+                <a class="btn btn-mini btn-info" href="/post/item?postId={{ .Idpost }}&page=1" type="button">详细>></a>
+              </div>
+
+              <div class="span8 hg-entity-list-entity-end"></div>
+            </div>
+            {{end}}
+
+
+            {{template "page" .}}
+         
+
+          </div><!-- left end-->
+
+          <!--right-->
+          <div class="span4">
+            <!--
+            <div class="well">
+              <a class="btn btn-block btn-success" href="/post/create?postType={{.postType}}">写新文章</a>
+            </div>
+            -->
+            <div>
+              <table class="hg-active-user table table-hover">
+                <tr><th>最新文章</th></tr>
+                <tr><td>&nbsp;</td></tr>
+                <tr><td>&nbsp;</td></tr>
+                <tr><td>&nbsp;</td></tr>
+              </table>
+            </div>
+
+            <div>
+              <table class="hg-active-user table table-hover">
+                <tr><th>阅读排行</th></tr>
+                <tr><td>&nbsp;</td></tr>
+                <tr><td>&nbsp;</td></tr>
+                <tr><td>&nbsp;</td></tr>
+              </table>
+            </div>
+          </div><!--right end-->
+        </div>
+      </div>
+
+{{template "footer" .}}
+{{end}}

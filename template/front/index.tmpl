@@ -1,118 +1,77 @@
 {{define "index"}}
 {{template "header" .}}
-<!-- Begin page content -->
-      <div class="container">
-        <div class="row  hg-main-container">
-          <!--left-->
-          <div class="span8">
-            <div class="row">
-              <div class="span8">
-                <div class="well">
-                  <h4>欢迎来到 Hello Golang 网站！</h4>
-                  <p>----兼容ie9+，firefox，chrome，猎豹等浏览器。</p>
-                </div>
-              </div>
-            </div>
+<div id="contents">
+<section id="main">
+	<div id="leftcontainer">
+		<h2 class="mainheading">
+		最新文章列表
+		</h2>
 
-            {{range .posts}}
-            <div class="row" >
-              <div class="span6">
-                <div class="hg-entity-list-cat">
-                  <div>
-                      <a href="/post?cat={{.Class.IdpostClass}}" target="{{.Idpost}}_window" title="浏览“{{ .Class.Name }}”下的文章" href="#">{{ .Class.Name }}</a>
-                  </div>
-                  <div class="hg-entity-list-cat-arrow"></div>
-                </div>
-                <h5 class="hg-entity-list-name yahei"><a href="/post/item/?postId={{ .Idpost}}" rel="external" title="Permalink to  {{ .Title }}" target="_blank">{{ .Title }}</a>
-                </h5>
-              </div>
+ 		{{range .posts}}
+		<article class="post">
+			<header>
+				<h3>{{ .Title }}</h3>
+				<p class="postinfo">{{ .CreateTime }} | <a href="#">{{ .Author.Name }}</a> | <a href="/post/?cat={{.Class.IdpostClass}}" target="{{.Idpost}}_window" title="浏览“{{ .Class.Name }}”下的文章" href="#">{{ .Class.Name }}</a></p>
+			</header>
+			<p>
+				{{ RemoveHtmlTag .Content }}
+			</p>
 
-              <div class="span2">
-                <span class="label label-warning hg-entity-list-recomend-num">{{ .ReplyNum }} 回复</span>
-              </div>
+			<footer>
+			<span class="permalink"><a href="#permalink">阅读全文</a></span>
+			<span class="comments"><a href="#">21 回复</a></span>
+			</footer>
+		</article>
+ 		{{end}}
 
-              <div class="span8 hg-entity-list-author-row">
-                <span class="">{{ .CreateTime }}</span> | <a href="#">{{ .Author.Name }}</a>
-              </div>
+		{{template "page" .}}	
+	</div>
+</section>
 
-              <div class="span8 hg-entity-list-content-row">
-                {{ RemoveHtmlTag .Content }}
-              </div>
 
-              <div class="span8 hg-entity-list-more">
-                <a class="btn btn-mini btn-info" target="_blank" href="/post/item/?postId={{ .Idpost }}&page=1" type="button">详细>></a>
-              </div>
+<section id="sidebar">
+	<div id="sidebarwrap">
+		<h2>登录</h2>
+		<account>
+			<form id="loginform">
+				<p class="textfield">
+				<input type="text" placeholder="&nbsp;用户名/邮箱"  name="name"/>
+				</p>
+				
+				<p class="textfield">
+				<input type="password" placeholder="&nbsp;密码"  name="password"/>
+				</p>
 
-              <div class="span8 hg-entity-list-entity-end"></div>
-            </div>
-            {{end}}
+				<p class="textfield">
+				<span>没有账号？去<a href="#">注册</a></span><input type="submit" value="登陆" style="width:100px;float:right;"/>
+				</p>
+				<div class="clear"></div>
+			</form>
+		</account>
 
-            {{template "page" .}}
+		  
+		<h2>分类</h2>
+		<ul>
+			<li><a href="#">Web Design</a>(4)</li>
+			<li><a href="#">Graphics Design</a>(8)</li>
+		</ul>
 
-          </div><!-- left end-->
+		<h2>最新</h2>
+		<ul>
+			<li><a href="#">Web Design</a></li>
+			<li><a href="#">Web Design</a></li>
+			<li><a href="#">Web Design</a></li>
+			<li><a href="#">Web Design</a></li>
+			<li><a href="#">Web Design</a></li>
+			<li><a href="#">Web Design</a></li>
+			<li><a href="#">Web Design</a></li>
 
-          <!--right-->
-          <div class="span4">
-            {{if .people.Idpeople}}
-            <div class="well">
-              <table class="table table-user-message" style="margin-bottom:0px;">
-                <tr><td style="width:85px; padding-left:0px;"><img src="/assets/image/default.png" width="80" style="max-width:80px;" class="img-rounded"></td><td>
-                  <h5 style="margin:0;">{{ .people.Name }}</h5>
-                  <br/>
-                  
-                  加入：2012-08-19<br/>
-                </td></tr>
-              </table>
-            </div> <!-- 登录后状态 end -->
-            {{ else}}
-            <div class="well">
-              <form method="post" action="/login" id="login-form">
-              <div class="control-group">
-                <div class="controls">
-                  <input type="text" name="name" class="btn-block hg-input-block" placeholder="邮箱">
-                </div>
-              </div>
-              <div class="control-group">
-                <div class="controls">
-                  <input type="password" name="password" class="btn-block hg-input-block" placeholder="密码">
-                </div>
-              </div>
+		</ul>
+	</div>
+</section>
 
-              <div class="control-group">
-                <div class="controls">
-                  <a href="#" id="login-submit" class="btn btn-block btn-success">登录</a>
-                </div>
-              </div>
-              
-              <div class="control-group">
-                <div class="controls">
-                  <a href="/regist" class="btn btn-block btn-info">没有账号？去注册！</a>
-                </div>
-              </div>
-              </form>
-            </div>
-            {{ end }}
-
-            <div>
-              <table class="hg-active-user table table-hover">
-                <tr><th>活跃成员</th></tr>
-                <tr><td>&nbsp;</td></tr>
-                <tr><td>&nbsp;</td></tr>
-                <tr><td>&nbsp;</td></tr>
-              </table>
-            </div>
-
-            <div>
-              <table class="hg-active-user table table-hover">
-                <tr><th>人气文章</th></tr>
-                <tr><td>&nbsp;</td></tr>
-                <tr><td>&nbsp;</td></tr>
-                <tr><td>&nbsp;</td></tr>
-              </table>
-            </div>
-          </div><!--right end-->
-        </div>
-      </div>
-
+<div class="clear"></div>
+</div>
+</div>
 {{template "footer" .}}
 {{end}}

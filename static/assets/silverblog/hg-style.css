@@ -1,0 +1,7 @@
+#loginform p, .form p {display:block; margin-bottom:10px!important; font-size:1.2em;}
+.textfield input {display:block; width:100%; height:25px; line-height:24px; border:solid 1px #ccc;}
+
+account {
+	display:block;
+	margin-bottom: 30px;
+}

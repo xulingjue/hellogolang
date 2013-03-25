@@ -1,41 +1,57 @@
 {{define "people-regist"}}
 {{template "header" .}}
-<!-- Begin page content -->
-    <div class="container ">
-        <div class="row hg-main-container">
-          <div class="span3"></div>
-          <div class="span6 well">
-            <form id="regist_form" action="/regist" method="post">
-              <fieldset>
-                <legend><span class="hg-text-color">Hello Golang</span> 社区账号注册</legend>
+<div id="contents" class="nositebar-content">
+<section id="main" class="nositebar-main">
+	<div style="width:500px;margin: 0 auto;">
+		<h2 class="mainheading">
+			注册一个"Hello Golang"账号
+		</h2>
 
-                <label>用户名 <span class="hg-help-info"></span></label>
-                <input type="text" name="name" id="name" size="20" class="btn-block hg-input-block error" placeholder="用户名可以为中文，最长10位字符">
-                <!--<span class="help-block">Example block-level help text here. </span>
-              placeholder="用户名可以为中文，最长10位字符"-->
-
-                <label>邮箱 <span class="hg-help-info"></span> </label>
-                <input type="text" name="email" id="email" size="20" class="btn-block hg-input-block" placeholder="请输入常用邮箱地址">
-                
-
-                <label>密码 <span class="hg-help-info"></span></label>
-                <input type="password" name="password" id="password" size="20" class="btn-block hg-input-block" placeholder="密码为8-20位，仅可用英文和数字">
-                <!--<span class="help-block">Example block-level help text here.</span>-->
-
-                <label>重复密码 <span class="hg-help-info"></span></label>
-                <input type="password" name="repassword" id="repassword" size="20" class="btn-block hg-input-block" placeholder="请重复密码">
-                <!--<span class="help-block">Example block-level help text here.</span>-->
-
-              
-				        <input type="submit" value="注册账号" class="btn btn-success" id="submit" name="submit" />
-              </fieldset>
-            </form>
-          </div>
-          <div class="span3"></div>
-        </div>
-    </div>
+		<form action="#" method="post" class="form horizontal-form">
+		   <p class="textfield">
+				<label for="author">
+					 <small>用户名*</small>
+				</label>
+				<input name="author" id="author" value="" size="22" tabindex="1" type="text"/>
+				<div class="clear"></div>
+		   </p>
+		   <p class="textfield">
+				<label for="email">
+					  <small>邮箱*</small>
+				</label>
+				<input name="email" id="email" value="" size="22" tabindex="2" type="text"/>
+				<div class="clear"></div>
+		   </p>
+			 <p class="textfield">
+				<label for="email">
+					  <small>密码*</small>
+				</label>
+				<input name="email" id="email" value="" size="22" tabindex="2" type="text"/>
+				<div class="clear"></div>
+		   </p>
+		   
+			 <p class="textfield">
+				<label for="email">
+					  <small>重复密码*</small>
+				</label>
+				<input name="email" id="email" value="" size="22" tabindex="2" type="text"/>
+				<div class="clear"></div>
+		   </p>
+		   
+		   
+		   <p>
+			   <label for="email">
+					<input name="submit" id="submit" tabindex="5" type="submit"  value="注册"/>
+			   </label>
+			   <div class="clear"></div>
+		   </p>
+		   <div class="clear"></div>
+		</form>
+	</div>
+</section>
+<!--Important--><div class="clear"></div>
+</div>
 
 <!-- End -->
 {{template "footer" .}}
 {{end}}
-

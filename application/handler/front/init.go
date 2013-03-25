@@ -3,6 +3,7 @@ package front
 import (
 	"code.google.com/p/gorilla/sessions"
 	"hellogolang/application/model"
+	"hellogolang/system/library"
 )
 
 var (
@@ -10,7 +11,7 @@ var (
 	postModel      model.PostModel
 	postClassModel model.PostClassModel
 	store          *sessions.CookieStore
-	siteInfo       SiteInfo
+	siteInfo       library.SiteInfo
 	commentModel   model.CommentModel
 )
 
@@ -20,17 +21,4 @@ func init() {
 	postModel = model.PostModel{"post"}
 	postClassModel = model.PostClassModel{"post_class"}
 	commentModel = model.CommentModel{"comment"}
-}
-
-/*
- *界面辅助类
- */
-type SiteInfo struct {
-	BaseUrl    string
-	CurrentNav string
-
-	ExtraJs  []string
-	Js       []string
-	ExtraCss []string
-	Css      []string
 }
