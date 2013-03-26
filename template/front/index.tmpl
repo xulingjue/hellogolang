@@ -19,8 +19,11 @@
 
 			<footer>
 			<span class="permalink"><a href="#permalink">阅读全文</a></span>
-			<span class="comments"><a href="#">21 回复</a></span>
+			<span class="comments">21 阅读</span>
+			<span class="comments">0 回复</span>
 			</footer>
+			</footer>
+
 		</article>
  		{{end}}
 
@@ -28,50 +31,10 @@
 	</div>
 </section>
 
-
-<section id="sidebar">
-	<div id="sidebarwrap">
-		<h2>登录</h2>
-		<account>
-			<form id="loginform">
-				<p class="textfield">
-				<input type="text" placeholder="&nbsp;用户名/邮箱"  name="name"/>
-				</p>
-				
-				<p class="textfield">
-				<input type="password" placeholder="&nbsp;密码"  name="password"/>
-				</p>
-
-				<p class="textfield">
-				<span>没有账号？去<a href="#">注册</a></span><input type="submit" value="登陆" style="width:100px;float:right;"/>
-				</p>
-				<div class="clear"></div>
-			</form>
-		</account>
-
-		  
-		<h2>分类</h2>
-		<ul>
-			<li><a href="#">Web Design</a>(4)</li>
-			<li><a href="#">Graphics Design</a>(8)</li>
-		</ul>
-
-		<h2>最新</h2>
-		<ul>
-			<li><a href="#">Web Design</a></li>
-			<li><a href="#">Web Design</a></li>
-			<li><a href="#">Web Design</a></li>
-			<li><a href="#">Web Design</a></li>
-			<li><a href="#">Web Design</a></li>
-			<li><a href="#">Web Design</a></li>
-			<li><a href="#">Web Design</a></li>
-
-		</ul>
-	</div>
-</section>
+{{template "sidebar" .}}	
 
 <div class="clear"></div>
 </div>
-</div>
+
 {{template "footer" .}}
 {{end}}

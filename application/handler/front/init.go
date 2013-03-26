@@ -3,7 +3,6 @@ package front
 import (
 	"code.google.com/p/gorilla/sessions"
 	"hellogolang/application/model"
-	"hellogolang/system/library"
 )
 
 var (
@@ -11,7 +10,7 @@ var (
 	postModel      model.PostModel
 	postClassModel model.PostClassModel
 	store          *sessions.CookieStore
-	siteInfo       library.SiteInfo
+	siteInfo       SiteInfo
 	commentModel   model.CommentModel
 )
 

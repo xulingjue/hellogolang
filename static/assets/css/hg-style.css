@@ -3,6 +3,15 @@
 #footerwrap .credit {width: auto;}
 #footerwrap .copyright{width: 100%;text-align: center;}
 
+
+.post footer a {
+	color: #1496d9;
+}
+.post a:hover {
+	color: #1496d9;
+	text-decoration: underline;
+}
+
 .nositebar-content{
 	background:none!important;
 }
@@ -15,36 +24,141 @@
 }
 .horizontal-form label{
 	padding-right:10px;
-	display:block;
+	display:inline;
 	float:left;
-	width:25%;
+	width:15%;
 	text-align:right;
+	height: 25px;
+	line-height: 25px;
+
 }
 .horizontal-form input[type="text"]{
-	width:65%;
+	width:50%;
 	display:block;
+	float: left;
+	display: inline;
 }
 
-.horizontal-form input[type="submit"]{
-	width:auto;
+.horizontal-form input[type="password"]{
+	width:50%;
 	display:block;
+	float: left;
+	display: inline;
+}
 
-	border: 1px solid #cccccc;
-	border-color: #e6e6e6 #e6e6e6 #bfbfbf;
-	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-	border-bottom-color: #b3b3b3;
-	background-color: #5bb75b;
-	color: #ffffff;
-	width: 100px;
-	height: 30px;
-	line-height: 30px;
+.submit-btn{
+	display:block;
+	border: 0px solid #cccccc;
+	
+	width: 100px!important;
+	height: 25px;
+	line-height: 25px;
 	font-size: 14px;
 	cursor:pointer;
+
+	padding: 0px 20px 0 20px;
+	height: 32px!important;
+	line-height: 32px!important;
+	
+	color: #fff;
+	display: inline-block;
+	_background: none;
+	background-color: #6fbfb1;
+	text-align: center;
 }
 
-account {
+.textfield select {
+	display: block;
+	width: 100px;
+	height: 25px;
+	line-height: 24px;
+	border: solid 1px #ccc;
+}
+
+.textfield small{
+	font-weight: bold;
+	font-size: 12px;
+}
+
+
+.input-error{
+	color: red;
+	display: block;
+	height: 25px;
+	line-height: 25px;
+}
+
+account{
+	margin-bottom: 15px;
+	display: block;
+}
+
+account .avatar{
+	float: left;
+}
+
+account .userinfo span{
+	display: block;
+
+}
+
+account .userinfo{
+	margin-left: 90px;
+}
+
+
+account .userinfo .name{
+	font-size: 16px;
+	font-weight :bold;
+	margin-top: 5px;
+}
+
+account .userinfo .score{
+	font-size: 12px;
+	margin-top: 10px;
+	font-weight: bold;
+}
+
+account .user-btn-panel{
+	margin-top: 10px;
+}
+
+account .user-btn-panel span{
+	width: 50%;
 	display:block;
-	margin-bottom: 30px;
+	float: left;
 }
 
+account .user-btn-panel span a{
+	width: 80px;
+}
+	
 
+.btncjcp {
+	padding: 0px 20px 0 20px;
+	height: 32px;
+	line-height: 32px;
+	
+	color: #fff;
+	display: inline-block;
+	_background: none;
+	background-color: #6fbfb1;
+	text-align: center;
+}
+
+.btnjlrj {
+	text-align: center;
+	padding: 0px 20px 0 20px;
+	height: 32px;
+	line-height: 32px;
+	color: #fff;
+	display: inline-block;
+	_background: none;
+	background-color: #6fbfb1;
+	float:right;
+}
+
+.regist-link{
+	line-height: 32px;
+	height: 32px;
+}

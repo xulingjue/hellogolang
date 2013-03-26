@@ -1,33 +1,72 @@
 {{define "post-create"}}
 {{template "header" .}}
-      <div class="container">
-          <div class="row hg-main-container">
-              <div class="span8">
-                <form action="/post/create/" method="post" id="post_form">
-                  <div class="well hg-max-height-row">
-                  <h5>栏目</h5>
-                  <select name="post_class">
+<div id="contents">
+
+
+
+<section id="main">
+<div id="leftcontainer">
+  	<h2>发表新文章</h2>
+  	<article class="post">
+		<form  method="post" class="form" id="post_form">
+		   	<p class="textfield">
+		   		<label for="author">
+		            <small>标题</small>
+		        </label>
+		        <input name="title" id="title" value="" size="22" type="text">  
+		   	</p>
+		   	<p class="textfield">
+		   		<label for="email">
+		              <small>栏目</small>
+		        </label>
+		       	<select name="post_class">
                     {{range .postClass}} 
                       <option value="{{.IdpostClass}}">{{.Name}}</option>
                     {{end}}
-                  </select>
+                </select>
+		   	</p>
 
-                  <h5>标题</h5>
-                  <input type="text" class="hg-input-block btn-block" name="title"/>
-                  <h5>正文</h5>
-                  <textarea id="contentqq" name="content" style="width:100%;height:330px;visibility:hidden;"></textarea>
-                  <h5>出处</h5>
-                  <input type="text" class="hg-input-block btn-block" name="reprint_from"/>
-                  <h5>源地址</h5>
-                  <input type="text" class="hg-input-block btn-block" name="reprint_url"/>
-                  <br/>
-                  <input type="submit" value="发表" class="btn btn-success"/>
-                  </div>
+		   	<p class="textfield">
+		   		<label for="content">
+		            <small>正文</small>
+		        </label>
+		       <textarea id="contentqq" name="content" style="width:100%;height:330px;visibility:hidden;"></textarea>
+		       <input type="hidden" value="0" name="contetnum"/>
+		   	</p>
 
-                  <input type="hidden" value="0" name="contetnum"/>
-                </form>
-              </div>
-          </div>
-      </div>
+		   	<p class="textfield">
+		   		 <label for="url">
+		             <small>出处</small>
+		          </label>
+		       <input name="reprint_from" id="url"  placeholder="&nbsp;原创文章此处请留空" value="" size="22" tabindex="3" type="text">
+		         
+		   </p>
+
+		   <p class="textfield">
+		   		 <label for="url">
+		             <small>源地址</small>
+		          </label>
+		       <input name="reprint_url" id="url" placeholder="&nbsp;原创文章此处请留空" value="" size="22" tabindex="3" type="text">
+		         
+		   </p>
+		 
+		   <p>
+		       <input name="submit" id="submit"  class="submit-btn" type="submit"  value="发表文章"/>
+		   </p>
+		   <div class="clear"></div>
+		</form>
+	<!--Important--><div class="clear"></div>
+	</article>
+</div>
+</section>
+
+
+
+{{template "sidebar" .}}
+
+
+<div class="clear"></div>
+</div>
+
 {{template "footer" .}}
 {{end}}

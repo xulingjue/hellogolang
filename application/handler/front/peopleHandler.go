@@ -71,6 +71,9 @@ func Login(rw http.ResponseWriter, req *http.Request) { //ok
  */
 func Regist(rw http.ResponseWriter, req *http.Request) {
 	fmt.Println("path", req.URL.Path)
+	fmt.Println(req.Method)
+	//检测是否已经登录
+	//people := isLogin(req)
 
 	if req.Method == "GET" {
 		tmpl := template.New("registView")
@@ -86,25 +89,50 @@ func Regist(rw http.ResponseWriter, req *http.Request) {
 			"http://jzaefferer.github.com/jquery-validation/jquery.validate.js"}
 
 		tmpl.ExecuteTemplate(rw, "people-regist", map[string]interface{}{"siteInfo": siteInfo})
-	} else {
+	} else if req.Method == "POST" {
 		req.ParseForm()
 		var people model.People
 		people.Name = req.FormValue("name")
 		people.Email = req.FormValue("email")
 		people.Password = req.FormValue("password")
-		people.Idpeople = peopleModel.Insert(people)
+		fmt.Println("start get value ...")
 
-		if people.Idpeople != 0 {
-			session, _ := store.Get(req, "hellogolang.org-user")
-			session.Values["name"] = people.Name
-			session.Values["email"] = people.Email
-			session.Values["idpeople"] = people.Idpeople
+		if checkRegistMess(people) {
+			fmt.Println("start insert ...")
+			people.Idpeople = peopleModel.Insert(people)
+			if people.Idpeople != 0 {
+				session, _ := store.Get(req, "hellogolang.org-user")
+				session.Values["name"] = people.Name
+				session.Values["email"] = people.Email
+				session.Values["idpeople"] = people.Idpeople
 
-			session.Save(req, rw)
-			http.Redirect(rw, req, "/", http.StatusFound)
+				session.Save(req, rw)
+				http.Redirect(rw, req, "/", http.StatusFound)
+			}
 		}
 
 	}
+}
+
+func checkRegistMess(people model.People) bool {
+	//检测用户名、Email地址是否合法
+
+	//检测是否重名
+	if people.Name != "" {
+		people := peopleModel.FindByName(people.Name)
+		if people != nil {
+			return false
+		}
+	}
+
+	if people.Email != "" {
+		people := peopleModel.FindByEmail(people.Email)
+		if people != nil {
+			return false
+		}
+	}
+
+	return true
 }
 
 /*

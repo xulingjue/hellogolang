@@ -34,7 +34,7 @@ func (pm *PeopleModel) Find(id uint64) *People {
 	var people People
 	row, _, err := db.HgSql.QueryFirst(sql, id)
 
-	if err != nil {
+	if err != nil || row == nil {
 		return nil
 	}
 
@@ -64,12 +64,12 @@ func (pm *PeopleModel) Insert(people People) uint64 {
 }
 
 func (pm *PeopleModel) FindByName(name string) *People {
-	sql := "select * from people where name=?"
+	sql := "select * from people where name='%s'"
 
 	var people People
 	row, _, err := db.HgSql.QueryFirst(sql, name)
 
-	if err != nil {
+	if err != nil || row == nil {
 		return nil
 	}
 
@@ -89,12 +89,12 @@ func (pm *PeopleModel) FindByName(name string) *People {
 }
 
 func (pm *PeopleModel) FindByEmail(email string) *People {
-	sql := "select * from people where email=?"
+	sql := "select * from people where email='%s'"
 
 	var people People
 	row, _, err := db.HgSql.QueryFirst(sql, email)
 
-	if err != nil {
+	if err != nil || row == nil {
 		return nil
 	}
 

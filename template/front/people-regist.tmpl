@@ -7,12 +7,13 @@
 			注册一个"Hello Golang"账号
 		</h2>
 
-		<form action="#" method="post" class="form horizontal-form">
+		<form action="/regist/" method="post" class="form horizontal-form" id="regist_form">
 		   <p class="textfield">
-				<label for="author">
+				<label for="name">
 					 <small>用户名*</small>
 				</label>
-				<input name="author" id="author" value="" size="22" tabindex="1" type="text"/>
+				<input name="name" id="name" value="" size="22" tabindex="1" type="text"/>
+				<span class="input-error"></span>
 				<div class="clear"></div>
 		   </p>
 		   <p class="textfield">
@@ -20,21 +21,24 @@
 					  <small>邮箱*</small>
 				</label>
 				<input name="email" id="email" value="" size="22" tabindex="2" type="text"/>
+				<span class="input-error"></span>
 				<div class="clear"></div>
 		   </p>
 			 <p class="textfield">
-				<label for="email">
+				<label for="password">
 					  <small>密码*</small>
 				</label>
-				<input name="email" id="email" value="" size="22" tabindex="2" type="text"/>
+				<input name="password" id="password" value="" size="22" tabindex="2" type="password"/>
+				<span class="input-error"></span>
 				<div class="clear"></div>
 		   </p>
 		   
 		   <p class="textfield">
-				<label for="email">
+				<label for="repassword">
 					  <small>重复密码*</small>
 				</label>
-				<input name="email" id="email" value="" size="22" tabindex="2" type="text"/>
+				<input name="repassword" id="repassword" value="" size="22" tabindex="2" type="password"/>
+				<span class="input-error"></span>
 				<div class="clear"></div>
 		   </p>
 
@@ -42,7 +46,7 @@
 				<label for="email">
 					  <small>&nbsp;</small>
 				</label>
-				<input name="submit" id="submit"  type="submit"  value="注册"/>
+				<input name="submit" class="submit-btn" id="submit"  type="submit"  value="注册"/>
 				<div class="clear"></div>
 		   </p>
 		   <div class="clear"></div>

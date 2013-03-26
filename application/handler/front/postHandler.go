@@ -21,7 +21,7 @@ func Index(rw http.ResponseWriter, req *http.Request) {
 	req.ParseForm()
 	pageSize := 2
 	page, err := strconv.Atoi(req.FormValue("page"))
-	if err != nil {
+	if err != nil || page <= 1 {
 		page = 1
 	}
 
@@ -40,7 +40,8 @@ func Index(rw http.ResponseWriter, req *http.Request) {
 		"template/front/header.tmpl",
 		"template/front/index.tmpl",
 		"template/front/footer.tmpl",
-		"template/front/page.tmpl")
+		"template/front/page.tmpl",
+		"template/front/sidebar.tmpl")
 
 	siteInfo.Js = []string{
 		"js/front/people/index.js"}
@@ -55,12 +56,10 @@ func Index(rw http.ResponseWriter, req *http.Request) {
  *	文章分页列表
  */
 func PostPage(rw http.ResponseWriter, req *http.Request) {
-	fmt.Println("path", req.URL.Path)
-
 	req.ParseForm()
 	pageSize := 2
 	page, err := strconv.Atoi(req.FormValue("page"))
-	if err != nil {
+	if err != nil || page <= 1 {
 		page = 1
 	}
 
@@ -160,18 +159,16 @@ func PostItem(rw http.ResponseWriter, req *http.Request) {
  *	创建文章
  */
 func PostCreate(rw http.ResponseWriter, req *http.Request) {
-	fmt.Println("path", req.URL.Path)
-
+	people := isLogin(req)
 	if req.Method == "GET" {
-
 		postClass := postClassModel.FindAll()
-
 		tmpl := template.New("post-createView")
 		tmpl.Funcs(template.FuncMap{"StringEqual": tmplfunc.StringEqual, "Int64Equal": tmplfunc.Int64Equal})
 		tmpl.ParseFiles(
 			"template/front/header.tmpl",
 			"template/front/post-create.tmpl",
-			"template/front/footer.tmpl")
+			"template/front/footer.tmpl",
+			"template/front/sidebar.tmpl")
 
 		siteInfo.Js = []string{
 			"kindeditor/kindeditor-all.js",
@@ -179,7 +176,7 @@ func PostCreate(rw http.ResponseWriter, req *http.Request) {
 			"js/front/post/post-create.js"}
 		siteInfo.CurrentNav = "none"
 
-		tmpl.ExecuteTemplate(rw, "post-create", map[string]interface{}{"siteInfo": siteInfo, "postClass": postClass})
+		tmpl.ExecuteTemplate(rw, "post-create", map[string]interface{}{"siteInfo": siteInfo, "postClass": postClass, "people": people})
 		tmpl.Execute(rw, nil)
 	} else if req.Method == "POST" {
 		req.ParseForm()
@@ -202,7 +199,7 @@ func PostCreate(rw http.ResponseWriter, req *http.Request) {
 		post.ReplyNum = 0
 
 		postModel.Insert(post)
-		http.Redirect(rw, req, "/post?cat="+req.FormValue("post_class"), http.StatusFound)
+		http.Redirect(rw, req, "/post/?cat="+req.FormValue("post_class"), http.StatusFound)
 	}
 }
 

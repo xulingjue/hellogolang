@@ -1,0 +1,74 @@
+{{define "sidebar"}}
+<section id="sidebar">
+	<div id="sidebarwrap">
+		{{ if not .people}}
+		<h2>登录</h2>
+		<account>
+			<form id="loginform">
+
+				<p class="textfield">
+				<span class="error" style="font-size:12px;color:red;">用户名/邮箱或密码错误</span>
+				</p>
+				
+				
+				<p class="textfield">
+				<input type="text" placeholder="&nbsp;用户名/邮箱"  name="name"/>
+				</p>
+				
+				<p class="textfield">
+				<input type="password" placeholder="&nbsp;密码"  name="password"/>
+				</p>
+
+
+				<p class="textfield">
+				<span class="regist-link">没有账号？去<a href="/regist">注册</a></span><input type="submit" value="登陆" class="submit-btn" style="width:100px;float:right;"/>
+				</p>
+
+
+				<div class="clear"></div>
+			</form>
+		</account>
+		{{end}}
+
+		{{ if and .people}}
+		<account>
+			<div class="avatar">
+				<a href="#"><img width="70" src="/assets/image/default3.png" alt="lingjue"></a>
+			</div>
+			<div class="userinfo">
+				<span class="name"><a href="#">{{.people.Name}}</a></span>
+				<span class="score">发帖：50</span>
+				<span class="score">提问：50</span>
+			</div>
+			<div class="clear"></div>
+
+			<div class="user-btn-panel">
+				<span><a href="/post/create/" rel="nofollow" class="btncjcp">发文章</a></span>
+				<span><a href="/diet/create" rel="nofollow" class="btnjlrj">提问题</a></span>
+				<div class="clear"></div>
+			</div>
+
+			<div class="clear"></div>
+		</account>
+		{{end}}
+		  
+		<h2>分类</h2>
+		<ul>
+			<li><a href="#">Web Design</a>(4)</li>
+			<li><a href="#">Graphics Design</a>(8)</li>
+		</ul>
+
+		<h2>最新</h2>
+		<ul>
+			<li><a href="#">Web Design</a></li>
+			<li><a href="#">Web Design</a></li>
+			<li><a href="#">Web Design</a></li>
+			<li><a href="#">Web Design</a></li>
+			<li><a href="#">Web Design</a></li>
+			<li><a href="#">Web Design</a></li>
+			<li><a href="#">Web Design</a></li>
+
+		</ul>
+	</div>
+</section>
+{{end}}
