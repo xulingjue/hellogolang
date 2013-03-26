@@ -117,7 +117,7 @@ func PostItem(rw http.ResponseWriter, req *http.Request) {
 		page = 1
 	}
 
-	postId, err := strconv.ParseUint(req.FormValue("postId"), 10, 64)
+	postId, err := strconv.ParseInt(req.FormValue("postId"), 10, 64)
 	if err != nil {
 
 	}
@@ -128,7 +128,7 @@ func PostItem(rw http.ResponseWriter, req *http.Request) {
 
 	var pageHelper library.Page
 
-	pageHelper.BaseUrl = "/post/item/?postId=" + strconv.FormatUint(postId, 10) + "&page="
+	pageHelper.BaseUrl = "/post/item/?postId=" + strconv.FormatInt(postId, 10) + "&page="
 	pageHelper.Count = count
 	pageHelper.PageSize = pageSize
 	pageHelper.PageNum = page
@@ -185,7 +185,7 @@ func PostCreate(rw http.ResponseWriter, req *http.Request) {
 		var err error
 		var post model.Post
 
-		post.Class.IdpostClass, err = strconv.ParseUint(req.FormValue("post_class"), 10, 64)
+		post.Class.IdpostClass, err = strconv.ParseInt(req.FormValue("post_class"), 10, 64)
 		if err != nil {
 			fmt.Println(err)
 		}
@@ -207,7 +207,7 @@ func CommentCreate(rw http.ResponseWriter, req *http.Request) {
 	fmt.Println("path", req.URL.Path)
 
 	req.ParseForm()
-	postId, _ := strconv.ParseUint(req.FormValue("postId"), 10, 64)
+	postId, _ := strconv.ParseInt(req.FormValue("postId"), 10, 64)
 	people := isLogin(req)
 	content := req.FormValue("content")
 

@@ -95,12 +95,11 @@ func Regist(rw http.ResponseWriter, req *http.Request) {
 		people.Name = req.FormValue("name")
 		people.Email = req.FormValue("email")
 		people.Password = req.FormValue("password")
-		fmt.Println("start get value ...")
 
 		if checkRegistMess(people) {
 			fmt.Println("start insert ...")
-			people.Idpeople = peopleModel.Insert(people)
-			if people.Idpeople != 0 {
+			people := peopleModel.Insert(people)
+			if people == nil {
 				session, _ := store.Get(req, "hellogolang.org-user")
 				session.Values["name"] = people.Name
 				session.Values["email"] = people.Email
@@ -168,7 +167,7 @@ func SessionGet(rw http.ResponseWriter, req *http.Request) { //ok
 	// Set some session values.
 	fmt.Println(session.Values["name"])
 	var people model.People
-	people.Idpeople = session.Values["idpeople"].(uint64)
+	people.Idpeople = session.Values["idpeople"].(int64)
 }
 
 /*

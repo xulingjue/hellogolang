@@ -11,7 +11,7 @@ import (
 )
 
 type People struct {
-	Idpeople   uint64
+	Idpeople   int64
 	Name       string
 	Email      string
 	Phone      string
@@ -28,87 +28,69 @@ type PeopleModel struct {
 	TableName string
 }
 
-func (pm *PeopleModel) Find(id uint64) *People {
-	sql := "select * from people where idpeople=%d"
+func (pm *PeopleModel) Find(id int64) *People {
+	sql := "select people.idpeople,people.name,people.email,people.phone,people.avatar,people.lastlogin," +
+		"people.create_time,people.fansnum,people.favnum,people.password,people.qq from people where idpeople=?"
 
-	var people People
-	row, _, err := db.HgSql.QueryFirst(sql, id)
+	stmt, err := db.HgSql.Prepare(sql)
+	row := stmt.QueryRow(id)
 
 	if err != nil || row == nil {
 		return nil
 	}
 
-	people.Idpeople = row.Uint64(0)
-	people.Name = row.Str(1)
-	people.Email = row.Str(2)
-	people.Phone = row.Str(3)
-	people.Avatar = row.Str(4)
-	people.LastLogin = row.Str(5)
-	people.CreateTime = row.Str(6)
-	people.Fansnum = row.Int(7)
-	people.Favnum = row.Int(8)
-	people.Password = row.Str(9)
-	people.QQ = row.Str(10)
+	var people People
+	row.Scan(&people.Idpeople, &people.Name, &people.Email, &people.Phone, &people.Avatar, &people.LastLogin,
+		&people.CreateTime, &people.Fansnum, &people.Favnum, &people.Password, &people.Phone)
 
 	return &people
 }
 
-func (pm *PeopleModel) Insert(people People) uint64 {
+func (pm *PeopleModel) Insert(people People) *People {
 	stmt, err := db.HgSql.Prepare("INSERT people SET name=?,email=?,phone=?,avatar=?,create_time=CURDATE(),lastlogin=now(),fansnum=?,favnum=?,password=?,qq=?")
-	_, res, err := stmt.Exec(people.Name, people.Email, people.Phone, people.Avatar, people.Fansnum, people.Favnum, people.Password, people.QQ)
+	res, err := stmt.Exec(people.Name, people.Email, people.Phone, people.Avatar, people.Fansnum, people.Favnum, people.Password, people.QQ)
 
+	insertId, err := res.LastInsertId()
 	if err != nil {
-		return 0
+		return nil
 	}
-	return res.InsertId()
+
+	people.Idpeople = insertId
+	return &people
 }
 
 func (pm *PeopleModel) FindByName(name string) *People {
-	sql := "select * from people where name='%s'"
+	sql := "select people.idpeople,people.name,people.email,people.phone,people.avatar,people.lastlogin," +
+		"people.create_time,people.fansnum,people.favnum,people.password,people.qq from people where name=?"
 
-	var people People
-	row, _, err := db.HgSql.QueryFirst(sql, name)
+	stmt, err := db.HgSql.Prepare(sql)
+	row := stmt.QueryRow(name)
 
 	if err != nil || row == nil {
 		return nil
 	}
 
-	people.Idpeople = row.Uint64(0)
-	people.Name = row.Str(1)
-	people.Email = row.Str(2)
-	people.Phone = row.Str(3)
-	people.Avatar = row.Str(4)
-	people.LastLogin = row.Str(5)
-	people.CreateTime = row.Str(6)
-	people.Fansnum = row.Int(7)
-	people.Favnum = row.Int(8)
-	people.Password = row.Str(9)
-	people.QQ = row.Str(10)
+	var people People
+	row.Scan(&people.Idpeople, &people.Name, &people.Email, &people.Phone, &people.Avatar, &people.LastLogin,
+		&people.CreateTime, &people.Fansnum, &people.Favnum, &people.Password, &people.Phone)
 
 	return &people
 }
 
 func (pm *PeopleModel) FindByEmail(email string) *People {
-	sql := "select * from people where email='%s'"
+	sql := "select people.idpeople,people.name,people.email,people.phone,people.avatar,people.lastlogin," +
+		"people.create_time,people.fansnum,people.favnum,people.password,people.qq from people where email=?"
 
-	var people People
-	row, _, err := db.HgSql.QueryFirst(sql, email)
+	stmt, err := db.HgSql.Prepare(sql)
+	row := stmt.QueryRow(email)
 
 	if err != nil || row == nil {
 		return nil
 	}
 
-	people.Idpeople = row.Uint64(0)
-	people.Name = row.Str(1)
-	people.Email = row.Str(2)
-	people.Phone = row.Str(3)
-	people.Avatar = row.Str(4)
-	people.LastLogin = row.Str(5)
-	people.CreateTime = row.Str(6)
-	people.Fansnum = row.Int(7)
-	people.Favnum = row.Int(8)
-	people.Password = row.Str(9)
-	people.QQ = row.Str(10)
+	var people People
+	row.Scan(&people.Idpeople, &people.Name, &people.Email, &people.Phone, &people.Avatar, &people.LastLogin,
+		&people.CreateTime, &people.Fansnum, &people.Favnum, &people.Password, &people.Phone)
 
 	return &people
 }
