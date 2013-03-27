@@ -4,7 +4,7 @@
 <section id="main">
 	<div id="leftcontainer">
 		<h2 class="mainheading">
-		最新文章列表
+		最新文章
 		</h2>
 
  		{{range .posts}}
@@ -18,7 +18,7 @@
 			</p>
 
 			<footer>
-			<span class="permalink"><a href="#permalink">阅读全文</a></span>
+			<span class="permalink"><a href="/post/item/?postId={{.Idpost}}">阅读全文</a></span>
 			<span class="comments">21 阅读</span>
 			<span class="comments">0 回复</span>
 			</footer>

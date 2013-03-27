@@ -1,7 +1,7 @@
 package model
 
 import (
-	//"fmt"
+	"fmt"
 	db "hellogolang/system/database"
 )
 
@@ -27,11 +27,17 @@ func (cm *CommentModel) FindAllByPostID(postId int64, page int, pageSize int) ([
 	count := 0
 	row.Scan(&count)
 
-	cmSql := "select comment.idcomment,comment.idpost,comment.parent,comment.create_time,comment.content" +
+	cmSql := "select comment.idcomment,comment.idpost,comment.parent,comment.create_time,comment.content," +
 		" people.idpeople,people.name,people.avatar from comment " +
 		" left join people on comment.Idpeople=people.idpeople where comment.idpost=? order by comment.create_time desc limit ?,?"
 
 	stmt, err = db.HgSql.Prepare(cmSql)
+
+	if err != nil {
+		fmt.Println(err)
+		return nil, 0
+	}
+
 	rows, err := stmt.Query(postId, (page-1)*pageSize, pageSize)
 
 	if err != nil {

@@ -16,10 +16,11 @@ import (
  */
 
 func Index(rw http.ResponseWriter, req *http.Request) {
-	people := isLogin(req)
 
+	fmt.Println(req.RequestURI)
+	people := isLogin(req)
 	req.ParseForm()
-	pageSize := 2
+	pageSize := 10
 	page, err := strconv.Atoi(req.FormValue("page"))
 	if err != nil || page <= 1 {
 		page = 1
@@ -56,8 +57,11 @@ func Index(rw http.ResponseWriter, req *http.Request) {
  *	文章分页列表
  */
 func PostPage(rw http.ResponseWriter, req *http.Request) {
+	people := isLogin(req)
+	siteInfo.BackUrl = req.RequestURI
+
 	req.ParseForm()
-	pageSize := 2
+	pageSize := 10
 	page, err := strconv.Atoi(req.FormValue("page"))
 	if err != nil || page <= 1 {
 		page = 1
@@ -66,13 +70,18 @@ func PostPage(rw http.ResponseWriter, req *http.Request) {
 	conditions := make(map[string]string)
 	var pageHelper library.Page
 
-	postClass := req.FormValue("cat")
-	_, err = strconv.Atoi(req.FormValue("cat"))
+	IdpostClass, err := strconv.ParseInt(req.FormValue("cat"), 10, 64)
 	if err == nil {
-		conditions["post.idpost_class ="] = postClass
-		pageHelper.BaseUrl = "/post/?cat=" + postClass + "&page="
+		conditions["post.idpost_class ="] = req.FormValue("cat")
+		pageHelper.BaseUrl = "/post/?cat=" + req.FormValue("cat") + "&page="
 	} else {
 		pageHelper.BaseUrl = "/post/?page="
+	}
+
+	postClass := postClassModel.Find(IdpostClass)
+
+	if postClass == nil {
+		//出错处理
 	}
 
 	posts, count := postModel.FindAll(page, pageSize, conditions)
@@ -88,18 +97,17 @@ func PostPage(rw http.ResponseWriter, req *http.Request) {
 		"template/front/header.tmpl",
 		"template/front/post-list.tmpl",
 		"template/front/footer.tmpl",
-		"template/front/page.tmpl")
+		"template/front/page.tmpl",
+		"template/front/sidebar.tmpl")
 
 	siteInfo.Js = []string{
 		"kindeditor/kindeditor-min.js",
 		"kindeditor/lang/zh_CN.js",
 		"js/front/post/post-list.js"}
 
-	//postClassId, _ := strconv.ParseInt(postClass, 10, 64)
-
 	siteInfo.CurrentNav = "article"
 
-	tmpl.ExecuteTemplate(rw, "post-list", map[string]interface{}{"siteInfo": siteInfo, "posts": posts, "postClass": postClass, "pageHelper": pageHelper})
+	tmpl.ExecuteTemplate(rw, "post-list", map[string]interface{}{"people": people, "siteInfo": siteInfo, "posts": posts, "postClass": postClass, "pageHelper": pageHelper})
 	tmpl.Execute(rw, nil)
 
 }
@@ -122,8 +130,14 @@ func PostItem(rw http.ResponseWriter, req *http.Request) {
 
 	}
 
-	pageSize := 2
+	pageSize := 10
 	post := postModel.Find(postId)
+
+	if post == nil {
+		fmt.Println("post is nil...")
+		//文章不存在
+	}
+
 	comments, count := commentModel.FindAllByPostID(postId, page, pageSize)
 
 	var pageHelper library.Page
@@ -140,11 +154,10 @@ func PostItem(rw http.ResponseWriter, req *http.Request) {
 		"template/front/header.tmpl",
 		"template/front/post-item.tmpl",
 		"template/front/footer.tmpl",
-		"template/front/page.tmpl")
+		"template/front/page.tmpl",
+		"template/front/sidebar.tmpl")
 
 	siteInfo.Js = []string{
-		"kindeditor/kindeditor-min.js",
-		"kindeditor/lang/zh_CN.js",
 		"js/front/post/post-item.js"}
 	siteInfo.ExtraJs = []string{
 		"http://jzaefferer.github.com/jquery-validation/jquery.validate.js"}
@@ -171,8 +184,7 @@ func PostCreate(rw http.ResponseWriter, req *http.Request) {
 			"template/front/sidebar.tmpl")
 
 		siteInfo.Js = []string{
-			"kindeditor/kindeditor-all.js",
-			"kindeditor/lang/zh_CN.js",
+			"ckeditor/ckeditor.js",
 			"js/front/post/post-create.js"}
 		siteInfo.CurrentNav = "none"
 
@@ -215,7 +227,7 @@ func CommentCreate(rw http.ResponseWriter, req *http.Request) {
 
 	comment.Idpost = postId
 	comment.Content = content
-	comment.Author = *people
+	comment.Author.Idpeople = people.Idpeople
 	comment.Parent = 0
 
 	commentModel.Insert(comment)

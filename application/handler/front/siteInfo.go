@@ -11,4 +11,6 @@ type SiteInfo struct {
 	Js       []string
 	ExtraCss []string
 	Css      []string
+
+	BackUrl string
 }

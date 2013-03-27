@@ -13,7 +13,6 @@ import (
  */
 func Login(rw http.ResponseWriter, req *http.Request) { //ok
 	if req.Method == "GET" {
-
 		tmpl := template.New("people-login.tmpl")
 		tmpl.Funcs(template.FuncMap{"StringEqual": tmplfunc.StringEqual, "Int64Equal": tmplfunc.Int64Equal})
 		tmpl.ParseFiles(
@@ -70,8 +69,6 @@ func Login(rw http.ResponseWriter, req *http.Request) { //ok
  * 注册操作
  */
 func Regist(rw http.ResponseWriter, req *http.Request) {
-	fmt.Println("path", req.URL.Path)
-	fmt.Println(req.Method)
 	//检测是否已经登录
 	//people := isLogin(req)
 
@@ -99,7 +96,7 @@ func Regist(rw http.ResponseWriter, req *http.Request) {
 		if checkRegistMess(people) {
 			fmt.Println("start insert ...")
 			people := peopleModel.Insert(people)
-			if people == nil {
+			if people != nil {
 				session, _ := store.Get(req, "hellogolang.org-user")
 				session.Values["name"] = people.Name
 				session.Values["email"] = people.Email

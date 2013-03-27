@@ -1,0 +1,40 @@
+{{define "post-list"}}
+{{template "header" .}}
+<div id="contents">
+<section id="main">
+	<div id="leftcontainer">
+		<h2 class="mainheading">
+		{{.postClass.Name}}
+		</h2>
+
+ 		{{range .posts}}
+		<article class="post">
+			<header>
+				<h3>{{ .Title }}</h3>
+				<p class="postinfo">{{ .CreateTime }} | <a href="#">{{ .Author.Name }}</a> | <a href="/post/?cat={{.Class.IdpostClass}}" target="{{.Idpost}}_window" title="浏览“{{ .Class.Name }}”下的文章" href="#">{{ .Class.Name }}</a></p>
+			</header>
+			<p>
+				{{ RemoveHtmlTag .Content }}
+			</p>
+
+			<footer>
+			<span class="permalink"><a href="/post/item/?postId={{.Idpost}}">阅读全文</a></span>
+			<span class="comments">21 阅读</span>
+			<span class="comments">0 回复</span>
+			</footer>
+			</footer>
+
+		</article>
+ 		{{end}}
+
+		{{template "page" .}}	
+	</div>
+</section>
+
+{{template "sidebar" .}}	
+
+<div class="clear"></div>
+</div>
+
+{{template "footer" .}}
+{{end}}

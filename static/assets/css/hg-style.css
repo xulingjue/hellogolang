@@ -3,6 +3,10 @@
 #footerwrap .credit {width: auto;}
 #footerwrap .copyright{width: 100%;text-align: center;}
 
+.prettyprint{
+	margin-left: 2em;
+}
+
 
 .post footer a {
 	color: #1496d9;
@@ -161,4 +165,118 @@ account .user-btn-panel span a{
 .regist-link{
 	line-height: 32px;
 	height: 32px;
+}
+
+
+
+/*代码美化部分*/
+pre ol,ul {
+	padding-left: 0px!important;
+}
+
+
+
+
+
+ol.commentlist .comment-body {
+	padding-top: 6px;
+	font-size: 14px;
+	line-height: 1.7em;
+	margin-left: 40px;
+}
+
+ol.commentlist .comment-author {
+	margin-right: 8px;
+	font-weight: 700;
+}
+
+ol.commentlist .comment-author, ol.commentlist .comment-author a {
+	color: #000;
+}
+
+ol.commentlist .comment-author {
+	float: left;
+	line-height: 1em;
+}
+
+
+ol.commentlist .comment-date, ol.commentlist .comment-edit {
+	float: left;
+	line-height: 1em;
+	color: #ddd;
+}
+
+.m-l-10{
+	margin-left: 10px;
+}
+
+
+ol.commentlist .comment-body p {
+	margin-bottom: 10px;
+	display: block;
+	-webkit-margin-before: 1em;
+	-webkit-margin-after: 1em;
+	-webkit-margin-start: 0px;
+	-webkit-margin-end: 0px;
+}
+
+ol.commentlist .comment-date, ol.commentlist .comment-edit {
+	float: left;
+	line-height: 1em;
+	color: #ddd;
+}
+
+ol.commentlist .comment-body {
+	font-size: 14px;
+	line-height: 1.7em;
+}
+
+ol.commentlist, ol.commentlist li ul {
+	list-style: none;
+}
+
+ol.commentlist {
+	padding: 0;
+	margin-bottom: 15px;
+	margin-left: 0;
+}
+ol.commentlist li {
+	margin-top: 10px;
+}
+
+.clearfix:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+ol.commentlist .comment-avatar img {
+	width: 30px;
+	height: 30px;
+	display: inline-block;
+}
+
+ol.commentlist .comment-avatar {
+	position: absolute;
+	left: 0;
+	text-align: center;
+	line-height: 1;
+	margin-right: 10px;
+	font-size: 0;
+	-webkit-text-size-adjust: none;
+	-moz-text-size-adjust: none;
+}
+
+ol.commentlist .comment-top {
+	position: relative;
+	padding: 10px 0 0 40px;
+	border-top: 1px dotted #ddd;
+}
+
+comment .text-area textarea{
+	height:150px;
+	width: 98%;
+	padding: 5px!important;
 }

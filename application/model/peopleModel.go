@@ -6,7 +6,7 @@ package model
 */
 
 import (
-	//"fmt"
+	"fmt"
 	db "hellogolang/system/database"
 )
 
@@ -36,6 +36,7 @@ func (pm *PeopleModel) Find(id int64) *People {
 	row := stmt.QueryRow(id)
 
 	if err != nil || row == nil {
+		fmt.Println(err)
 		return nil
 	}
 
@@ -66,13 +67,14 @@ func (pm *PeopleModel) FindByName(name string) *People {
 	stmt, err := db.HgSql.Prepare(sql)
 	row := stmt.QueryRow(name)
 
+	var people People
+	err = row.Scan(&people.Idpeople, &people.Name, &people.Email, &people.Phone, &people.Avatar, &people.LastLogin,
+		&people.CreateTime, &people.Fansnum, &people.Favnum, &people.Password, &people.Phone)
+
 	if err != nil || row == nil {
+		fmt.Println(err)
 		return nil
 	}
-
-	var people People
-	row.Scan(&people.Idpeople, &people.Name, &people.Email, &people.Phone, &people.Avatar, &people.LastLogin,
-		&people.CreateTime, &people.Fansnum, &people.Favnum, &people.Password, &people.Phone)
 
 	return &people
 }
@@ -84,13 +86,14 @@ func (pm *PeopleModel) FindByEmail(email string) *People {
 	stmt, err := db.HgSql.Prepare(sql)
 	row := stmt.QueryRow(email)
 
+	var people People
+	err = row.Scan(&people.Idpeople, &people.Name, &people.Email, &people.Phone, &people.Avatar, &people.LastLogin,
+		&people.CreateTime, &people.Fansnum, &people.Favnum, &people.Password, &people.Phone)
+
 	if err != nil || row == nil {
+		fmt.Println(err)
 		return nil
 	}
-
-	var people People
-	row.Scan(&people.Idpeople, &people.Name, &people.Email, &people.Phone, &people.Avatar, &people.LastLogin,
-		&people.CreateTime, &people.Fansnum, &people.Favnum, &people.Password, &people.Phone)
 
 	return &people
 }

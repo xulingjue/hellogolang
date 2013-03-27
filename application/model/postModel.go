@@ -27,17 +27,24 @@ func (pm *PostModel) Find(id int64) *Post {
 	sql := "select post.idpost,post.content,post.create_time,post.reprint_from,post.reprint_url,post.read_num,post.reply_num,post.title," +
 		"people.idpeople,people.name,people.avatar," +
 		"post_class.idpost_class,post_class.parent,post_class.name " +
-		"from post left join post_class on post_class.idpost_class=post.idpost_class left join people on people.idpeople=post.idpeople where idpost=%d"
+		"from post left join post_class on post_class.idpost_class=post.idpost_class left join people on people.idpeople=post.idpeople where idpost=?"
 
 	stmt, err := db.HgSql.Prepare(sql)
+
+	if err != nil {
+		fmt.Println(err)
+		return nil
+	}
+
 	row := stmt.QueryRow(id)
 
 	var post Post
-	err = row.Scan(&post.Idpost, &post.Content, &post.CreateTime, &post.ReprintFrom, &post.ReprintUrl, &post.ReadNum, &post.ReplyNum,
-		&post.Title, &post.Author.Idpeople, &post.Author.Avatar,
+	err = row.Scan(&post.Idpost, &post.Content, &post.CreateTime, &post.ReprintFrom, &post.ReprintUrl, &post.ReadNum, &post.ReplyNum, &post.Title,
+		&post.Author.Idpeople, &post.Author.Name, &post.Author.Avatar,
 		&post.Class.IdpostClass, &post.Class.Parent, &post.Class.Name)
 
 	if err != nil {
+		fmt.Println(err)
 		return nil
 	}
 
@@ -89,12 +96,15 @@ func (pm *PostModel) FindAll(page int, pageSize int, agrs map[string]string) ([]
 
 	var posts []Post
 	for rows.Next() {
-		var post Post
-		err = rows.Scan(&post.Idpost, &post.Content, &post.CreateTime, &post.ReprintFrom, &post.ReprintUrl, &post.ReadNum, &post.ReplyNum,
-			&post.Title, &post.Author.Idpeople, &post.Author.Avatar,
+
+		post := Post{}
+		err = rows.Scan(&post.Idpost, &post.Content, &post.CreateTime, &post.ReprintFrom, &post.ReprintUrl, &post.ReadNum, &post.ReplyNum, &post.Title,
+			&post.Author.Idpeople, &post.Author.Name, &post.Author.Avatar,
 			&post.Class.IdpostClass, &post.Class.Parent, &post.Class.Name)
 		if err == nil {
 			posts = append(posts, post)
+		} else {
+			fmt.Println(err)
 		}
 	}
 

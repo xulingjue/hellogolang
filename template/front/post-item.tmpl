@@ -1,81 +1,61 @@
 {{define "post-item"}}
 {{template "header" .}}
-      <!-- Begin page content -->
-      <div class="container">
-        <div class="row hg-main-container">
-          <!--left-->
-          <div class="span8">
-            <div class="row">
-              <div class="span8">
-                <article id="post-259608">
-                  <div class="entry-header">
-                      <h3 class="entry-name yahei">
-                          <a href="http://www.ifanr.com/news/259608" rel="bookmark" title="Permalink to “{{ .post.Title}}”">{{ .post.Title}}</a>
-                      </h3>
-                  </div>
-
-                  <div class="entry-meta">{{ .post.CreateTime}}&nbsp;|&nbsp;<a href="#">{{ .post.Author.Name}}</a></div>
-
-                  <div class="entry-content">
-                      {{ .post.Content}}
-                  </div>
-                </article>
-
-                <form action="/post/comment" id="comment_form" method="post">
-                  
-                  <div class="replay-panel">
-                    <h4 style="color:#005580;">回复：</h4>
-                    <textarea name="content" id="contentqq" style="width:100%;height:160px;visibility:hidden;"></textarea>
-                    <input type="hidden" name="postId" value="{{.post.Idpost}}" />
-                    
-                    
-                    <div class="text-right replay-panel-btn">
-                      {{if not .people.Idpeople }}请先&nbsp;&nbsp;<a href="/login">登录</a>&nbsp;|&nbsp;<a href="/regist">注册</a>&nbsp;&nbsp;{{end}}
-                      <input type="submit" class="btn btn-success {{if not .people.Idpeople }} disabled {{end}}" value="发表回复" /></div>
-                  </div>
-                </form>
-
-                <input type="hidden" value="0" name="contetnum"/>
+<div id="contents">
+<section id="main">
+  <div id="leftcontainer">
+    
+    <h2 class="mainheading">{{ .post.Title}}</h2>
+    <p class="postinfo" style="margin-bottom:20px;">{{ .post.CreateTime }} | <a href="#">{{ .post.Author.Name }}</a> | <a href="/post/?cat={{.post.Class.IdpostClass}}" target="{{.Idpost}}_window" title="浏览“{{ .post.Class.Name }}”下的文章" href="#">{{ .post.Class.Name }}</a></p>
+    <article class="post">
+      {{ .post.Content}}
+    </article>
 
 
+    <h3>{{ .post.ReplyNum }} 回复</h3>
+    <ol class="commentlist">
+      {{range .comments}}       
+      <li class="comment" id="comment-430134" data-id="430134" data-depth="1">      
+        <div class="comment-content clearfix">          
+          <div class="comment-top clearfix">             
+            <div class="comment-avatar vcard">                 
+              <a href="#comment-430134"><img alt="" src="http://1.gravatar.com/avatar/d53741a10af9b6b758c11ff85020db11?s=40&amp;d=http%3A%2F%2Fcdn.ifanr.cn%2Fwp-content%2Fthemes%2Fapple4us%2Fimages%2Fgravatar.png" class="avatar avatar-30 photo" height="30" width="30"></a>             
+            </div>             
+            <div class="comment-author">{{ .Author.Name}}</div>             
+            <div class="comment-date">{{ .CreateTime}}</div>             
+          </div>          
+          <div id="comment-body-430134" class="comment-body">             
+            <p>{{ .Content}}</p>
+            <div class="comment-meta commentmetadata clearfix"></div>
+          </div>     
+        </div>      
+      </li> 
+      {{end}}
+    </ol>
 
-                <div><span class="label label-info">{{ .post.ReplyNum }}&nbsp;回复</span></div>
+    <comment>
+      <form action="/post/comment/" method="post" id="comment-form" class="form">
+         <p class="input-error">
 
-                <div>
-                  {{range .comments}} 
-                  <div class="row reply-item">
-                    <div class="span8">
-                      <div class="reply-item-line"><hr/></div>
-                    </div>
-                    <div class="span1">
-                      <img src="/assets/image/default.png" width="80" class="img-rounded"/>
-                    </div>
-                    <div class="span7">
-                      <div class="reply-mess"><a>{{ .Author.Name}}</a> {{ .CreateTime}}</div>
-                      <div class="reply-content">{{ .Content}}</div>
-                    </div>
-                  </div>
-                  {{end}}
-                  
+         </p>
+         <p class="text-area">
+            <textarea name="content" id="content"  tabindex="4"></textarea>
+         </p>
+         <p>
+            <input name="submit" id="submit" class="submit-btn" type="submit" value="发表评论" disable="disable"/>
+            <input type="hidden" name="postId" value="{{.post.Idpost}}" />
+         </p>
+         <div class="clear"></div>
+      </form>
+    </comment>
 
-                  {{template "page" .}}
+    {{template "page" .}} 
+  </div>
+</section>
 
-                  
+{{template "sidebar" .}}  
 
-                </div>
+<div class="clear"></div>
+</div>
 
-
-              </div>
-            </div>
-          </div><!-- left end-->
-
-          <!--right-->
-          <div class="span4">
-          <!-- 登录后状态 -->
-            
-          </div><!--right end-->
-        </div>
-        <div style="height:50px;"></div>
-      </div>
 {{template "footer" .}}
 {{end}}

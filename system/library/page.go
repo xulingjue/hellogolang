@@ -9,6 +9,7 @@ type Page struct {
 	PreLink   int
 	NextLink  int
 	BaseUrl   string
+	Visable   bool
 }
 
 func (p *Page) Compute() {
@@ -49,5 +50,9 @@ func (p *Page) Compute() {
 				p.Links = append(p.Links, index)
 			}
 		}
+
+		p.Visable = true
+	} else {
+		p.Visable = false
 	}
 }
