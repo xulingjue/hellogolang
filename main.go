@@ -17,6 +17,7 @@ var handlers = map[string]func(http.ResponseWriter, *http.Request){
 	"/post/comment/": hgFrontHandler.CommentCreate,
 
 	/*people*/
+	"/ajaxlogin/":      hgFrontHandler.AjaxLogin,
 	"/login/":          hgFrontHandler.Login,
 	"/logout/":         hgFrontHandler.Logout,
 	"/regist/":         hgFrontHandler.Regist,

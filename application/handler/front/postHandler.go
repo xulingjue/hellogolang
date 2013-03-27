@@ -16,8 +16,6 @@ import (
  */
 
 func Index(rw http.ResponseWriter, req *http.Request) {
-
-	fmt.Println(req.RequestURI)
 	people := isLogin(req)
 	req.ParseForm()
 	pageSize := 10

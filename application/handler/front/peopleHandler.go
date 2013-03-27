@@ -1,6 +1,7 @@
 package front
 
 import (
+	"encoding/json"
 	"fmt"
 	"hellogolang/application/model"
 	"hellogolang/system/tmplfunc"
@@ -63,6 +64,41 @@ func Login(rw http.ResponseWriter, req *http.Request) { //ok
 			tmpl.ExecuteTemplate(rw, "people-login", map[string]interface{}{"errorMessage": errorMessage, "siteInfo": siteInfo})
 		}
 	}
+}
+
+func AjaxLogin(rw http.ResponseWriter, req *http.Request) {
+	if req.Method == "GET" {
+		fmt.Fprintf(rw, "false")
+	} else if req.Method == "POST" {
+		req.ParseForm()
+		name := req.FormValue("name")
+		password := req.FormValue("password")
+		people := peopleModel.FindByName(name)
+		if people == nil {
+			people = peopleModel.FindByEmail(name)
+		}
+
+		result := make(map[string]interface{})
+
+		if people != nil && people.Password == password {
+			session, _ := store.Get(req, "hellogolang.org-user")
+			session.Values["name"] = people.Name
+			session.Values["email"] = people.Email
+			session.Values["idpeople"] = people.Idpeople
+			session.Save(req, rw)
+			result["result"] = "success"
+			result["people"] = people
+		} else {
+			result["result"] = "error"
+		}
+
+		b, err := json.Marshal(result)
+		if err != nil {
+			fmt.Println("json err:", err)
+		}
+		fmt.Fprintf(rw, string(b))
+	}
+
 }
 
 /*
