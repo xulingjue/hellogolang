@@ -60,10 +60,17 @@ func (cm *CommentModel) FindAllByPostID(postId int64, page int, pageSize int) ([
 
 func (cm *CommentModel) Insert(comment Comment) *Comment {
 	stmt, err := db.HgSql.Prepare("INSERT comment SET idpost=?,content=?,idpeople=?,parent=?,create_time=now()")
+	fmt.Println("post id")
+	fmt.Println(comment.Idpost)
 	res, err := stmt.Exec(comment.Idpost, comment.Content, comment.Author.Idpeople, comment.Parent)
+	if err != nil {
+		fmt.Println(err)
+		return nil
+	}
 
 	insertId, err := res.LastInsertId()
 	if err != nil {
+		fmt.Println(err)
 		return nil
 	}
 

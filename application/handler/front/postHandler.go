@@ -230,5 +230,5 @@ func CommentCreate(rw http.ResponseWriter, req *http.Request) {
 
 	commentModel.Insert(comment)
 
-	http.Redirect(rw, req, "/post/item?postId="+req.FormValue("postId"), http.StatusFound)
+	http.Redirect(rw, req, "/post/item/?postId="+req.FormValue("postId"), http.StatusFound)
 }

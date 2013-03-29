@@ -38,12 +38,13 @@
 
          </p>
          <p class="text-area">
-            <textarea name="content" id="content"  tabindex="4"></textarea>
+            <textarea name="content" class="required"></textarea>
          </p>
-         <p>
-            <input name="submit" id="submit" class="submit-btn" type="submit" value="发表评论" disable="disable"/>
-            <input type="hidden" name="postId" value="{{.post.Idpost}}" />
+         <p> 
+            <input name="postId" type="hidden" class="ignore" value="{{.post.Idpost}}" />
+            <input name="submit" id="submit" class="submit-btn" type="submit" value="发表评论" disable="disable" />
          </p>
+         <div id="summary"></div>
          <div class="clear"></div>
       </form>
     </comment>
