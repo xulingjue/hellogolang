@@ -3,7 +3,7 @@ $(document).ready(function(){
  * 注册表单验证
  */ 
     jQuery.validator.addMethod("alnum", function(value, element) {
-      return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
+      return this.optional(element) || /^[a-zA-Z0-9\u4E00-\u9FA5]+$/.test(value);
     }, "只能包括英文字母和数字");
 
     $("#regist_form").validate({
@@ -12,7 +12,7 @@ $(document).ready(function(){
         rules: {
           name: {
             required: true,
-            minlength: 4,
+            minlength: 2,
             maxlength: 10,
             remote:"/people/isexist/",
             alnum:[],
@@ -34,10 +34,10 @@ $(document).ready(function(){
         messages: {
           name: {
             required: "&nbsp;请输入用户名",
-            minlength: "&nbsp;用户名长度至少为四位",
+            minlength: "&nbsp;用户名长度至少为两位",
             maxlength: "&nbsp;用户名长度最长为十位",
             remote: "&nbsp;该用户名已被注册",
-            alnum: "&nbsp;用户名只能为英文或数字",
+            alnum: "&nbsp;用户名含有特殊字符",
           },
           email: {
             required: "&nbsp;请输入邮箱",

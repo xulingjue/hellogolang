@@ -17,7 +17,7 @@ var (
 func init() {
 	var err error
 	if HgSql == nil {
-		HgSql, err = sql.Open("mysql", "root@tcp(localhost:3306)/hellogolang?charset=utf8")
+		HgSql, err = sql.Open("mysql", "root:hg6688@tcp(localhost:3306)/hellogolang?charset=utf8")
 		if err != nil {
 			fmt.Println("db connect error")
 		} else {

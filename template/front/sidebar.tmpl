@@ -31,12 +31,12 @@
 		{{ if and .people}}
 		<account>
 			<div class="avatar">
-				<a href="#"><img width="70" src="/assets/image/default3.png" alt="lingjue"></a>
+				<a href="#"><img width="70" src="/assets/image/default.png" alt="lingjue"></a>
 			</div>
 			<div class="userinfo">
 				<span class="name"><a href="#">{{.people.Name}}</a></span>
-				<span class="score">发帖：50</span>
-				<span class="score">提问：50</span>
+				
+				
 			</div>
 			<div class="clear"></div>
 
@@ -52,26 +52,17 @@
 		  
 		<h2>分类</h2>
 		<ul>
-			<li><a href="#">Web Design</a>(4)</li>
-			<li><a href="#">Graphics Design</a>(8)</li>
-		</ul>
-
-		<h2>最新</h2>
-		<ul>
-			<li><a href="#">Web Design</a></li>
-			<li><a href="#">Web Design</a></li>
-			<li><a href="#">Web Design</a></li>
-			<li><a href="#">Web Design</a></li>
-			<li><a href="#">Web Design</a></li>
-			<li><a href="#">Web Design</a></li>
+			{{range .postClasses}}
+			<li><a href="/post/?cat={{.IdpostClass}}">{{.Name}}</a></li>
+			{{end}}
 		</ul>
 
 		<h2>相关链接</h2>
 		<ul>
-			<li><a href="http://www.golang.tc">Golang中国</a></li>
-			<li><a href="http://www.golang.org">Go语言官网</a></li>
-			<li><a href="http://www.golangcn.com">Go语言中国</a></li>
-			<li><a href="http://godoc.org/">GoDoc</a></li>
+			<li><a href="http://www.golang.tc" target="_blank">Golang中国</a></li>
+			<li><a href="http://www.golang.org" target="_blank">Go语言官网</a></li>
+			<li><a href="http://www.golangcn.com" target="_blank">Go语言中国</a></li>
+			<li><a href="http://zh.golanger.com/" target="_blank">GoDoc中文</a></li>
 		</ul>
 	</div>
 </section>

@@ -123,3 +123,19 @@ func (pm *PostModel) Insert(post Post) *Post {
 	post.Idpost = insertId
 	return &post
 }
+
+func (pm *PostModel) UpdateReadNum(post Post) {
+	stmt, err := db.HgSql.Prepare("update post set read_num = read_num+1 where idpost=?")
+	_, err = stmt.Exec(post.Idpost)
+	if err != nil {
+		fmt.Println(err)
+	}
+}
+
+func (pm *PostModel) UpdateReplyNum(post Post) {
+	stmt, err := db.HgSql.Prepare("update post set reply_num = reply_num+1 where idpost=?")
+	_, err = stmt.Exec(post.Idpost)
+	if err != nil {
+		fmt.Println(err)
+	}
+}

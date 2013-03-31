@@ -20,4 +20,5 @@ func init() {
 	postModel = model.PostModel{"post"}
 	postClassModel = model.PostClassModel{"post_class"}
 	commentModel = model.CommentModel{"comment"}
+
 }

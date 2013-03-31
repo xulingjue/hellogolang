@@ -16,6 +16,7 @@ import (
  */
 
 func Index(rw http.ResponseWriter, req *http.Request) {
+	postClasses := postClassModel.FindAll()
 	people := isLogin(req)
 	req.ParseForm()
 	pageSize := 10
@@ -48,13 +49,15 @@ func Index(rw http.ResponseWriter, req *http.Request) {
 		"http://jzaefferer.github.com/jquery-validation/jquery.validate.js"}
 	siteInfo.CurrentNav = "index"
 
-	tmpl.ExecuteTemplate(rw, "index", map[string]interface{}{"people": people, "siteInfo": siteInfo, "posts": posts, "pageHelper": pageHelper})
+	tmpl.ExecuteTemplate(rw, "index", map[string]interface{}{"people": people, "siteInfo": siteInfo, "posts": posts, "pageHelper": pageHelper, "postClasses": postClasses})
 }
 
 /*
  *	文章分页列表
  */
 func PostPage(rw http.ResponseWriter, req *http.Request) {
+	postClasses := postClassModel.FindAll()
+
 	people := isLogin(req)
 	siteInfo.BackUrl = req.RequestURI
 
@@ -105,7 +108,7 @@ func PostPage(rw http.ResponseWriter, req *http.Request) {
 
 	siteInfo.CurrentNav = "article"
 
-	tmpl.ExecuteTemplate(rw, "post-list", map[string]interface{}{"people": people, "siteInfo": siteInfo, "posts": posts, "postClass": postClass, "pageHelper": pageHelper})
+	tmpl.ExecuteTemplate(rw, "post-list", map[string]interface{}{"people": people, "siteInfo": siteInfo, "posts": posts, "postClass": postClass, "pageHelper": pageHelper, "postClasses": postClasses})
 	tmpl.Execute(rw, nil)
 
 }
@@ -114,8 +117,9 @@ func PostPage(rw http.ResponseWriter, req *http.Request) {
  *	查看单个文章页
  */
 func PostItem(rw http.ResponseWriter, req *http.Request) {
-	req.ParseForm()
+	postClasses := postClassModel.FindAll()
 
+	req.ParseForm()
 	people := isLogin(req)
 
 	page, err := strconv.Atoi(req.FormValue("page"))
@@ -162,14 +166,19 @@ func PostItem(rw http.ResponseWriter, req *http.Request) {
 
 	siteInfo.CurrentNav = "article"
 
-	tmpl.ExecuteTemplate(rw, "post-item", map[string]interface{}{"people": people, "siteInfo": siteInfo, "post": post, "comments": comments, "pageHelper": pageHelper})
+	tmpl.ExecuteTemplate(rw, "post-item", map[string]interface{}{"people": people, "siteInfo": siteInfo, "post": post, "comments": comments, "pageHelper": pageHelper, "postClasses": postClasses})
 	tmpl.Execute(rw, nil)
+
+	//更新阅读数
+	postModel.UpdateReadNum(*post)
 }
 
 /*
  *	创建文章
  */
 func PostCreate(rw http.ResponseWriter, req *http.Request) {
+	postClasses := postClassModel.FindAll()
+
 	people := isLogin(req)
 	if req.Method == "GET" {
 		postClass := postClassModel.FindAll()
@@ -186,7 +195,7 @@ func PostCreate(rw http.ResponseWriter, req *http.Request) {
 			"js/front/post/post-create.js"}
 		siteInfo.CurrentNav = "none"
 
-		tmpl.ExecuteTemplate(rw, "post-create", map[string]interface{}{"siteInfo": siteInfo, "postClass": postClass, "people": people})
+		tmpl.ExecuteTemplate(rw, "post-create", map[string]interface{}{"siteInfo": siteInfo, "postClass": postClass, "people": people, "postClasses": postClasses})
 		tmpl.Execute(rw, nil)
 	} else if req.Method == "POST" {
 		req.ParseForm()
@@ -196,9 +205,7 @@ func PostCreate(rw http.ResponseWriter, req *http.Request) {
 		var post model.Post
 
 		post.Class.IdpostClass, err = strconv.ParseInt(req.FormValue("post_class"), 10, 64)
-		if err != nil {
-			fmt.Println(err)
-		}
+
 		post.Content = req.FormValue("content")
 		post.ReprintFrom = req.FormValue("reprint_from")
 		post.ReprintUrl = req.FormValue("reprint_url")
@@ -210,6 +217,15 @@ func PostCreate(rw http.ResponseWriter, req *http.Request) {
 
 		postModel.Insert(post)
 		http.Redirect(rw, req, "/post/?cat="+req.FormValue("post_class"), http.StatusFound)
+
+		if err != nil {
+			fmt.Println(err)
+		} else {
+			people = peopleModel.Find(people.Idpeople)
+			people.Postnum++
+			peopleModel.Update(*people)
+		}
+
 	}
 }
 
@@ -220,9 +236,9 @@ func CommentCreate(rw http.ResponseWriter, req *http.Request) {
 	postId, _ := strconv.ParseInt(req.FormValue("postId"), 10, 64)
 	people := isLogin(req)
 	content := req.FormValue("content")
+	post := postModel.Find(postId)
 
 	var comment model.Comment
-
 	comment.Idpost = postId
 	comment.Content = content
 	comment.Author.Idpeople = people.Idpeople
@@ -231,4 +247,7 @@ func CommentCreate(rw http.ResponseWriter, req *http.Request) {
 	commentModel.Insert(comment)
 
 	http.Redirect(rw, req, "/post/item/?postId="+req.FormValue("postId"), http.StatusFound)
+
+	//更新回复数
+	postModel.UpdateReplyNum(*post)
 }

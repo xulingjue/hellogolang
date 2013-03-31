@@ -94,7 +94,7 @@ func AjaxLogin(rw http.ResponseWriter, req *http.Request) {
 
 		b, err := json.Marshal(result)
 		if err != nil {
-			fmt.Println("json err:", err)
+			fmt.Fprintf("json err:", err)
 		}
 		fmt.Fprintf(rw, string(b))
 	}

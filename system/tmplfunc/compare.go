@@ -29,5 +29,9 @@ func RemoveHtmlTag(content string) string {
 	//  正则表达式demo
 	re, _ := regexp.Compile("\\<[^>]+?\\>")
 	content = re.ReplaceAllString(content, "")
+
+	if len(content) > 300 {
+		content = content[:300] + "……"
+	}
 	return content
 }

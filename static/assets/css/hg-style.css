@@ -9,7 +9,7 @@
 
 
 .post footer a {
-	color: #1496d9;
+	color: #375EAB;
 }
 .post a:hover {
 	color: #1496d9;
@@ -67,7 +67,7 @@
 	color: #fff;
 	display: inline-block;
 	_background: none;
-	background-color: #6fbfb1;
+	background-color: #375EAB;
 	text-align: center;
 }
 
@@ -143,10 +143,10 @@ account .user-btn-panel span a{
 	height: 32px;
 	line-height: 32px;
 	
-	color: #fff;
+	color: #fff!important;
 	display: inline-block;
 	_background: none;
-	background-color: #6fbfb1;
+	background-color: #375EAB;
 	text-align: center;
 }
 
@@ -155,10 +155,10 @@ account .user-btn-panel span a{
 	padding: 0px 20px 0 20px;
 	height: 32px;
 	line-height: 32px;
-	color: #fff;
+	color: #fff!important;
 	display: inline-block;
 	_background: none;
-	background-color: #6fbfb1;
+	background-color: #375EAB;
 	float:right;
 }
 
@@ -280,3 +280,22 @@ comment .text-area textarea{
 	width: 98%;
 	padding: 5px!important;
 }
+
+
+.post{
+	word-wrap:break-word;
+}
+
+#sidebar ul{
+	font-style:inherit!important;
+}
+
+#pageheader{
+	padding: 0!important;
+
+}
+
+a{
+	color: #375EAB;
+}
+

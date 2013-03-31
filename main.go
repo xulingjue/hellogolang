@@ -36,6 +36,7 @@ func main() {
 	startErr := http.ListenAndServe(":"+hgHelper.GetConfig("port"), nil) //设置监听的端口
 	if startErr != nil {
 		//hgHelper.LogMessage("server start error")
+		fmt.Println(startErr)
 		fmt.Println("server start error")
 		os.Exit(1)
 	}
