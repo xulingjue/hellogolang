@@ -5,5 +5,5 @@
 *.sublime-workspace
 *.exe
 *.txt
-config.json
+!config.json
 
