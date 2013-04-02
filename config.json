@@ -12,5 +12,5 @@
 	"smtp_addr": "smtp.example.com:25",
 	"from_email": "who@example.com",
 	"superusers": "jimmykuu,another",
-	"base_url": "http://localhost:9000"
+	"base_url": "http://localhost:9000"  
 }
