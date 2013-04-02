@@ -1,4 +1,4 @@
-package pagination
+package pageination
 
 type Page struct {
 	Count     int
@@ -10,10 +10,6 @@ type Page struct {
 	NextLink  int
 	BaseUrl   string
 	Visable   bool
-}
-
-func New() Page{
-	return Page{}
 }
 
 func (p *Page) Compute() {

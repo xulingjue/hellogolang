@@ -12,5 +12,9 @@ type SiteInfo struct {
 	ExtraCss []string
 	Css      []string
 
+	Title       string
+	SiteName    string
+	Description string
+
 	BackUrl string
 }

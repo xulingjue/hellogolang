@@ -3,9 +3,10 @@ package front
 import (
 	//"code.google.com/p/gorilla/sessions"
 	"fmt"
-	"hellogolang/application/model"
-	hgTemplate "hellogolang/HooGL/template"
+	hgForm "hellogolang/HooGL/form"
 	hgPageination "hellogolang/HooGL/pageination"
+	hgTemplate "hellogolang/HooGL/template"
+	"hellogolang/application/model"
 	"net/http"
 	"strconv"
 	"text/template"
@@ -19,15 +20,13 @@ func Index(rw http.ResponseWriter, req *http.Request) {
 	postClasses := postClassModel.FindAll()
 	people := isLogin(req)
 	req.ParseForm()
+
 	pageSize := 10
-	page, err := strconv.Atoi(req.FormValue("page"))
-	if err != nil || page <= 1 {
-		page = 1
-	}
+	page := hgForm.GetInt(req, "page", 1)
 
 	posts, count := postModel.FindAll(page, pageSize, map[string]string{})
 
-	pageHelper := hgPageination.New()
+	pageHelper := hgPageination.Page
 	pageHelper.Count = count
 	pageHelper.PageSize = pageSize
 	pageHelper.PageNum = page
@@ -61,15 +60,14 @@ func PostPage(rw http.ResponseWriter, req *http.Request) {
 
 	req.ParseForm()
 	pageSize := 10
-	page, err := strconv.Atoi(req.FormValue("page"))
-	if err != nil || page <= 1 {
-		page = 1
-	}
+	page := hgForm.GetInt(req, "page", 1)
 
 	conditions := make(map[string]string)
-	pageHelper := hgPageination.New()
+	pageHelper := hgPageination.Page
 
-	IdpostClass, err := strconv.ParseInt(req.FormValue("cat"), 10, 64)
+	//IdpostClass, err := strconv.ParseInt(req.FormValue("cat"), 10, 64)
+	IdpostClass := hgForm.GetInt64(req, "cat", 1)
+
 	if err == nil {
 		conditions["post.idpost_class ="] = req.FormValue("cat")
 		pageHelper.BaseUrl = "/post/?cat=" + req.FormValue("cat") + "&page="
@@ -120,14 +118,11 @@ func PostItem(rw http.ResponseWriter, req *http.Request) {
 	req.ParseForm()
 	people := isLogin(req)
 
-	page, err := strconv.Atoi(req.FormValue("page"))
-	if err != nil {
-		page = 1
-	}
+	page := hgForm.GetInt(req, "page", 1)
 
-	postId, err := strconv.ParseInt(req.FormValue("postId"), 10, 64)
-	if err != nil {
-
+	postId := hgForm.GetInt64(req, "page", 0)
+	if postId == 0 {
+		//出错
 	}
 
 	pageSize := 10
@@ -140,7 +135,7 @@ func PostItem(rw http.ResponseWriter, req *http.Request) {
 
 	comments, count := commentModel.FindAllByPostID(postId, page, pageSize)
 
-	pageHelper := hgPageination.New()
+	pageHelper := hgPageination.Page
 
 	pageHelper.BaseUrl = "/post/item/?postId=" + strconv.FormatInt(postId, 10) + "&page="
 	pageHelper.Count = count
