@@ -5,7 +5,7 @@ package database
 
 import (
 	"fmt"
-	//"hellogolang/system/helper"
+	hgConfig "hellogolang/HooGL/config"
 	"database/sql"
 	_ "github.com/Go-SQL-Driver/MySQL"
 )
@@ -17,7 +17,14 @@ var (
 func init() {
 	var err error
 	if HgSql == nil {
-		HgSql, err = sql.Open("mysql", "root:hg6688@tcp(localhost:3306)/hellogolang?charset=utf8")
+
+		dbUser := hgConfig.GetConfig("db_user")
+		dbPassword := hgConfig.GetConfig("db_password")
+		dbHost := hgConfig.GetConfig("db_host")
+		dbName := hgConfig.GetConfig("db_name")
+
+
+		HgSql, err = sql.Open("mysql", dbUser+":"+dbPassword+"@tcp("+dbHost+")/"+dbName+"?charset=utf8")
 		if err != nil {
 			fmt.Println("db connect error")
 		} else {

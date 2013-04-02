@@ -7,18 +7,26 @@
 			<form id="login-form" method="post" action="/login/">
 
 				<p class="textfield error" style="display:none;">
-				<span style="font-size:12px;color:red;">用户名/邮箱或密码错误</span>
+					<span style="font-size:12px;color:red;">用户名/邮箱或密码错误</span>
 				</p>
 				
-				
+		
 				<p class="textfield">
-				<input type="text" placeholder="&nbsp;用户名/邮箱"  name="username"/>
-				</p>
+					<label for="name">
+						 <small>用户名*</small>
+					</label>
+					<input name="username"  value="" size="22" tabindex="1" type="text"/>
+					<div class="clear"></div>
+			    </p>
+			    <p class="textfield">
+					<label for="name">
+						 <small>密码*</small>
+					</label>
+					<input name="password"  value="" size="22" tabindex="1" type="password"/>
+					<div class="clear"></div>
+			    </p>
 				
-				<p class="textfield">
-				<input type="password" placeholder="&nbsp;密码"  name="password"/>
-				</p>
-
+			
 				<p class="textfield">
 				<span class="regist-link">没有账号？去<a href="/regist">注册</a></span><input type="submit" value="登陆" class="submit-btn" style="width:100px;float:right;"/>
 				</p>
@@ -35,7 +43,7 @@
 			</div>
 			<div class="userinfo">
 				<span class="name"><a href="#">{{.people.Name}}</a></span>
-				
+				<span class="logout"><a href="/logout/">退出</a></span>
 				
 			</div>
 			<div class="clear"></div>

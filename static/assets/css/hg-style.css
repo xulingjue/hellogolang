@@ -1,5 +1,7 @@
-#loginform p, .form p {display:block; margin-bottom:10px!important; font-size:1.2em;}
+#login-form p, .form p {display:block; margin-bottom:10px!important; font-size:1.2em;}
 .textfield input {display:block; width:100%; height:25px; line-height:24px; border:solid 1px #ccc;}
+#login-form p label {float: left;display: block;width: 50px;text-align: left;line-height: 24px;height: 25px;}
+#login-form .textfield input {display:block; width:210px;float: right; height:25px; line-height:24px; border:solid 1px #ccc;}
 #footerwrap .credit {width: auto;}
 #footerwrap .copyright{width: 100%;text-align: center;}
 
@@ -117,10 +119,9 @@ account .userinfo .name{
 	margin-top: 5px;
 }
 
-account .userinfo .score{
+account .userinfo .logout{
 	font-size: 12px;
 	margin-top: 10px;
-	font-weight: bold;
 }
 
 account .user-btn-panel{

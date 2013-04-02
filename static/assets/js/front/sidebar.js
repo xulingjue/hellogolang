@@ -18,12 +18,14 @@ $(document).ready(function(){
 			   	},
 			   	success: function(msg){
 			    	if(msg.result=="success"){
+			    		$("account").prev("h2").hide();
 			    		$("account").html('\
 							<div class="avatar">\
-								<a href="#"><img width="70" src="/assets/image/default3.png" alt="lingjue"></a>\
+								<a href="#"><img width="70" src="/assets/image/default.png" alt="lingjue"></a>\
 							</div>\
 							<div class="userinfo">\
 								<span class="name"><a href="#">'+msg.people.Name+'</a></span>\
+								<span class="logout"><a href="/logout/">退出</a></span>\
 							</div>\
 							<div class="clear"></div>\
 							<div class="user-btn-panel">\

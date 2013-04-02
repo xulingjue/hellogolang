@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	hgFrontHandler "hellogolang/application/handler/front"
-	hgHelper "hellogolang/system/helper"
+	hgConfig "hellogolang/HooGL/config"
 	"net/http"
 	"os"
 )
@@ -33,7 +33,7 @@ func main() {
 	}
 
 	//启动服务器
-	startErr := http.ListenAndServe(":"+hgHelper.GetConfig("port"), nil) //设置监听的端口
+	startErr := http.ListenAndServe(":"+hgConfig.GetConfig("port"), nil) //设置监听的端口
 	if startErr != nil {
 		//hgHelper.LogMessage("server start error")
 		fmt.Println(startErr)

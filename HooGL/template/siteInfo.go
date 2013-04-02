@@ -1,4 +1,4 @@
-package front
+package template
 
 /*
  *界面辅助类

@@ -7,7 +7,7 @@ package model
 
 import (
 	"fmt"
-	db "hellogolang/system/database"
+	db "hellogolang/HooGL/database"
 )
 
 type People struct {
@@ -67,8 +67,13 @@ func (pm *PeopleModel) FindByName(name string) *People {
 		"people.create_time,people.fansnum,people.favnum,people.password,people.qq,people.postnum,people.quesnum from people where name=?"
 
 	stmt, err := db.HgSql.Prepare(sql)
-	row := stmt.QueryRow(name)
 
+	if err != nil{
+		fmt.Println(err)
+		return nil
+	}
+
+	row := stmt.QueryRow(name)
 	var people People
 	err = row.Scan(&people.Idpeople, &people.Name, &people.Email, &people.Phone, &people.Avatar, &people.LastLogin,
 		&people.CreateTime, &people.Fansnum, &people.Favnum, &people.Password, &people.Phone, &people.Postnum, &people.Questionum)

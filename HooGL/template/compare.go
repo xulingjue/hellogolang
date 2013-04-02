@@ -1,4 +1,4 @@
-package tmplfunc
+package template
 
 import (
 	"regexp"

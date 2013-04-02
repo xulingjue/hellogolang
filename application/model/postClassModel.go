@@ -2,7 +2,7 @@ package model
 
 import (
 	"fmt"
-	db "hellogolang/system/database"
+	db "hellogolang/HooGL/database"
 )
 
 type PostClass struct {

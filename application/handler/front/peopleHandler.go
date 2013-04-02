@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"hellogolang/application/model"
-	"hellogolang/system/tmplfunc"
+	hgTemplate "hellogolang/HooGL/template"
 	"net/http"
 	"text/template"
 )
@@ -15,7 +15,7 @@ import (
 func Login(rw http.ResponseWriter, req *http.Request) { //ok
 	if req.Method == "GET" {
 		tmpl := template.New("people-login.tmpl")
-		tmpl.Funcs(template.FuncMap{"StringEqual": tmplfunc.StringEqual, "Int64Equal": tmplfunc.Int64Equal})
+		tmpl.Funcs(template.FuncMap{"StringEqual": hgTemplate.StringEqual, "Int64Equal": hgTemplate.Int64Equal})
 		tmpl.ParseFiles(
 			"template/front/header.tmpl",
 			"template/front/people-login.tmpl",
@@ -49,7 +49,7 @@ func Login(rw http.ResponseWriter, req *http.Request) { //ok
 			http.Redirect(rw, req, "/", http.StatusFound)
 		} else {
 			tmpl := template.New("people-login.tmpl")
-			tmpl.Funcs(template.FuncMap{"StringEqual": tmplfunc.StringEqual, "Int64Equal": tmplfunc.Int64Equal})
+			tmpl.Funcs(template.FuncMap{"StringEqual": hgTemplate.StringEqual, "Int64Equal": hgTemplate.Int64Equal})
 			tmpl.ParseFiles(
 				"template/front/header.tmpl",
 				"template/front/people-login.tmpl",
@@ -94,7 +94,7 @@ func AjaxLogin(rw http.ResponseWriter, req *http.Request) {
 
 		b, err := json.Marshal(result)
 		if err != nil {
-			fmt.Fprintf("json err:", err)
+			return 
 		}
 		fmt.Fprintf(rw, string(b))
 	}
@@ -110,7 +110,7 @@ func Regist(rw http.ResponseWriter, req *http.Request) {
 
 	if req.Method == "GET" {
 		tmpl := template.New("registView")
-		tmpl.Funcs(template.FuncMap{"StringEqual": tmplfunc.StringEqual, "Int64Equal": tmplfunc.Int64Equal})
+		tmpl.Funcs(template.FuncMap{"StringEqual": hgTemplate.StringEqual, "Int64Equal": hgTemplate.Int64Equal})
 		tmpl.ParseFiles(
 			"template/front/header.tmpl",
 			"template/front/people-regist.tmpl",

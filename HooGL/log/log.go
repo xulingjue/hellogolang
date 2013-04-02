@@ -1,4 +1,4 @@
-package helper
+package log
 
 /*
  *服务器log类，日志按天分

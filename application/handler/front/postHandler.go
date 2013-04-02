@@ -4,8 +4,8 @@ import (
 	//"code.google.com/p/gorilla/sessions"
 	"fmt"
 	"hellogolang/application/model"
-	"hellogolang/system/library"
-	"hellogolang/system/tmplfunc"
+	hgTemplate "hellogolang/HooGL/template"
+	hgPageination "hellogolang/HooGL/pageination"
 	"net/http"
 	"strconv"
 	"text/template"
@@ -27,7 +27,7 @@ func Index(rw http.ResponseWriter, req *http.Request) {
 
 	posts, count := postModel.FindAll(page, pageSize, map[string]string{})
 
-	var pageHelper library.Page
+	pageHelper := hgPageination.New()
 	pageHelper.Count = count
 	pageHelper.PageSize = pageSize
 	pageHelper.PageNum = page
@@ -35,7 +35,7 @@ func Index(rw http.ResponseWriter, req *http.Request) {
 	pageHelper.Compute()
 
 	tmpl := template.New("indexView")
-	tmpl.Funcs(template.FuncMap{"StringEqual": tmplfunc.StringEqual, "Int64Equal": tmplfunc.Int64Equal, "IntEqual": tmplfunc.IntEqual, "RemoveHtmlTag": tmplfunc.RemoveHtmlTag})
+	tmpl.Funcs(template.FuncMap{"StringEqual": hgTemplate.StringEqual, "Int64Equal": hgTemplate.Int64Equal, "IntEqual": hgTemplate.IntEqual, "RemoveHtmlTag": hgTemplate.RemoveHtmlTag})
 	tmpl.ParseFiles(
 		"template/front/header.tmpl",
 		"template/front/index.tmpl",
@@ -43,8 +43,6 @@ func Index(rw http.ResponseWriter, req *http.Request) {
 		"template/front/page.tmpl",
 		"template/front/sidebar.tmpl")
 
-	siteInfo.Js = []string{
-		"js/front/people/index.js"}
 	siteInfo.ExtraJs = []string{
 		"http://jzaefferer.github.com/jquery-validation/jquery.validate.js"}
 	siteInfo.CurrentNav = "index"
@@ -69,7 +67,7 @@ func PostPage(rw http.ResponseWriter, req *http.Request) {
 	}
 
 	conditions := make(map[string]string)
-	var pageHelper library.Page
+	pageHelper := hgPageination.New()
 
 	IdpostClass, err := strconv.ParseInt(req.FormValue("cat"), 10, 64)
 	if err == nil {
@@ -93,7 +91,7 @@ func PostPage(rw http.ResponseWriter, req *http.Request) {
 	pageHelper.Compute()
 
 	tmpl := template.New("post-pageView")
-	tmpl.Funcs(template.FuncMap{"StringEqual": tmplfunc.StringEqual, "Int64Equal": tmplfunc.Int64Equal, "IntEqual": tmplfunc.IntEqual, "RemoveHtmlTag": tmplfunc.RemoveHtmlTag})
+	tmpl.Funcs(template.FuncMap{"StringEqual": hgTemplate.StringEqual, "Int64Equal": hgTemplate.Int64Equal, "IntEqual": hgTemplate.IntEqual, "RemoveHtmlTag": hgTemplate.RemoveHtmlTag})
 	tmpl.ParseFiles(
 		"template/front/header.tmpl",
 		"template/front/post-list.tmpl",
@@ -142,7 +140,7 @@ func PostItem(rw http.ResponseWriter, req *http.Request) {
 
 	comments, count := commentModel.FindAllByPostID(postId, page, pageSize)
 
-	var pageHelper library.Page
+	pageHelper := hgPageination.New()
 
 	pageHelper.BaseUrl = "/post/item/?postId=" + strconv.FormatInt(postId, 10) + "&page="
 	pageHelper.Count = count
@@ -151,7 +149,7 @@ func PostItem(rw http.ResponseWriter, req *http.Request) {
 	pageHelper.Compute()
 
 	tmpl := template.New("post-itemView")
-	tmpl.Funcs(template.FuncMap{"StringEqual": tmplfunc.StringEqual, "Int64Equal": tmplfunc.Int64Equal, "IntEqual": tmplfunc.IntEqual})
+	tmpl.Funcs(template.FuncMap{"StringEqual": hgTemplate.StringEqual, "Int64Equal": hgTemplate.Int64Equal, "IntEqual": hgTemplate.IntEqual})
 	tmpl.ParseFiles(
 		"template/front/header.tmpl",
 		"template/front/post-item.tmpl",
@@ -183,7 +181,7 @@ func PostCreate(rw http.ResponseWriter, req *http.Request) {
 	if req.Method == "GET" {
 		postClass := postClassModel.FindAll()
 		tmpl := template.New("post-createView")
-		tmpl.Funcs(template.FuncMap{"StringEqual": tmplfunc.StringEqual, "Int64Equal": tmplfunc.Int64Equal})
+		tmpl.Funcs(template.FuncMap{"StringEqual": hgTemplate.StringEqual, "Int64Equal": hgTemplate.Int64Equal})
 		tmpl.ParseFiles(
 			"template/front/header.tmpl",
 			"template/front/post-create.tmpl",
