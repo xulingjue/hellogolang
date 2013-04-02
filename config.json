@@ -5,7 +5,7 @@
 	"db_host":"localhost:3306",
 	"db_name":"hellogolang",
 	"db_user":"root",
-	"db_password":"",
+	"db_password":"  ",
 	"smtp_username": "username@example.com",
 	"smtp_password": "password",
 	"smtp_host": "smtp.example.com",
