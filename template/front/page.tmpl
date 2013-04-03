@@ -1,10 +1,10 @@
 {{define "page"}}
-{{ $baseUrl := .pageHelper.BaseUrl}}
-{{ $pageNum := .pageHelper.PageNum}}
-{{ if .pageHelper.Visable}}
+{{ $baseUrl := .tmplInfo.Data.pageHelper.BaseUrl}}
+{{ $pageNum := .tmplInfo.Data.pageHelper.PageNum}}
+{{ if .tmplInfo.Data.pageHelper.Visable}}
 <div class="wp-pagenavi">
     <a href="{{$baseUrl}}{{.pageHelper.PreLink}}">&laquo; 上一页 </a>
-    {{range .pageHelper.Links}}  
+    {{range .tmplInfo.Data.pageHelper.Links}}  
     <a {{ if IntEqual . $pageNum }}class="current"{{end}}   href="{{$baseUrl}}{{.}}" title="2">{{.}}</a>
     {{end}}
     <a href="{{$baseUrl}}{{.pageHelper.NextLink}}">下一页 &raquo;</a>

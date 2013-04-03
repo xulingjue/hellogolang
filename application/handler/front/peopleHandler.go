@@ -3,68 +3,11 @@ package front
 import (
 	"encoding/json"
 	"fmt"
-	"hellogolang/application/model"
 	hgTemplate "hellogolang/HooGL/template"
+	"hellogolang/application/model"
 	"net/http"
 	"text/template"
 )
-
-/*
- * 登录操作  计划改为ajax登录
- */
-func Login(rw http.ResponseWriter, req *http.Request) { //ok
-	if req.Method == "GET" {
-		tmpl := template.New("people-login.tmpl")
-		tmpl.Funcs(template.FuncMap{"StringEqual": hgTemplate.StringEqual, "Int64Equal": hgTemplate.Int64Equal})
-		tmpl.ParseFiles(
-			"template/front/header.tmpl",
-			"template/front/people-login.tmpl",
-			"template/front/footer.tmpl")
-
-		siteInfo.CurrentNav = ""
-
-		siteInfo.Js = []string{
-			"js/front/people/people-login.js"}
-		siteInfo.ExtraJs = []string{
-			"http://jzaefferer.github.com/jquery-validation/jquery.validate.js"}
-
-		tmpl.ExecuteTemplate(rw, "people-login", map[string]interface{}{"siteInfo": siteInfo})
-	} else if req.Method == "POST" {
-		req.ParseForm()
-		name := req.FormValue("name")
-		password := req.FormValue("password")
-
-		people := peopleModel.FindByName(name)
-		if people == nil {
-			people = peopleModel.FindByEmail(name)
-		}
-
-		if people != nil && people.Password == password {
-			session, _ := store.Get(req, "hellogolang.org-user")
-			session.Values["name"] = people.Name
-			session.Values["email"] = people.Email
-			session.Values["idpeople"] = people.Idpeople
-
-			session.Save(req, rw)
-			http.Redirect(rw, req, "/", http.StatusFound)
-		} else {
-			tmpl := template.New("people-login.tmpl")
-			tmpl.Funcs(template.FuncMap{"StringEqual": hgTemplate.StringEqual, "Int64Equal": hgTemplate.Int64Equal})
-			tmpl.ParseFiles(
-				"template/front/header.tmpl",
-				"template/front/people-login.tmpl",
-				"template/front/footer.tmpl")
-
-			siteInfo.Js = []string{
-				"js/front/people/people-login.js"}
-			siteInfo.ExtraJs = []string{
-				"http://jzaefferer.github.com/jquery-validation/jquery.validate.js"}
-
-			errorMessage := "loginError"
-			tmpl.ExecuteTemplate(rw, "people-login", map[string]interface{}{"errorMessage": errorMessage, "siteInfo": siteInfo})
-		}
-	}
-}
 
 func AjaxLogin(rw http.ResponseWriter, req *http.Request) {
 	if req.Method == "GET" {
@@ -94,7 +37,7 @@ func AjaxLogin(rw http.ResponseWriter, req *http.Request) {
 
 		b, err := json.Marshal(result)
 		if err != nil {
-			return 
+			return
 		}
 		fmt.Fprintf(rw, string(b))
 	}
@@ -116,12 +59,13 @@ func Regist(rw http.ResponseWriter, req *http.Request) {
 			"template/front/people-regist.tmpl",
 			"template/front/footer.tmpl")
 
-		siteInfo.Js = []string{
+		tmplInfo := hgTemplate.TmplInfo{}
+		tmplInfo.Js = []string{
 			"js/front/people/people-regist.js"}
-		siteInfo.ExtraJs = []string{
+		tmplInfo.ExtraJs = []string{
 			"http://jzaefferer.github.com/jquery-validation/jquery.validate.js"}
 
-		tmpl.ExecuteTemplate(rw, "people-regist", map[string]interface{}{"siteInfo": siteInfo})
+		tmpl.ExecuteTemplate(rw, "people-regist", map[string]interface{}{"tmplInfo": tmplInfo})
 	} else if req.Method == "POST" {
 		req.ParseForm()
 		var people model.People
@@ -229,4 +173,20 @@ func PeopleAjaxIsExist(rw http.ResponseWriter, req *http.Request) { //ok
 
 	fmt.Fprintf(rw, "true")
 	return
+}
+
+/*
+ *判断用户是否登录
+ */
+func isLogin(req *http.Request) *model.People {
+	session, _ := store.Get(req, "hellogolang.org-user")
+	var people model.People
+
+	if session.Values["idpeople"] != nil {
+		people.Idpeople = session.Values["idpeople"].(int64)
+		people.Email = session.Values["email"].(string)
+		people.Name = session.Values["name"].(string)
+		return &people
+	}
+	return nil
 }

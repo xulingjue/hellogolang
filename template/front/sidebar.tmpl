@@ -1,7 +1,7 @@
 {{define "sidebar"}}
 <section id="sidebar">
 	<div id="sidebarwrap">
-		{{ if not .people}}
+		{{ if not .tmplInfo.Data.people}}
 		<h2>登录</h2>
 		<account>
 			<form id="login-form" method="post" action="/login/">
@@ -36,13 +36,13 @@
 		</account>
 		{{end}}
 
-		{{ if and .people}}
+		{{ if and .tmplInfo.Data.people}}
 		<account>
 			<div class="avatar">
 				<a href="#"><img width="70" src="/assets/image/default.png" alt="lingjue"></a>
 			</div>
 			<div class="userinfo">
-				<span class="name"><a href="#">{{.people.Name}}</a></span>
+				<span class="name"><a href="#">{{.tmplInfo.Data.people.Name}}</a></span>
 				<span class="logout"><a href="/logout/">退出</a></span>
 				
 			</div>
@@ -60,7 +60,7 @@
 		  
 		<h2>分类</h2>
 		<ul>
-			{{range .postClasses}}
+			{{range .tmplInfo.Data.postClasses}}
 			<li><a href="/post/?cat={{.IdpostClass}}">{{.Name}}</a></li>
 			{{end}}
 		</ul>

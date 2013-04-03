@@ -26,7 +26,7 @@ func Index(rw http.ResponseWriter, req *http.Request) {
 
 	posts, count := postModel.FindAll(page, pageSize, map[string]string{})
 
-	pageHelper := hgPageination.Page
+	pageHelper := hgPageination.Page{}
 	pageHelper.Count = count
 	pageHelper.PageSize = pageSize
 	pageHelper.PageNum = page
@@ -35,6 +35,7 @@ func Index(rw http.ResponseWriter, req *http.Request) {
 
 	tmpl := template.New("indexView")
 	tmpl.Funcs(template.FuncMap{"StringEqual": hgTemplate.StringEqual, "Int64Equal": hgTemplate.Int64Equal, "IntEqual": hgTemplate.IntEqual, "RemoveHtmlTag": hgTemplate.RemoveHtmlTag})
+
 	tmpl.ParseFiles(
 		"template/front/header.tmpl",
 		"template/front/index.tmpl",
@@ -42,11 +43,18 @@ func Index(rw http.ResponseWriter, req *http.Request) {
 		"template/front/page.tmpl",
 		"template/front/sidebar.tmpl")
 
-	siteInfo.ExtraJs = []string{
-		"http://jzaefferer.github.com/jquery-validation/jquery.validate.js"}
-	siteInfo.CurrentNav = "index"
+	tmplInfo := hgTemplate.TmplInfo{}
 
-	tmpl.ExecuteTemplate(rw, "index", map[string]interface{}{"people": people, "siteInfo": siteInfo, "posts": posts, "pageHelper": pageHelper, "postClasses": postClasses})
+	tmplInfo.ExtraJs = []string{
+		"http://jzaefferer.github.com/jquery-validation/jquery.validate.js"}
+	tmplInfo.CurrentNav = "index"
+
+	tmplInfo.AddData("people", people)
+	tmplInfo.AddData("posts", posts)
+	tmplInfo.AddData("pageHelper", pageHelper)
+	tmplInfo.AddData("postClasses", postClasses)
+
+	tmpl.ExecuteTemplate(rw, "index", map[string]interface{}{"tmplInfo": tmplInfo})
 }
 
 /*
@@ -54,21 +62,19 @@ func Index(rw http.ResponseWriter, req *http.Request) {
  */
 func PostPage(rw http.ResponseWriter, req *http.Request) {
 	postClasses := postClassModel.FindAll()
-
 	people := isLogin(req)
-	siteInfo.BackUrl = req.RequestURI
 
 	req.ParseForm()
 	pageSize := 10
 	page := hgForm.GetInt(req, "page", 1)
 
 	conditions := make(map[string]string)
-	pageHelper := hgPageination.Page
+	pageHelper := hgPageination.Page{}
 
 	//IdpostClass, err := strconv.ParseInt(req.FormValue("cat"), 10, 64)
-	IdpostClass := hgForm.GetInt64(req, "cat", 1)
+	IdpostClass := hgForm.GetInt64(req, "cat", 0)
 
-	if err == nil {
+	if IdpostClass != 0 {
 		conditions["post.idpost_class ="] = req.FormValue("cat")
 		pageHelper.BaseUrl = "/post/?cat=" + req.FormValue("cat") + "&page="
 	} else {
@@ -97,14 +103,20 @@ func PostPage(rw http.ResponseWriter, req *http.Request) {
 		"template/front/page.tmpl",
 		"template/front/sidebar.tmpl")
 
-	siteInfo.Js = []string{
+	tmplInfo := hgTemplate.TmplInfo{}
+	tmplInfo.Js = []string{
 		"kindeditor/kindeditor-min.js",
 		"kindeditor/lang/zh_CN.js",
 		"js/front/post/post-list.js"}
+	tmplInfo.CurrentNav = "article"
 
-	siteInfo.CurrentNav = "article"
+	tmplInfo.AddData("people", people)
+	tmplInfo.AddData("posts", posts)
+	tmplInfo.AddData("pageHelper", pageHelper)
+	tmplInfo.AddData("postClasses", postClasses)
+	tmplInfo.AddData("postClass", postClass)
 
-	tmpl.ExecuteTemplate(rw, "post-list", map[string]interface{}{"people": people, "siteInfo": siteInfo, "posts": posts, "postClass": postClass, "pageHelper": pageHelper, "postClasses": postClasses})
+	tmpl.ExecuteTemplate(rw, "post-list", map[string]interface{}{"tmplInfo": tmplInfo})
 	tmpl.Execute(rw, nil)
 
 }
@@ -120,7 +132,7 @@ func PostItem(rw http.ResponseWriter, req *http.Request) {
 
 	page := hgForm.GetInt(req, "page", 1)
 
-	postId := hgForm.GetInt64(req, "page", 0)
+	postId := hgForm.GetInt64(req, "postId", 0)
 	if postId == 0 {
 		//出错
 	}
@@ -135,7 +147,7 @@ func PostItem(rw http.ResponseWriter, req *http.Request) {
 
 	comments, count := commentModel.FindAllByPostID(postId, page, pageSize)
 
-	pageHelper := hgPageination.Page
+	pageHelper := hgPageination.Page{}
 
 	pageHelper.BaseUrl = "/post/item/?postId=" + strconv.FormatInt(postId, 10) + "&page="
 	pageHelper.Count = count
@@ -152,14 +164,19 @@ func PostItem(rw http.ResponseWriter, req *http.Request) {
 		"template/front/page.tmpl",
 		"template/front/sidebar.tmpl")
 
-	siteInfo.Js = []string{
+	tmplInfo := hgTemplate.TmplInfo{}
+	tmplInfo.Js = []string{
 		"js/front/post/post-item.js"}
-	siteInfo.ExtraJs = []string{
+	tmplInfo.ExtraJs = []string{
 		"http://jzaefferer.github.com/jquery-validation/jquery.validate.js"}
+	tmplInfo.CurrentNav = "article"
+	tmplInfo.AddData("people", people)
+	tmplInfo.AddData("post", post)
+	tmplInfo.AddData("pageHelper", pageHelper)
+	tmplInfo.AddData("postClasses", postClasses)
+	tmplInfo.AddData("comments", comments)
 
-	siteInfo.CurrentNav = "article"
-
-	tmpl.ExecuteTemplate(rw, "post-item", map[string]interface{}{"people": people, "siteInfo": siteInfo, "post": post, "comments": comments, "pageHelper": pageHelper, "postClasses": postClasses})
+	tmpl.ExecuteTemplate(rw, "post-item", map[string]interface{}{"tmplInfo": tmplInfo})
 	tmpl.Execute(rw, nil)
 
 	//更新阅读数
@@ -183,12 +200,18 @@ func PostCreate(rw http.ResponseWriter, req *http.Request) {
 			"template/front/footer.tmpl",
 			"template/front/sidebar.tmpl")
 
-		siteInfo.Js = []string{
+		tmplInfo := hgTemplate.TmplInfo{}
+
+		tmplInfo.Js = []string{
 			"ckeditor/ckeditor.js",
 			"js/front/post/post-create.js"}
-		siteInfo.CurrentNav = "none"
+		tmplInfo.CurrentNav = "none"
 
-		tmpl.ExecuteTemplate(rw, "post-create", map[string]interface{}{"siteInfo": siteInfo, "postClass": postClass, "people": people, "postClasses": postClasses})
+		tmplInfo.AddData("people", people)
+		tmplInfo.AddData("postClass", postClass)
+		tmplInfo.AddData("postClasses", postClasses)
+
+		tmpl.ExecuteTemplate(rw, "post-create", map[string]interface{}{"tmplInfo": tmplInfo})
 		tmpl.Execute(rw, nil)
 	} else if req.Method == "POST" {
 		req.ParseForm()
@@ -226,8 +249,9 @@ func CommentCreate(rw http.ResponseWriter, req *http.Request) {
 	fmt.Println("path", req.URL.Path)
 
 	req.ParseForm()
-	postId, _ := strconv.ParseInt(req.FormValue("postId"), 10, 64)
+	postId := hgForm.GetInt64(req, "postId", 0)
 	people := isLogin(req)
+
 	content := req.FormValue("content")
 	post := postModel.Find(postId)
 
@@ -238,7 +262,6 @@ func CommentCreate(rw http.ResponseWriter, req *http.Request) {
 	comment.Parent = 0
 
 	commentModel.Insert(comment)
-
 	http.Redirect(rw, req, "/post/item/?postId="+req.FormValue("postId"), http.StatusFound)
 
 	//更新回复数

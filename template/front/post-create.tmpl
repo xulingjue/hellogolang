@@ -20,7 +20,7 @@
 		              <small>栏目</small>
 		        </label>
 		       	<select name="post_class">
-                    {{range .postClass}} 
+                    {{range .tmplInfo.Data.postClass}} 
                       <option value="{{.IdpostClass}}">{{.Name}}</option>
                     {{end}}
                 </select>

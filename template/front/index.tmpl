@@ -7,7 +7,7 @@
 		最新文章
 		</h2>
 
- 		{{range .posts}}
+ 		{{range .tmplInfo.Data.posts}}
 		<article class="post">
 			<header>
 				<h3><a href="/post/item/?postId={{.Idpost}}">{{ .Title }}</a></h3>

@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	hgFrontHandler "hellogolang/application/handler/front"
 	hgConfig "hellogolang/HooGL/config"
+	hgFrontHandler "hellogolang/application/handler/front"
 	"net/http"
 	"os"
 )
@@ -18,7 +18,6 @@ var handlers = map[string]func(http.ResponseWriter, *http.Request){
 
 	/*people*/
 	"/ajaxlogin/":      hgFrontHandler.AjaxLogin,
-	"/login/":          hgFrontHandler.Login,
 	"/logout/":         hgFrontHandler.Logout,
 	"/regist/":         hgFrontHandler.Regist,
 	"/people/isexist/": hgFrontHandler.PeopleAjaxIsExist,

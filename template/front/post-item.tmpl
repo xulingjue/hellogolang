@@ -4,16 +4,16 @@
 <section id="main">
   <div id="leftcontainer">
     
-    <h2 class="mainheading">{{ .post.Title}}</h2>
-    <p class="postinfo" style="margin-bottom:20px;">{{ .post.CreateTime }} | <a href="#">{{ .post.Author.Name }}</a> | <a href="/post/?cat={{.post.Class.IdpostClass}}" target="{{.Idpost}}_window" title="浏览“{{ .post.Class.Name }}”下的文章" href="#">{{ .post.Class.Name }}</a></p>
+    <h2 class="mainheading">{{ .tmplInfo.Data.post.Title}}</h2>
+    <p class="postinfo" style="margin-bottom:20px;">{{ .tmplInfo.Data.post.CreateTime }} | <a href="#">{{ .tmplInfo.Data.post.Author.Name }}</a> | <a href="/post/?cat={{.post.Class.IdpostClass}}" target="{{.Idpost}}_window" title="浏览“{{ .post.Class.Name }}”下的文章" href="#">{{ .tmplInfo.Data.post.Class.Name }}</a></p>
     <article class="post">
-      {{ .post.Content}}
+      {{ .tmplInfo.Data.post.Content}}
     </article>
 
 
-    <h3>{{ .post.ReplyNum }} 回复</h3>
+    <h3>{{ .tmplInfo.Data.tmplInfo.Data.post.ReplyNum }} 回复</h3>
     <ol class="commentlist">
-      {{range .comments}}       
+      {{range .tmplInfo.Data.comments}}       
       <li class="comment" id="comment-430134" data-id="430134" data-depth="1">      
         <div class="comment-content clearfix">          
           <div class="comment-top clearfix">             
@@ -41,7 +41,7 @@
             <textarea name="content" class="required"></textarea>
          </p>
          <p> 
-            <input name="postId" type="hidden" class="ignore" value="{{.post.Idpost}}" />
+            <input name="postId" type="hidden" class="ignore" value="{{.tmplInfo.Data.post.Idpost}}" />
             <input name="submit" id="submit" class="submit-btn" type="submit" value="发表评论" disable="disable" />
          </p>
          <div id="summary"></div>
@@ -49,7 +49,7 @@
       </form>
     </comment>
 
-    {{template "page" .}} 
+    
   </div>
 </section>
 
