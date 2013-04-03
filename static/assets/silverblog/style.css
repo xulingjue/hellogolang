@@ -83,7 +83,7 @@ body {background: #fff url(images/bodybg.jpg) repeat-x; font-family:Verdana, Gen
 #sidebar h2 {font:bold 1.8em "Trebuchet MS", Arial, Helvetica, sans-serif; color:#000; margin-bottom:10px;}
 
 #sidebar p {font-size:1.2em; line-height:18px; margin-bottom:20px;}
-#sidebar ul {font-size:1.1em; font-style:italic; margin-bottom:20px;}
+#sidebar ul {font-size:1.2em; margin-bottom:20px;}
 #sidebar ul li {display:block; height:24px; text-align:right; border-bottom:solid 1px #cdcdcd; line-height:24px;}
 #sidebar ul li a { line-height:24px; height:24px; background:url(images/ulli.png) left center no-repeat; padding:0 0 0 20px; display:block; color:#375EAB; float:left; width:220px; text-align:left;}
 #sidebarwrap {padding:0 20px;}

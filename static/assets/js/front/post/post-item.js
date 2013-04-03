@@ -10,12 +10,12 @@ $(document).ready(function(){
           onclick:false,
           rules: {
             content: {
-              required: true,
+              required: true
             }
           },
           messages: {
             content: {
-              required: "请输入回复内容",
+              required: "请输入回复内容"
             }
           },
           errorPlacement: function(error, element) {
@@ -27,7 +27,8 @@ $(document).ready(function(){
           success: function(label) {
             label.parent().hide();
             return false;
-          },
-      })
+          }
+      }
+    )
 });
 

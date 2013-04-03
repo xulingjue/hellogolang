@@ -48,6 +48,8 @@ func Index(rw http.ResponseWriter, req *http.Request) {
 	tmplInfo.ExtraJs = []string{
 		"http://jzaefferer.github.com/jquery-validation/jquery.validate.js"}
 	tmplInfo.CurrentNav = "index"
+	tmplInfo.Title = "Hello Golang -首页"
+	tmplInfo.Description = "开源Go语言爱好者交流平台"
 
 	tmplInfo.AddData("people", people)
 	tmplInfo.AddData("posts", posts)
@@ -109,6 +111,8 @@ func PostPage(rw http.ResponseWriter, req *http.Request) {
 		"kindeditor/lang/zh_CN.js",
 		"js/front/post/post-list.js"}
 	tmplInfo.CurrentNav = "article"
+	tmplInfo.Title = "Hello Golang -文章"
+	tmplInfo.Description = "全新的go语言资讯！精选的go语言教程！经典的go语言代码！"
 
 	tmplInfo.AddData("people", people)
 	tmplInfo.AddData("posts", posts)
@@ -170,6 +174,10 @@ func PostItem(rw http.ResponseWriter, req *http.Request) {
 	tmplInfo.ExtraJs = []string{
 		"http://jzaefferer.github.com/jquery-validation/jquery.validate.js"}
 	tmplInfo.CurrentNav = "article"
+
+	tmplInfo.Title = "Hello Golang -" + post.Title
+	tmplInfo.Description = post.Title
+
 	tmplInfo.AddData("people", people)
 	tmplInfo.AddData("post", post)
 	tmplInfo.AddData("pageHelper", pageHelper)
@@ -206,6 +214,8 @@ func PostCreate(rw http.ResponseWriter, req *http.Request) {
 			"ckeditor/ckeditor.js",
 			"js/front/post/post-create.js"}
 		tmplInfo.CurrentNav = "none"
+		tmplInfo.Title = "Hello Golang -新建文章"
+		tmplInfo.Description = "开源Go语言爱好者交流平台"
 
 		tmplInfo.AddData("people", people)
 		tmplInfo.AddData("postClass", postClass)
@@ -255,15 +265,19 @@ func CommentCreate(rw http.ResponseWriter, req *http.Request) {
 	content := req.FormValue("content")
 	post := postModel.Find(postId)
 
+	if people == nil || post == nil {
+		http.Redirect(rw, req, "/post/item/?postId="+req.FormValue("postId"), http.StatusFound)
+		return
+	}
+
 	var comment model.Comment
 	comment.Idpost = postId
 	comment.Content = content
 	comment.Author.Idpeople = people.Idpeople
 	comment.Parent = 0
-
 	commentModel.Insert(comment)
-	http.Redirect(rw, req, "/post/item/?postId="+req.FormValue("postId"), http.StatusFound)
 
+	http.Redirect(rw, req, "/post/item/?postId="+req.FormValue("postId"), http.StatusFound)
 	//更新回复数
 	postModel.UpdateReplyNum(*post)
 }

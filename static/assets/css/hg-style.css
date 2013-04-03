@@ -94,74 +94,56 @@
 	line-height: 25px;
 }
 
-account{
-	margin-bottom: 15px;
+.account{
+	margin-bottom: 25px;
 	display: block;
 }
 
-account .avatar{
+.account .avatar{
 	float: left;
 }
 
-account .userinfo span{
-	display: block;
 
-}
 
-account .userinfo{
+.account .userinfo{
 	margin-left: 90px;
 }
 
 
-account .userinfo .name{
+.account .userinfo .name{
 	font-size: 16px;
 	font-weight :bold;
 	margin-top: 5px;
+	display:block;
 }
 
-account .userinfo .logout{
+.account .userinfo .logout{
 	font-size: 12px;
 	margin-top: 10px;
+	display: block;
 }
 
-account .user-btn-panel{
+.account .userinfo .buttons{
+	font-size: 12px;
+	margin-top: 10px;
+	display: block;
+}
+
+
+.account .user-btn-panel{
 	margin-top: 10px;
 }
 
-account .user-btn-panel span{
+.account .user-btn-panel span{
 	width: 50%;
 	display:block;
 	float: left;
 }
 
-account .user-btn-panel span a{
+.account .user-btn-panel span a{
 	width: 80px;
 }
 	
-
-.btncjcp {
-	padding: 0px 20px 0 20px;
-	height: 32px;
-	line-height: 32px;
-	
-	color: #fff!important;
-	display: inline-block;
-	_background: none;
-	background-color: #375EAB;
-	text-align: center;
-}
-
-.btnjlrj {
-	text-align: center;
-	padding: 0px 20px 0 20px;
-	height: 32px;
-	line-height: 32px;
-	color: #fff!important;
-	display: inline-block;
-	_background: none;
-	background-color: #375EAB;
-	float:right;
-}
 
 .regist-link{
 	line-height: 32px;
@@ -276,7 +258,7 @@ ol.commentlist .comment-top {
 	border-top: 1px dotted #ddd;
 }
 
-comment .text-area textarea{
+.comment .text-area textarea{
 	height:150px;
 	width: 98%;
 	padding: 5px!important;
@@ -299,4 +281,6 @@ comment .text-area textarea{
 a{
 	color: #375EAB;
 }
+
+
 

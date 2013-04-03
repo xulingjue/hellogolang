@@ -3,7 +3,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8" />
-<title>Hello Golang--Go语言社区</title>
+<title>{{.tmplInfo.Title}}</title>
 
 <!-- CSS -->
 <link href="/assets/google-code-prettify/prettify.css" type="text/css" rel="stylesheet" />
@@ -11,12 +11,13 @@
 <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon" />
 
 <meta name="keywords" content="Go语言,golang,go,hello golang,HooGL"/>
-<meta name="description" property="og:description" itemprop="description" content="开源go语言社区"/>
+<meta name="description" property="og:description" itemprop="description" content="{{.tmplInfo.Description}}"/>
 
-<meta property="og:title" content="Hello Golang">  
+<meta property="og:title" content="{{.tmplInfo.Title}}"> 
+<meta property="og:description" content="{{.tmplInfo.Description}}">  
 <meta property="og:site_name" content="Hello Golang">  
 <meta property="og:type" content="website"> 
-<meta property="og:description" content="Hello Golang">  
+ 
 
 <!--[if IE]>
 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
