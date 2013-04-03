@@ -18,20 +18,15 @@ $(document).ready(function(){
 			   	},
 			   	success: function(msg){
 			    	if(msg.result=="success"){
-			    		$("account").prev("h2").hide();
-			    		$("account").html('\
+			    		$(".account").prev("h2").hide();
+			    		$(".account").html('\
 							<div class="avatar">\
 								<a href="#"><img width="70" src="/assets/image/default.png" alt="lingjue"></a>\
 							</div>\
 							<div class="userinfo">\
 								<span class="name"><a href="#">'+msg.people.Name+'</a></span>\
+								<span class="buttons"><a href="/post/create/" >发文章</a> <a href="/diet/create" >提问题</a></span>\
 								<span class="logout"><a href="/logout/">退出</a></span>\
-							</div>\
-							<div class="clear"></div>\
-							<div class="user-btn-panel">\
-								<span><a href="/post/create/" rel="nofollow" class="btncjcp">发文章</a></span>\
-								<span><a href="/diet/create" rel="nofollow" class="btnjlrj">提问题</a></span>\
-								<div class="clear"></div>\
 							</div>\
 							<div class="clear"></div>\
 			    			')
