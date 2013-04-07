@@ -17,10 +17,12 @@ var handlers = map[string]func(http.ResponseWriter, *http.Request){
 	"/post/comment/": hgFrontHandler.CommentCreate,
 
 	/*people*/
-	"/ajaxlogin/":      hgFrontHandler.AjaxLogin,
-	"/logout/":         hgFrontHandler.Logout,
-	"/regist/":         hgFrontHandler.Regist,
-	"/people/isexist/": hgFrontHandler.PeopleAjaxIsExist,
+	"/ajaxlogin/":           hgFrontHandler.AjaxLogin,
+	"/logout/":              hgFrontHandler.Logout,
+	"/regist/":              hgFrontHandler.Regist,
+	"/people/isexist/":      hgFrontHandler.PeopleAjaxIsExist,
+	"/people/ucenter/":      hgFrontHandler.Ucenter,
+	"/people/ucenter/edit/": hgFrontHandler.PeopleEdit,
 }
 
 func main() {

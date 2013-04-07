@@ -45,8 +45,9 @@ func Index(rw http.ResponseWriter, req *http.Request) {
 
 	tmplInfo := hgTemplate.TmplInfo{}
 
-	tmplInfo.ExtraJs = []string{
-		"http://jzaefferer.github.com/jquery-validation/jquery.validate.js"}
+	tmplInfo.Js = []string{
+		"js/jquery.validate.js"}
+
 	tmplInfo.CurrentNav = "index"
 	tmplInfo.Title = "Hello Golang -首页"
 	tmplInfo.Description = "开源Go语言爱好者交流平台"
@@ -170,9 +171,9 @@ func PostItem(rw http.ResponseWriter, req *http.Request) {
 
 	tmplInfo := hgTemplate.TmplInfo{}
 	tmplInfo.Js = []string{
-		"js/front/post/post-item.js"}
-	tmplInfo.ExtraJs = []string{
-		"http://jzaefferer.github.com/jquery-validation/jquery.validate.js"}
+		"js/front/post/post-item.js",
+		"js/jquery.validate.js"}
+
 	tmplInfo.CurrentNav = "article"
 
 	tmplInfo.Title = "Hello Golang -" + post.Title

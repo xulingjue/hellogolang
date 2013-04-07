@@ -1,0 +1,58 @@
+{{define "people-ucenter"}}
+{{template "header" .}}
+
+<style>
+.ui-widget-content{
+	border: 0px;
+}
+
+.ui-tabs .ui-tabs-panel{
+	padding: 1em 0 1em 0;
+}
+</style>
+<div id="contents">
+<section id="main">
+	<div id="leftcontainer">
+		<div id="tabs">
+		  <ul>
+		    <li><a href="#tabs-1">个人信息</a></li>
+		    <li><a href="#tabs-2">文章</a></li>
+		  </ul>
+		  <div id="tabs-1">
+		   	<table class="table table-striped">
+				<tr><td>用户名：</td><td>&nbsp;</td></tr>
+				<tr><td>邮箱：</td><td>&nbsp;</td></tr>
+				<tr><td>注册时间：</td><td>&nbsp;</td></tr>
+			</table>
+
+		
+		  </div>
+		  <div id="tabs-2">
+		  	文章&nbsp;|&nbsp;回复
+		  	<br/>
+		  	<br/>
+		    <table class="table">
+				<tr><th>标题</th><th>分类</th><th>时间</th></tr>
+				
+				
+			</table>
+		  </div>
+		
+		</div>
+	</div>
+</section>
+
+{{template "ucenter-sidebar" .}}
+
+<div class="clear"></div>
+</div>
+
+<script>
+$(document).ready(function(){
+	$( "#tabs" ).tabs({ active: 0 });
+})
+</script>
+
+<!-- End -->
+{{template "footer" .}}
+{{end}}

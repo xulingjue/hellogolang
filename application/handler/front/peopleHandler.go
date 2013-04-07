@@ -9,6 +9,44 @@ import (
 	"text/template"
 )
 
+func PeopleEdit(rw http.ResponseWriter, req *http.Request) {
+	if req.Method == "GET" {
+		tmpl := template.New("people-ucenter")
+		tmpl.Funcs(template.FuncMap{"StringEqual": hgTemplate.StringEqual, "Int64Equal": hgTemplate.Int64Equal})
+		tmpl.ParseFiles(
+			"template/front/header.tmpl",
+			"template/front/people-ucenter-edit.tmpl",
+			"template/front/footer.tmpl",
+			"template/front/ucenter-sidebar.tmpl")
+
+		tmplInfo := hgTemplate.TmplInfo{}
+		tmplInfo.Js = []string{
+			"js/jquery.validate.js"}
+
+		tmpl.ExecuteTemplate(rw, "people-ucenter-edit", map[string]interface{}{"tmplInfo": tmplInfo})
+	} else if req.Method == "POST" {
+
+	}
+}
+
+func Ucenter(rw http.ResponseWriter, req *http.Request) {
+	req.ParseForm()
+	tmpl := template.New("people-ucenter")
+	tmpl.Funcs(template.FuncMap{"StringEqual": hgTemplate.StringEqual, "Int64Equal": hgTemplate.Int64Equal})
+	tmpl.ParseFiles(
+		"template/front/header.tmpl",
+		"template/front/people-ucenter.tmpl",
+		"template/front/footer.tmpl",
+		"template/front/ucenter-sidebar.tmpl")
+
+	tmplInfo := hgTemplate.TmplInfo{}
+	tmplInfo.Js = []string{
+		"js/jquery.validate.js"}
+
+	tmpl.ExecuteTemplate(rw, "people-ucenter", map[string]interface{}{"tmplInfo": tmplInfo})
+
+}
+
 func AjaxLogin(rw http.ResponseWriter, req *http.Request) {
 	if req.Method == "GET" {
 		fmt.Fprintf(rw, "false")
@@ -61,9 +99,8 @@ func Regist(rw http.ResponseWriter, req *http.Request) {
 
 		tmplInfo := hgTemplate.TmplInfo{}
 		tmplInfo.Js = []string{
-			"js/front/people/people-regist.js"}
-		tmplInfo.ExtraJs = []string{
-			"http://jzaefferer.github.com/jquery-validation/jquery.validate.js"}
+			"js/front/people/people-regist.js",
+			"js/jquery.validate.js"}
 
 		tmpl.ExecuteTemplate(rw, "people-regist", map[string]interface{}{"tmplInfo": tmplInfo})
 	} else if req.Method == "POST" {

@@ -7,6 +7,7 @@
 
 <!-- CSS -->
 <link href="/assets/google-code-prettify/prettify.css" type="text/css" rel="stylesheet" />
+<link href="/assets/js/jquery-ui/css/flick/jquery-ui-1.10.2.custom.min.css" type="text/css" rel="stylesheet" />
 <link href="/assets/silverblog/style.css" rel="stylesheet" type="text/css">
 <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon" />
 
@@ -29,7 +30,9 @@
 </script>
 <![endif]-->
 
-<script src="/assets/js/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/assets/js/jquery-1.9.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/assets/js/jquery-ui/js/jquery-ui-1.10.2.custom.min.js" type="text/javascript" charset="utf-8"></script>
+
 <script src="/assets/google-code-prettify/prettify.js" type="text/javascript" charset="utf-8"></script>
 <script src="/assets/silverblog/js/loopedslider.js" type="text/javascript" charset="utf-8"></script>
 <script src="/assets/js/front/sidebar.js" type="text/javascript" charset="utf-8"></script>
@@ -41,6 +44,7 @@
     });
   });
 </script> 
+
 
 
  <!-- auto include css -->
@@ -69,6 +73,7 @@
     <nav id="sitenav">
       <ul>
         <li {{if StringEqual .tmplInfo.CurrentNav "index"}}class="current"{{end}} ><a href="/">首页</a></li>
+        <li {{if StringEqual .tmplInfo.CurrentNav "topic"}}class="current"{{end}} ><a href="/topic/">社区</a></li>
         <li {{if StringEqual .tmplInfo.CurrentNav "article"}}class="current"{{end}} ><a href="/post/">文章</a></li>
         <li {{if StringEqual .tmplInfo.CurrentNav "about"}}class="current"{{end}} ><a href="styles.html">关于</a></li>
       </ul>

@@ -41,48 +41,4 @@ $(document).ready(function(){
         return false; 
     });
 
-// for placeholder in ie;
-if ($.browser.msie) {
-	//the text input that has placeholder attr
-	var inputText = $("input[placeholder]");
-
-	inputText.each(function(i) {
-		var placeholder = $(this).attr("placeholder");
-
-		//if value is blank
-		if($(this).val(placeholder) == ''){
-			//then set value to placeholder
-			$(this).val(placeholder);
-		}
-		//when focus in
-		$(this).focus(function() {
-			//if value equals placeholder
-			if ($(this).val() == placeholder) {
-				//then set value to blank
-				$(this).val("");
-			}
-		});
-
-		//when focus out
-		$(this).focusout(function() {
-			//if value is blank
-			if ('' == $(this).val()) {
-				//then set value to placeholder;
-				$(this).val(placeholder)
-			}
-		});
-	});
-
-	//before submit;
-	$("form").live("submit", function() {
-		var inputText = $(this).find("input[type=text]");
-		inputText.each(function(i) {
-			//if value equals placeholder
-			if ($(this).val() == $(this).attr("placeholder")) {
-				//then set value to blank
-				$(this).val("");
-			}
-		});
-	});
-}
 })
