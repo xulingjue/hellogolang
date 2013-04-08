@@ -1,19 +1,88 @@
 {{define "people-ucenter-edit"}}
 {{template "header" .}}
-
-<style>
-
-</style>
 <div id="contents">
 <section id="main">
 	<div id="leftcontainer">
 		<h2 class="mainheading">
 			修改个人信息
 		</h2>
+		<form action="/people/ucenter/edit/" method="post" class="form horizontal-form" id="regist_form">
+		   	<p class="textfield">
+				<label for="name">
+					 <small>用户名*</small>
+				</label>
+				<input name="name" id="name" value="{{.tmplInfo.Data.people.Name}}" disabled="disabled" size="22" type="text"/>
+				<span class="input-error"></span>
+				<div class="clear"></div>
+		   	</p>
+		   	
+		   	<p class="textfield">
+				<label for="email">
+					  <small>邮箱*</small>
+				</label>
+				<input name="email" id="email" value="{{.tmplInfo.Data.people.Email}}" size="22" disabled="disabled" type="text"/>
+				<span class="input-error"></span>
+				<div class="clear"></div>
+		   	</p>
+
+			<p class="textfield">
+				<label for="email">
+					  <small>QQ</small>
+				</label>
+				<input name="qq" id="qq" value="{{.tmplInfo.Data.people.QQ}}" size="22" type="text"/>
+				<span class="input-error"></span>
+				<div class="clear"></div>
+		   	</p>
+
+			<p class="textfield">
+				<label for="company">
+					  <small>公司</small>
+				</label>
+				<input name="company" id="company" value="{{.tmplInfo.Data.people.Company}}" size="22" type="text"/>
+				<span class="input-error"></span>
+				<div class="clear"></div>
+		   	</p>
+
+			<p class="textfield">
+				<label for="homepage">
+					  <small>个人主页</small>
+				</label>
+				<input name="homepage" id="homepage" value="{{.tmplInfo.Data.people.Homepage}}" size="22" type="text"/>
+				<span class="input-error"></span>
+				<div class="clear"></div>
+		   	</p>
+
+		   	<p class="textfield">
+				<label for="signature">
+					  <small>个性签名</small>
+				</label>
+				<input name="signature" id="signature" value="{{.tmplInfo.Data.people.Signature}}" size="22" type="text"/>
+				<span class="input-error"></span>
+				<div class="clear"></div>
+		   	</p>
+
+		   	<p class="textfield">
+				<label for="resume">
+					  <small>个人简介</small>
+				</label>
+				<textarea  name="resume"  rows="5">{{.tmplInfo.Data.people.Resume}}</textarea>
+				<span class="input-error"></span>
+				<div class="clear"></div>
+		   	</p>
+
+		   	<p class="textfield">
+				<label>
+					  <small>&nbsp;</small>
+				</label>
+				<input name="submit" class="submit-btn" id="submit"  type="submit"  value="提交修改"/>
+				<div class="clear"></div>
+		   	</p>
+		   	<div class="clear"></div>
+		</form>
 	</div>
 </section>
 
-{{template "ucenter-sidebar" .}}
+{{template "people-ucenter-sidebar" .}}
 
 <div class="clear"></div>
 </div>

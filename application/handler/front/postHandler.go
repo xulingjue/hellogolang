@@ -109,8 +109,7 @@ func PostPage(rw http.ResponseWriter, req *http.Request) {
 	tmplInfo := hgTemplate.TmplInfo{}
 	tmplInfo.Js = []string{
 		"kindeditor/kindeditor-min.js",
-		"kindeditor/lang/zh_CN.js",
-		"js/front/post/post-list.js"}
+		"kindeditor/lang/zh_CN.js"}
 	tmplInfo.CurrentNav = "article"
 	tmplInfo.Title = "Hello Golang -文章"
 	tmplInfo.Description = "全新的go语言资讯！精选的go语言教程！经典的go语言代码！"
@@ -171,7 +170,6 @@ func PostItem(rw http.ResponseWriter, req *http.Request) {
 
 	tmplInfo := hgTemplate.TmplInfo{}
 	tmplInfo.Js = []string{
-		"js/front/post/post-item.js",
 		"js/jquery.validate.js"}
 
 	tmplInfo.CurrentNav = "article"
@@ -212,8 +210,7 @@ func PostCreate(rw http.ResponseWriter, req *http.Request) {
 		tmplInfo := hgTemplate.TmplInfo{}
 
 		tmplInfo.Js = []string{
-			"ckeditor/ckeditor.js",
-			"js/front/post/post-create.js"}
+			"ckeditor/ckeditor.js"}
 		tmplInfo.CurrentNav = "none"
 		tmplInfo.Title = "Hello Golang -新建文章"
 		tmplInfo.Description = "开源Go语言爱好者交流平台"

@@ -1,9 +1,6 @@
 {{define "post-create"}}
 {{template "header" .}}
 <div id="contents">
-
-
-
 <section id="main">
 <div id="leftcontainer">
   	<h2>发表新文章</h2>
@@ -59,14 +56,13 @@
 	</article>
 </div>
 </section>
-
-
-
 {{template "sidebar" .}}
-
-
 <div class="clear"></div>
 </div>
-
 {{template "footer" .}}
+<script>
+$(document).ready(function(){
+	CKEDITOR.replace('post-content');
+});
+</script>
 {{end}}

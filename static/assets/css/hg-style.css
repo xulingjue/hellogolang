@@ -44,6 +44,12 @@
 	float: left;
 	display: inline;
 }
+.horizontal-form textarea{
+	width:50%;
+	display:block;
+	float: left;
+	display: inline;
+}
 
 .horizontal-form input[type="password"]{
 	width:50%;

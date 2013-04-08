@@ -1,0 +1,31 @@
+{{define "people-ucenter-avatar"}}
+{{template "header" .}}
+<div id="contents">
+<section id="main">
+	<div id="leftcontainer">
+		<h2 class="mainheading">
+			修改头像
+		</h2>
+		<form action="/people/ucenter/edit/" method="post"  >
+		  
+			<input name="name" id="name" value="{{.tmplInfo.Data.people.Name}}"  type="file"/>
+		    <p class="textfield">
+				<label>
+					  <small>&nbsp;</small>
+				</label>
+				<input name="submit" class="submit-btn" id="submit"  type="submit"  value="上传头像"/>
+				<div class="clear"></div>
+		   	</p>
+		   	<div class="clear"></div>
+		</form>
+		
+	</div>
+</section>
+
+{{template "people-ucenter-sidebar" .}}
+
+<div class="clear"></div>
+</div>
+<!-- End -->
+{{template "footer" .}}
+{{end}}

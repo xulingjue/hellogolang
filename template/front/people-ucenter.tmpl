@@ -20,9 +20,15 @@
 		  </ul>
 		  <div id="tabs-1">
 		   	<table class="table table-striped">
-				<tr><td>用户名：</td><td>&nbsp;</td></tr>
-				<tr><td>邮箱：</td><td>&nbsp;</td></tr>
-				<tr><td>注册时间：</td><td>&nbsp;</td></tr>
+				<tr><td>用户名：</td><td>{{.tmplInfo.Data.people.Name}}</td></tr>
+				<tr><td>注册时间：</td><td>{{.tmplInfo.Data.people.CreateTime}}</td></tr>
+				<tr><td>邮箱：</td><td>{{.tmplInfo.Data.people.Email}}</td></tr><!--增加是否公开设置-->
+				<tr><td>QQ：</td><td>{{.tmplInfo.Data.people.QQ}}</td></tr><!--增加是否公开设置-->
+				<tr><td>公司：</td><td>{{.tmplInfo.Data.people.Company}}</td></tr>
+				<tr><td>个人主页：</td><td>{{.tmplInfo.Data.people.Homepage}}</td></tr>
+				<tr><td>个性签名：</td><td>{{.tmplInfo.Data.people.Name}}</td></tr>
+				<tr><td>个人简介：</td><td>{{.tmplInfo.Data.people.Resume}}</td></tr>
+
 			</table>
 
 		
@@ -42,7 +48,7 @@
 	</div>
 </section>
 
-{{template "ucenter-sidebar" .}}
+{{template "people-ucenter-sidebar" .}}
 
 <div class="clear"></div>
 </div>
