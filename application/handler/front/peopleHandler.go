@@ -3,9 +3,12 @@ package front
 import (
 	"encoding/json"
 	"fmt"
+	hgQiniu "hellogolang/HooGL/qiniu"
 	hgTemplate "hellogolang/HooGL/template"
 	"hellogolang/application/model"
+	"io"
 	"net/http"
+	"os"
 	"text/template"
 )
 
@@ -32,6 +35,36 @@ func PeopleAvatarEdit(rw http.ResponseWriter, req *http.Request) {
 			"js/jquery.validate.js"}
 
 		tmpl.ExecuteTemplate(rw, "people-ucenter-avatar", map[string]interface{}{"tmplInfo": tmplInfo})
+
+	} else if req.Method == "POST" {
+
+		req.ParseMultipartForm(32 << 20)
+		file, handler, err := req.FormFile("uploadfile")
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		defer file.Close()
+
+		f, _ := os.OpenFile("d://"+handler.Filename, os.O_RDWR|os.O_CREATE, 0777)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		defer f.Close()
+
+		io.Copy(f, file)
+		f.Seek(0, 0)
+
+		ext := hgQiniu.GetExt(handler.Filename)
+		fk := hgQiniu.GetFk(people.Idpeople)
+
+		err = hgQiniu.UploadAvatar(f, fk+"."+ext)
+		if err == nil {
+			people.Avatar = fk + "." + ext
+			peopleModel.Update(*people)
+			http.Redirect(rw, req, "/people/ucenter/", http.StatusFound)
+		}
 	}
 }
 

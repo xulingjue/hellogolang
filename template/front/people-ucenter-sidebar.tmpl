@@ -2,8 +2,11 @@
 <section id="sidebar">
 	<div id="sidebarwrap">
 		<div style="text-align:center;margin-bottom:20px;">
+			{{ if not .tmplInfo.Data.people.Avatar}}
 			<img src="/assets/image/default.png" style="max-width:120px;" /><br/>	
-
+			{{ else }}
+			<img src="http://hellogolang.qiniudn.com/{{.tmplInfo.Data.people.Avatar}}" style="max-width:120px;" /><br/>	
+			{{ end }}
 		</div>
 		
 		<h2>操作面板</h2>

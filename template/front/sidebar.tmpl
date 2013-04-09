@@ -39,10 +39,15 @@
 		{{ if and .tmplInfo.Data.people}}
 		<div class="account">
 			<div class="avatar">
-				<a href="#"><img width="70" src="/assets/image/default.png" alt="lingjue"></a>
+				
+				{{ if not .tmplInfo.Data.people.Avatar}}
+				<a href="#"><img width="70" src="/assets/image/default.png" alt="{{.tmplInfo.Data.people.Name}}"></a>	
+				{{ else }}
+				<a href="#"><img width="70" src="http://hellogolang.qiniudn.com/{{.tmplInfo.Data.people.Avatar}}" alt="{{.tmplInfo.Data.people.Name}}"></a>
+				{{ end }}
 			</div>
 			<div class="userinfo">
-				<span class="name"><a href="#">{{.tmplInfo.Data.people.Name}}</a></span>
+				<span class="name"><a href="/people/ucenter/">{{.tmplInfo.Data.people.Name}}</a></span>
 				<span class="buttons"><a href="/post/create/" >发文章</a> <a href="/diet/create" >提问题</a></span>
 				<span class="logout"><a href="/logout/">退出</a></span>
 			</div>

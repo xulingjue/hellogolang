@@ -6,9 +6,9 @@
 		<h2 class="mainheading">
 			修改头像
 		</h2>
-		<form action="/people/ucenter/edit/" method="post"  >
+		<form action="/people/ucenter/edit/avatar/" method="post" enctype="multipart/form-data"  >
 		  
-			<input name="name" id="name" value="{{.tmplInfo.Data.people.Name}}"  type="file"/>
+			<input name="uploadfile" value="{{.tmplInfo.Data.people.Name}}"  type="file"/>
 		    <p class="textfield">
 				<label>
 					  <small>&nbsp;</small>
