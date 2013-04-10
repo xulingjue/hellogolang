@@ -6,7 +6,7 @@ import (
 )
 
 func GetInt(req *http.Request, name string, def int) int {
-	value := req.FormValue("name")
+	value := req.FormValue(name)
 	result, err := strconv.Atoi(value)
 	if err != nil {
 		return def
@@ -15,7 +15,7 @@ func GetInt(req *http.Request, name string, def int) int {
 }
 
 func GetString(req *http.Request, name string, def string) string {
-	value := req.FormValue("name")
+	value := req.FormValue(name)
 	if value == "" {
 		return def
 	}

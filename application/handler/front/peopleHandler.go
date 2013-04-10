@@ -3,6 +3,7 @@ package front
 import (
 	"encoding/json"
 	"fmt"
+	hgForm "hellogolang/HooGL/form"
 	hgQiniu "hellogolang/HooGL/qiniu"
 	hgTemplate "hellogolang/HooGL/template"
 	"hellogolang/application/model"
@@ -104,6 +105,8 @@ func PeopleMessageEdit(rw http.ResponseWriter, req *http.Request) {
 		people.Company = req.FormValue("company")
 		people.Signature = req.FormValue("signature")
 		people.Resume = req.FormValue("resume")
+		people.PubQQ = hgForm.GetInt(req, "pubqq", 0)
+		people.PubEmail = hgForm.GetInt(req, "pubemail", 0)
 
 		peopleModel.Update(*people)
 
@@ -113,6 +116,9 @@ func PeopleMessageEdit(rw http.ResponseWriter, req *http.Request) {
 
 func PeopleUcenter(rw http.ResponseWriter, req *http.Request) {
 	people := isLogin(req)
+
+	idpeople := hgForm.GetInt64(req, "idpeople", 0)
+
 	tmpl := template.New("people-ucenter")
 	tmpl.Funcs(template.FuncMap{"StringEqual": hgTemplate.StringEqual, "Int64Equal": hgTemplate.Int64Equal})
 	tmpl.ParseFiles(
@@ -123,6 +129,14 @@ func PeopleUcenter(rw http.ResponseWriter, req *http.Request) {
 
 	tmplInfo := hgTemplate.TmplInfo{}
 	tmplInfo.AddData("people", people)
+
+	if idpeople != 0 {
+		vpeople := peopleModel.Find(idpeople)
+		tmplInfo.AddData("vpeople", vpeople)
+	} else {
+		tmplInfo.AddData("vpeople", people)
+	}
+
 	tmplInfo.Js = []string{
 		"js/jquery.validate.js"}
 

@@ -1,0 +1,10 @@
+{
+	"host": "http://localhost",
+	"port": "80",
+	"db_host":"localhost:3306",
+	"db_name":"",
+	"db_user":"",
+	"db_password":"",
+	"qiniu_access_key":"",
+	"qiniu_secret_key":""
+}
