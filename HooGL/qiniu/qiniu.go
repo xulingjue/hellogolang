@@ -49,7 +49,6 @@ func init() {
 }
 
 func UploadAvatar(file *os.File, key string) error {
-	fmt.Println("start")
 	// 生成 uploadToken, string类型
 	uploadToken := policy.Token()
 
@@ -80,8 +79,6 @@ func UploadAvatar(file *os.File, key string) error {
 
 func GetFk(userid int64) string {
 	var fk [24]byte
-	//time.Now();
-	fmt.Println(time.Now().Unix())
 	timeByte := []byte(strconv.FormatInt(time.Now().Unix(), 10))
 
 	userByte := []byte(strconv.FormatInt(userid, 10))
@@ -110,10 +107,12 @@ func GetFk(userid int64) string {
 
 	}
 
-	return fmt.Sprintf("%02x%02x%02x%02x%02x%02x%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d",
+	result := fmt.Sprintf("%02x%02x%02x%02x%02x%02x%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d",
 		fk[0], fk[1], fk[2], fk[3], fk[4], fk[5],
 		fk[6], fk[7], fk[8], fk[9], fk[10], fk[11], fk[12], fk[13],
 		fk[14], fk[15], fk[16], fk[17], fk[18], fk[19], fk[20], fk[21], fk[22], fk[23])
+
+	return result
 }
 
 func GetExt(filename string) string {

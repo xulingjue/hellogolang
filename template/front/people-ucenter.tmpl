@@ -24,8 +24,10 @@
 				<tr><td>注册时间：</td><td>{{.tmplInfo.Data.vpeople.CreateTime}}</td></tr>
 
 				{{if not .tmplInfo.Data.vpeople.PubEmail}}
-					{{if Int64Equal .tmplInfo.Data.vpeople.Idpeople .tmplInfo.Data.people.Idpeople}}
-					<tr><td>邮箱：</td><td>{{.tmplInfo.Data.vpeople.Email}}(未公开)</td></tr><!--增加是否公开设置-->
+					{{ if and .tmplInfo.Data.people}}
+						{{if Int64Equal .tmplInfo.Data.vpeople.Idpeople .tmplInfo.Data.people.Idpeople}}
+						<tr><td>邮箱：</td><td>{{.tmplInfo.Data.vpeople.Email}}(未公开)</td></tr><!--增加是否公开设置-->
+						{{end}}
 					{{end}}
 				{{end}}
 
@@ -36,8 +38,10 @@
 
 
 				{{if not .tmplInfo.Data.vpeople.PubQQ}}
-					{{if Int64Equal .tmplInfo.Data.vpeople.Idpeople .tmplInfo.Data.people.Idpeople}}
-					<tr><td>QQ：</td><td>{{.tmplInfo.Data.vpeople.QQ}}(未公开)</td></tr><!--增加是否公开设置-->
+					{{ if and .tmplInfo.Data.people}}
+						{{if Int64Equal .tmplInfo.Data.vpeople.Idpeople .tmplInfo.Data.people.Idpeople}}
+						<tr><td>QQ：</td><td>{{.tmplInfo.Data.vpeople.QQ}}(未公开)</td></tr><!--增加是否公开设置-->
+						{{end}}
 					{{end}}
 				{{end}}
 
