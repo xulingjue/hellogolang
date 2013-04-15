@@ -40,10 +40,9 @@
 		<div class="account">
 			<div class="avatar">
 				
-				{{ if not .tmplInfo.Data.people.Avatar}}
-				<a href="#"><img width="70" src="/assets/image/default.png" alt="{{.tmplInfo.Data.people.Name}}"></a>	
-				{{ else }}
-				<a href="#"><img width="70" src="http://hellogolang.qiniudn.com/{{.tmplInfo.Data.people.Avatar}}" alt="{{.tmplInfo.Data.people.Name}}"></a>
+				{{ if and .tmplInfo.Data.people.Avatar}}
+		
+				<a href="/people/ucenter"><img width="70" src="{{.tmplInfo.Data.people.Avatar}}" alt="{{.tmplInfo.Data.people.Name}}"></a>
 				{{ end }}
 			</div>
 			<div class="userinfo">
@@ -96,7 +95,7 @@ $(document).ready(function(){
 			    		$(".account").prev("h2").hide();
 			    		$(".account").html('\
 							<div class="avatar">\
-								<a href="#"><img width="70" src="/assets/image/default.png" alt="lingjue"></a>\
+								<a href="#"><img width="70" src="'+msg.people.Avatar+'" alt="lingjue"></a>\
 							</div>\
 							<div class="userinfo">\
 								<span class="name"><a href="#">'+msg.people.Name+'</a></span>\

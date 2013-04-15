@@ -23,16 +23,26 @@
 				<tr><td>用户名：</td><td>{{.tmplInfo.Data.vpeople.Name}}</td></tr>
 				<tr><td>注册时间：</td><td>{{.tmplInfo.Data.vpeople.CreateTime}}</td></tr>
 
+				{{if not .tmplInfo.Data.vpeople.PubEmail}}
+					{{if Int64Equal .tmplInfo.Data.vpeople.Idpeople .tmplInfo.Data.people.Idpeople}}
+					<tr><td>邮箱：</td><td>{{.tmplInfo.Data.vpeople.Email}}(未公开)</td></tr><!--增加是否公开设置-->
+					{{end}}
+				{{end}}
+
 				{{if and .tmplInfo.Data.vpeople.PubEmail}}
-				<tr><td>邮箱：</td><td>{{.tmplInfo.Data.vpeople.Email}}</td></tr><!--增加是否公开设置-->
-				{{else if Int64Equal .tmplInfo.Data.vpeople.Idpeople .tmplInfo.Data.people.Idpeople}}
-				<tr><td>邮箱：</td><td>{{.tmplInfo.Data.vpeople.Email}}(未公开)</td></tr><!--增加是否公开设置-->
+					<tr><td>邮箱：</td><td>{{.tmplInfo.Data.vpeople.Email}}</td></tr><!--增加是否公开设置-->
+				{{end}}
+
+
+
+				{{if not .tmplInfo.Data.vpeople.PubQQ}}
+					{{if Int64Equal .tmplInfo.Data.vpeople.Idpeople .tmplInfo.Data.people.Idpeople}}
+					<tr><td>QQ：</td><td>{{.tmplInfo.Data.vpeople.QQ}}(未公开)</td></tr><!--增加是否公开设置-->
+					{{end}}
 				{{end}}
 
 				{{if and .tmplInfo.Data.vpeople.PubQQ}}
-				<tr><td>QQ：</td><td>{{.tmplInfo.Data.vpeople.QQ}}</td></tr><!--增加是否公开设置-->
-				{{else if Int64Equal .tmplInfo.Data.vpeople.Idpeople .tmplInfo.Data.people.Idpeople}}
-				<tr><td>QQ：</td><td>{{.tmplInfo.Data.vpeople.QQ}}(未公开)</td></tr><!--增加是否公开设置-->
+					<tr><td>QQ：</td><td>{{.tmplInfo.Data.vpeople.QQ}}</td></tr><!--增加是否公开设置-->
 				{{end}}
 
 				<tr><td>公司：</td><td>{{.tmplInfo.Data.vpeople.Company}}</td></tr>

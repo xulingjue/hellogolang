@@ -47,7 +47,7 @@ func PeopleAvatarEdit(rw http.ResponseWriter, req *http.Request) {
 		}
 		defer file.Close()
 
-		f, _ := os.OpenFile("d://"+handler.Filename, os.O_RDWR|os.O_CREATE, 0777)
+		f, _ := os.OpenFile("tmp/"+handler.Filename, os.O_RDWR|os.O_CREATE, 0777)
 		if err != nil {
 			fmt.Println(err)
 			return
@@ -62,7 +62,7 @@ func PeopleAvatarEdit(rw http.ResponseWriter, req *http.Request) {
 
 		err = hgQiniu.UploadAvatar(f, fk+"."+ext)
 		if err == nil {
-			people.Avatar = fk + "." + ext
+			people.Avatar = "http://hellogolang.qiniudn.com/" + fk + "." + ext
 			peopleModel.Update(*people)
 			http.Redirect(rw, req, "/people/ucenter/", http.StatusFound)
 		}
