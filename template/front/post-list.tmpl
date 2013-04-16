@@ -11,7 +11,7 @@
 		<article class="post">
 			<header>
 				<h3><a href="/post/item/?postId={{.Idpost}}">{{ .Title }}</a></h3>
-				<p class="postinfo">{{ .CreateTime }} | <a href="#">{{ .Author.Name }}</a> | <a href="/post/?cat={{.Class.IdpostClass}}" target="{{.Idpost}}_window" title="浏览“{{ .Class.Name }}”下的文章" href="#">{{ .Class.Name }}</a></p>
+				<p class="postinfo">{{ .CreateTime }} | <a href="/people/ucenter/?idpeople={{.Author.Idpeople}}">{{ .Author.Name }}</a> | <a href="/post/?cat={{.Class.IdpostClass}}" target="{{.Idpost}}_window" title="浏览“{{ .Class.Name }}”下的文章" href="#">{{ .Class.Name }}</a></p>
 			</header>
 			<p>
 				{{ RemoveHtmlTag .Content }}

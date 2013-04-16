@@ -5,7 +5,7 @@
   <div id="leftcontainer">
     
     <h2 class="mainheading">{{ .tmplInfo.Data.post.Title}}</h2>
-    <p class="postinfo" style="margin-bottom:20px;">{{ .tmplInfo.Data.post.CreateTime }} | <a href="#">{{ .tmplInfo.Data.post.Author.Name }}</a> | <a href="/post/?cat={{.post.Class.IdpostClass}}" target="{{.Idpost}}_window" title="浏览“{{ .post.Class.Name }}”下的文章" href="#">{{ .tmplInfo.Data.post.Class.Name }}</a></p>
+    <p class="postinfo" style="margin-bottom:20px;">{{ .tmplInfo.Data.post.CreateTime }} | <a href="/people/ucenter/?idpeople={{.Author.Idpeople}}">{{ .tmplInfo.Data.post.Author.Name }}</a> | <a href="/post/?cat={{.post.Class.IdpostClass}}" target="{{.Idpost}}_window" title="浏览“{{ .post.Class.Name }}”下的文章" href="#">{{ .tmplInfo.Data.post.Class.Name }}</a></p>
     <article class="post">
       {{ .tmplInfo.Data.post.Content}}
     </article>
@@ -20,7 +20,7 @@
             <div class="comment-avatar vcard">                 
               <a href="#comment-430134"><img alt="" src="/assets/image/default.png" class="avatar avatar-30 photo" height="30" width="30"></a>             
             </div>             
-            <div class="comment-author">{{ .Author.Name}}</div>             
+            <div class="comment-author"><a href="/people/ucenter/?idpeople={{.Author.Idpeople}}">{{ .Author.Name}}</a></div>             
             <div class="comment-date">{{ .CreateTime}}</div>             
           </div>          
           <div id="comment-body-430134" class="comment-body">             

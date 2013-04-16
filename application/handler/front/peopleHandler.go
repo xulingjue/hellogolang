@@ -223,6 +223,7 @@ func PeopleRegist(rw http.ResponseWriter, req *http.Request) {
 		people.Name = req.FormValue("name")
 		people.Email = req.FormValue("email")
 		people.Password = req.FormValue("password")
+		people.Avatar = "/assets/image/default.png"
 
 		if checkRegistMess(people) {
 			fmt.Println("start insert ...")
