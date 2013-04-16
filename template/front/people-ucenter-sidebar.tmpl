@@ -2,9 +2,11 @@
 <section id="sidebar">
 	<div id="sidebarwrap">
 		<div style="text-align:center;margin-bottom:20px;">
-		
-			<img src="{{.tmplInfo.Data.vpeople.Avatar}}" style="max-width:120px;" /><br/>	
-
+			{{ if and .tmplInfo.Data.people}}
+			<img src="{{.tmplInfo.Data.people.Avatar}}" style="max-width:120px;" /><br/>
+			{{else}}	
+			<img src="{{.tmplInfo.Data.vpeople.Avatar}}" style="max-width:120px;" /><br/>
+			{{end}}
 		</div>
 		{{ if and .tmplInfo.Data.people}}
 		<h2>操作面板</h2>
