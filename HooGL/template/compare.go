@@ -30,8 +30,44 @@ func RemoveHtmlTag(content string) string {
 	re, _ := regexp.Compile("\\<[^>]+?\\>")
 	content = re.ReplaceAllString(content, "")
 
-	if len(content) > 300 {
-		content = content[:300] + "……"
+	if showStrlen(content) > 300 {
+		content = showSubstr(content, 300) + "......"
 	}
 	return content
+}
+
+func showSubstr(s string, l int) string {
+	if len(s) <= l {
+		return s
+	}
+	ss, sl, rl, rs := "", 0, 0, []rune(s)
+	for _, r := range rs {
+		rint := int(r)
+		if rint < 128 {
+			rl = 1
+		} else {
+			rl = 2
+		}
+
+		if sl+rl > l {
+			break
+		}
+		sl += rl
+		ss += string(r)
+	}
+	return ss
+}
+
+func showStrlen(s string) int {
+	sl := 0
+	rs := []rune(s)
+	for _, r := range rs {
+		rint := int(r)
+		if rint < 128 {
+			sl++
+		} else {
+			sl += 2
+		}
+	}
+	return sl
 }
